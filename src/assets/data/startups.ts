@@ -84,11 +84,11 @@ export const startups: IStartup[] = [
     raised: '$450K'
   },
   {
-    name: 'Kippa',
+    name: 'KippaPay',
     shutdownDate: '2023-10',
     category: Category.Fintech,
     description:
-      'Kippa was a finance management app where small business owners can track their daily income/expenses, create invoices and receipts, manage inventory and monitor how their businesses perform over time.',
+      'KippaPay allowed merchants to receive money from customers, pay relevant bills, move money around and optimize their businesses.',
     newsSource:
       'https://techcabal.com/2023/10/19/exclusive-kippa-lays-off-40-employees-as-it-shelves-kippa-pay/',
     location: 'Nigeria 🇳🇬',
@@ -210,16 +210,4 @@ export const startups: IStartup[] = [
     founded: '2022',
     raised: '$21 million'
   }
-  // {
-  //   name: 'Pillow',
-  //   shutdownDate: '2023-07',
-  //   category: Category.Blockchain,
-  //   description:
-  //     'Pillow was a crypto platform that allowed users to save, spend and invest in cryptocurrencies.',
-  //   newsSource:
-  //     'https://techcabal.com/2023/06/22/one-year-after-expanding-to-nigeria-crypto-platform-pillow-is-exiting-the-country/',
-  //   location: 'Nigeria 🇳🇬, Ghana 🇬🇭',
-  //   founded: '2022',
-  //   raised: '$21 million'
-  // }
 ];
