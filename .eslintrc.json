@@ -1,0 +1,54 @@
+{
+  "root": true,
+
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "plugin:vue/vue3-recommended",
+    "plugin:prettier/recommended",
+    "eslint:recommended",
+    "@vue/prettier"
+  ],
+  "plugins": ["vue", "@typescript-eslint"],
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser"
+  },
+
+  "rules": {
+    "no-console": "off",
+    "no-debugger": "off",
+    "vue/component-tags-order": [
+      "error",
+      {
+        "order": ["template", "script"]
+      }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": ["enum", "enumMember"],
+        "format": ["PascalCase"]
+      },
+      {
+        "selector": ["variableLike"],
+        "format": ["camelCase"],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      },
+      {
+        "selector": "variable",
+        "modifiers": ["const"],
+        "format": ["UPPER_CASE", "PascalCase", "camelCase"]
+      }
+    ]
+  }
+}

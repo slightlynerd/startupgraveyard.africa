@@ -1,0 +1,22 @@
+export enum Category {
+  All = 'All',
+  Finance = 'Finance',
+  Health = 'Health',
+  Fintech = 'Fintech',
+  Ecommerce = 'Ecommerce',
+  Logistics = 'Logistics',
+  Education = 'Education',
+  Agriculture = 'Agriculture',
+  RealEstate = 'Real Estate',
+  Transportation = 'Transportation',
+  Travel = 'Travel',
+  Media = 'Media',
+  Entertainment = 'Entertainment',
+  Energy = 'Energy',
+  Security = 'Security',
+  HR = 'HR',
+  Manufacturing = 'Manufacturing',
+  Blockchain = 'Blockchain',
+  FoodTech = 'FoodTech',
+  Other = 'Other'
+}
