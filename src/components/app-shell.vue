@@ -18,6 +18,19 @@
       </div>
     </section>
   </main>
+  <footer class="my-5">
+    <div class="pt-5">
+      <p class="text-center small">
+        &copy; 2023. Built by
+        <a
+          href="https://twitter.com/slightlynerd"
+          target="_blank"
+          class="text-decoration-underline">
+          Kelvin Gobo.
+        </a>
+      </p>
+    </div>
+  </footer>
 </template>
 
 <script lang="ts">
