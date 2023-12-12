@@ -84,7 +84,7 @@ export const startups: IStartup[] = [
     raised: '$450K'
   },
   {
-    name: 'KippaPay',
+    name: 'KippaPay (The Product)',
     shutdownDate: '2023-10',
     category: Category.Fintech,
     description:
