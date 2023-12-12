@@ -209,5 +209,142 @@ export const startups: IStartup[] = [
     location: 'Nigeria 🇳🇬, Ghana 🇬🇭',
     founded: '2022',
     raised: '$21 million'
+  },
+  {
+    name: 'Snapt',
+    shutdownDate: '2022-10',
+    category: Category.Other,
+    description:
+      'Snapt was a provider of software-based load balancers and application delivery controllers',
+    newsSource:
+      'https://disrupt-africa.com/2022/10/14/sa-software-startup-snapt-closes-its-doors/',
+    location: 'South Africa 🇿🇦',
+    founded: '2012',
+    raised: '$7.65 million'
+  },
+  {
+    name: 'Wabona',
+    shutdownDate: '2015-08',
+    category: Category.Entertainment,
+    description:
+      'Wabona was an online subscription video streaming service showcasing African film and television shows',
+    newsSource: 'https://disrupt-africa.com/2015/08/05/wabona-shuts-down/',
+    location: 'South Africa 🇿🇦',
+    founded: '2012',
+    raised: 'Unknown'
+  },
+  {
+    name: 'OyaPay',
+    shutdownDate: '2019-02',
+    category: Category.Fintech,
+    description:
+      'OyaPay tried to ensure that offline businesses could accept payment and take forward orders from their customers with or without a smartphone.',
+    newsSource: 'https://techpoint.africa/2019/02/19/oyapay-has-shutdown/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2017',
+    raised: 'Unknown'
+  },
+  {
+    name: 'Mxit',
+    shutdownDate: '2021-10',
+    category: Category.Other,
+    description:
+      'Mxit was a free instant messaging application developed by Mxit (Pty) Ltd. in South Africa that ran on over 8,000 devices, including feature phones, Symbian S60, Android, BlackBerry, iPhone, iPad, Windows Phone and tablets.',
+    newsSource:
+      'https://www.itnewsafrica.com/2021/10/what-happened-to-mxit-sas-own-super-popular-chat-app/',
+    location: 'South Africa 🇿🇦',
+    founded: '2005',
+    raised: 'Unknown'
+  },
+  {
+    name: 'DealDey',
+    shutdownDate: '2019-01',
+    category: Category.Ecommerce,
+    description:
+      'DealDey was a Nigerian ecommerce website that aggregates discounted goods and services.',
+    newsSource:
+      'https://www.itnewsafrica.com/2019/01/nigerian-e-commerce-platform-dealdey-shuts-down/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2011',
+    raised: '~ $6 million'
+  },
+  {
+    name: '*OMG Digital',
+    shutdownDate: '2018-10',
+    category: Category.Media,
+    description:
+      'OMG Digital was a media company that created digital editorial brands for African millennials.',
+    newsSource:
+      'https://techlabari.com/in-memorium-revisiting-five-ghanaian-startups-who-shut-down/',
+    location: 'Ghana 🇬🇭',
+    founded: '2016',
+    raised: '$1.2 million'
+  },
+  {
+    name: 'Showroom.ng',
+    shutdownDate: '2016-08',
+    category: Category.Ecommerce,
+    description: 'Showroom.ng was an online furniture marketplace.',
+    newsSource:
+      'https://disrupt-africa.com/2016/08/25/nigerian-furniture-marketplace-showroom-ng-to-close/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2014',
+    raised: 'Unknown'
+  },
+  {
+    name: 'ConnectMed',
+    shutdownDate: '2016-08',
+    category: Category.Health,
+    description:
+      'ConnectMed allowed patients to access consultations with medical professionals via video link.',
+    newsSource:
+      'https://disrupt-africa.com/2019/04/05/kenyan-e-health-startup-connectmed-acquired-by-merck/',
+    location: 'Kenya 🇰🇪, South Africa 🇿🇦',
+    founded: '2017',
+    raised: '$250K'
+  },
+  {
+    name: 'Redbird',
+    shutdownDate: '2023-02',
+    category: Category.Health,
+    description:
+      'Redbird was a health startup that partnered with pharmacies and licensed chemical shops to bring proven rapid test technology for chronic and acute conditions.',
+    newsSource:
+      'https://www.linkedin.com/feed/update/urn:li:activity:7036373198296240128/',
+    location: 'Ghana 🇬🇭',
+    founded: '2018',
+    raised: '$2.5 million'
+  },
+  {
+    name: 'Afrostream',
+    shutdownDate: '2017-09',
+    category: Category.Entertainment,
+    description:
+      'Afrostream was a subscription video on demand (SVOD) that provides millions of fans with unlimited access to Afro-American and African movies.',
+    newsSource: 'https://techpoint.africa/2017/09/22/afrostream-shut-down/',
+    location: 'Africa 🌍',
+    founded: '2014',
+    raised: 'Unknown'
+  },
+  {
+    name: 'Bkam',
+    shutdownDate: '2016-02',
+    category: Category.Entertainment,
+    description:
+      'Bkam was a price comparison websites of the region that helped users find the best deals on products.',
+    newsSource: 'https://www.menabytes.com/failed-startups-bkam/',
+    location: 'Egypt 🇪🇬',
+    founded: '2012',
+    raised: '$500K'
+  },
+  {
+    name: 'Ousta',
+    shutdownDate: '2017-01',
+    category: Category.Transportation,
+    description: 'Ousta was a ride sharing app that operatedin Egypt.',
+    newsSource: 'https://www.menabytes.com/failed-startups-bkam/',
+    location: 'Egypt 🇪🇬',
+    founded: '2012',
+    raised: '$1.6 million'
   }
 ];
