@@ -187,16 +187,16 @@ export const startups: IStartup[] = [
     raised: '$2 million'
   },
   {
-    name: 'Okadabook',
+    name: 'Okadabooks',
     shutdownDate: '2023-11',
     category: Category.Media,
     description:
-      'Okadabook aimed to simplify book distribution and sales in Nigeria.',
+      'Okadabooks aimed to simplify book distribution and sales in Nigeria.',
     newsSource:
       'https://businessday.ng/technology/article/okadabooks-to-shut-online-book-store-over-insurmountable-challenges/',
     location: 'Nigeria 🇳🇬',
     founded: '2013',
-    raised: '$1.2 million'
+    raised: 'Unknown'
   },
   {
     name: 'Pillow',
