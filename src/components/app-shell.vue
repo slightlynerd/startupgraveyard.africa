@@ -2,7 +2,7 @@
   <main class="container my-5">
     <h1 class="text-center h1">💀 startupgraveyard.africa</h1>
     <p class="lead text-center mt-3">
-      A full list of African startups that have shut down.
+      A list of African startups that have shut down.
     </p>
 
     <startup-list-filters
@@ -27,6 +27,13 @@
           target="_blank"
           class="text-decoration-underline">
           Kelvin Gobo.
+        </a>
+        Contributions are welcome on
+        <a
+          href="https://github.com/slightlynerd/startupgraveyard.africa"
+          target="_blank"
+          class="text-decoration-underline">
+          GitHub.
         </a>
       </p>
     </div>
