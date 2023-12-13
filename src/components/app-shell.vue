@@ -21,14 +21,7 @@
   <footer class="my-5">
     <div class="pt-5">
       <p class="text-center small">
-        &copy; 2023. Built by
-        <a
-          href="https://twitter.com/slightlynerd"
-          target="_blank"
-          class="text-decoration-underline">
-          Kelvin Gobo.
-        </a>
-        Contributions are welcome on
+        &copy; 2023. Contributions are welcome on
         <a
           href="https://github.com/slightlynerd/startupgraveyard.africa"
           target="_blank"

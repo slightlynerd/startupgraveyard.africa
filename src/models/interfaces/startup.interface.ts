@@ -7,4 +7,5 @@ export interface IStartup {
   location: string;
   founded: string;
   raised: string;
+  publication: string;
 }

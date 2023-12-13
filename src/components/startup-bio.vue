@@ -19,6 +19,15 @@
         Founded in {{ startup.founded }}.
         {{ startup.description }}
       </p>
+      <p class="text-muted small mt-3">
+        Source:
+        <a
+          class="text-decoration-underline"
+          target="_blank"
+          :href="startup.newsSource">
+          {{ startup.publication }}
+        </a>
+      </p>
     </div>
   </div>
 </template>
