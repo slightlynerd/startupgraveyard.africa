@@ -31,9 +31,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.startup-container {
-  margin: auto;
-}
 
 @media (max-width: 992px) {
   .startup-container {

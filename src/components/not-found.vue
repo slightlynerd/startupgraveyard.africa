@@ -24,17 +24,15 @@ export default defineComponent({
   margin: 2rem auto;
   padding: 3rem 1.5rem;
   text-align: center;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
   border-radius: 5px;
 }
 
 .not-found-container h2 {
-  color: #721c24;
+  color: #e02134;
 }
 
 .not-found-container p {
-  color: #721c24;
+  color: #e02134;
   margin-top: 10px;
 }
 </style>

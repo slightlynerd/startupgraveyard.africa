@@ -17,8 +17,7 @@
       </div>
       <p class="mt-2">
         Founded in {{ startup.founded }}.
-        {{ truncatedDescription }}
-        <span v-if="showDots">... </span>
+        {{ startup.description }}
       </p>
       <p class="text-muted small mt-3">
         Source:
@@ -46,26 +45,7 @@ export default defineComponent({
       type: Object as () => IStartup,
       required: true
     }
-  },
-  data() {
-    return {
-      showDots: false,
-      truncatedDescription: '',
-    };
-  },
-  watch: {
-    'startup.description': 'truncateDescription',
-  },
-  mounted() {
-    this.truncateDescription();
-  },
-  methods: {
-    truncateDescription() {
-      const maxLength = 120;
-      this.showDots = this.startup.description.length > maxLength;
-      this.truncatedDescription = this.startup.description.slice(0, maxLength);
-    },
-  },
+  }
 });
 </script>
 
@@ -74,10 +54,8 @@ export default defineComponent({
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 5px;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  min-height: 300px;
+  min-height: 320px;
   transition: all 0.3s ease;
 }
 
@@ -91,20 +69,10 @@ export default defineComponent({
 }
 
 .shutdown {
-  background: #e6c4c7;
+  background: #f0eded;
   border-radius: 5px;
   padding: 0.25rem;
-  width: fit-content;
-  
-}
-.read-more-link {
-  color: #007bff;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.read-more-link:hover {
-  text-decoration: none;
+  width: fit-content; 
 }
 
 @media (max-width: 768px) {
