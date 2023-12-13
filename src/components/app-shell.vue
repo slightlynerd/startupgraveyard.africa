@@ -2,7 +2,7 @@
   <main class="container my-5">
     <h1 class="text-center h1">💀 startupgraveyard.africa</h1>
     <p class="lead text-center mt-3">
-      A list of African startups that have shut down.
+      A catalog of startups operating in Africa that have shut down.
     </p>
 
     <startup-list-filters
