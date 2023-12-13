@@ -14,7 +14,12 @@
 
     <section>
       <div class="row">
-        <startup-list :list="computedStartups" />
+        <template v-if="computedStartups.length > 0">
+          <startup-list :list="computedStartups" />
+        </template>
+        <template v-else>
+          <not-found />
+        </template>
       </div>
     </section>
   </main>
@@ -32,6 +37,7 @@ import {
 // components
 import StartupListFilters from '@/components/startup-list-filters.vue';
 import StartupList from '@/components/startup-list.vue';
+import NotFound from '@/components/not-found.vue';
 
 // models
 import { Category, ICategory, IStartup } from '@/models';
@@ -40,7 +46,8 @@ export default defineComponent({
   name: 'AppShell',
   components: {
     StartupListFilters,
-    StartupList
+    StartupList,
+    NotFound
   },
   setup() {
     // common
