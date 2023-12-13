@@ -11,7 +11,8 @@ export const startups: IStartup[] = [
       'https://techcabal.com/2023/09/27/54gene-shutting-down-operations/',
     location: 'Nigeria 🇳🇬',
     founded: '2019',
-    raised: '$45 million'
+    raised: '$45 million',
+    publication: 'Techcabal'
   },
   {
     name: 'WhereIsMyTransport',
@@ -23,7 +24,8 @@ export const startups: IStartup[] = [
       'https://techcabal.com/2023/10/26/whereismytransport-shutting-down/',
     location: 'South Africa 🇿🇦',
     founded: '2016',
-    raised: '$27 million'
+    raised: '$27 million',
+    publication: 'Techcabal'
   },
   {
     name: 'Dash',
@@ -35,7 +37,8 @@ export const startups: IStartup[] = [
       'https://innovation-village.com/the-end-of-a-vision-ghanaian-startup-dash-shuts-down-after-raising-86-million-in-5-years/',
     location: 'Ghana 🇬🇭',
     founded: '2019',
-    raised: '$86.1 million'
+    raised: '$86.1 million',
+    publication: 'Innovation Village'
   },
   {
     name: 'Sendy',
@@ -47,7 +50,8 @@ export const startups: IStartup[] = [
       'https://innovation-village.com/kenyas-logistics-startup-sendy-is-shutting-down/',
     location: 'Kenya 🇰🇪',
     founded: '2015',
-    raised: '$26.5 million'
+    raised: '$26.5 million',
+    publication: 'Innovation Village'
   },
   {
     name: 'Vibra',
@@ -59,7 +63,8 @@ export const startups: IStartup[] = [
       'https://techcabal.com/2023/10/17/exclusive-dragonfly-capital-backed-web3-app-vibra-shuts-down-in-nigeria/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$6 million'
+    raised: '$6 million',
+    publication: 'Techcabal'
   },
   {
     name: 'Pivo',
@@ -70,7 +75,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://techcabal.com/2023/12/05/pivo-is-shutting-down/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$2.6 million'
+    raised: '$2.6 million',
+    publication: 'Techcabal'
   },
   {
     name: 'Bundle Africa',
@@ -81,10 +87,11 @@ export const startups: IStartup[] = [
     newsSource: 'https://techpoint.africa/2023/07/21/bundle-africa-shutdown/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$450K'
+    raised: '$450K',
+    publication: 'Techpoint'
   },
   {
-    name: 'KippaPay',
+    name: 'KippaPay (The Product)',
     shutdownDate: '2023-10',
     category: Category.Fintech,
     description:
@@ -93,7 +100,8 @@ export const startups: IStartup[] = [
       'https://techcabal.com/2023/10/19/exclusive-kippa-lays-off-40-employees-as-it-shelves-kippa-pay/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$11.6 million'
+    raised: '$8.4 million',
+    publication: 'Techcabal'
   },
   {
     name: 'Lazerpay',
@@ -104,7 +112,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://techpoint.africa/2023/04/13/lazerpay-shuts-down/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$1.1 million'
+    raised: '$1.1 million',
+    publication: 'Techpoint'
   },
   {
     name: 'Zumi',
@@ -116,7 +125,8 @@ export const startups: IStartup[] = [
       'https://techcabal.com/2023/03/20/zumi-shuts-down-again-letting-go-of-150-employees/',
     location: 'Kenya 🇰🇪',
     founded: '2016',
-    raised: '$970K'
+    raised: '$970K',
+    publication: 'Techcabal'
   },
   {
     name: 'Hytch',
@@ -127,7 +137,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://www.benjamindada.com/hytch-shutdown-nigeria/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$150K'
+    raised: '$150K',
+    publication: 'Benjamindada'
   },
   {
     name: 'Kloud Commerce',
@@ -138,7 +149,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://weetracker.com/2022/10/20/kloud-commerce-shuts-down/',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
-    raised: '$765K'
+    raised: '$765K',
+    publication: 'Weetracker'
   },
   {
     name: 'Kune Food',
@@ -149,7 +161,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://tcrn.ch/3bdAohj',
     location: 'Kenya 🇰🇪',
     founded: '2020',
-    raised: '$1 million'
+    raised: '$1 million',
+    publication: 'Techcrunch'
   },
   {
     name: 'WeFarm Shop',
@@ -161,7 +174,8 @@ export const startups: IStartup[] = [
       'https://cioafrica.co/agritech-start-up-wefarm-shop-closes-down/',
     location: 'Kenya 🇰🇪, Uganda 🇺🇬, Tanzania 🇹🇿',
     founded: '2014',
-    raised: '$32 million'
+    raised: '$32 million',
+    publication: 'CIO Africa'
   },
   {
     name: 'Notify Logistics',
@@ -173,7 +187,8 @@ export const startups: IStartup[] = [
       'https://www.businessdailyafrica.com/bd/corporate/companies/startup-notify-logistics-shuts-down-on-high-costs-3932882',
     location: 'Kenya 🇰🇪',
     founded: '2018',
-    raised: 'KES 45 million'
+    raised: 'KES 45 million',
+    publication: 'Business Daily Africa'
   },
   {
     name: 'Zazuu',
@@ -184,19 +199,21 @@ export const startups: IStartup[] = [
     newsSource: 'https://techcabal.com/2023/11/18/zazuu-shut-down/',
     location: 'Africa 🌍',
     founded: '2018',
-    raised: '$2 million'
+    raised: '$2 million',
+    publication: 'Techcabal'
   },
   {
-    name: 'Okadabook',
+    name: 'Okadabooks',
     shutdownDate: '2023-11',
     category: Category.Media,
     description:
-      'Okadabook aimed to simplify book distribution and sales in Nigeria.',
+      'Okadabooks aimed to simplify book distribution and sales in Nigeria.',
     newsSource:
       'https://businessday.ng/technology/article/okadabooks-to-shut-online-book-store-over-insurmountable-challenges/',
     location: 'Nigeria 🇳🇬',
     founded: '2013',
-    raised: '$1.2 million'
+    raised: 'Unknown',
+    publication: 'Business Day'
   },
   {
     name: 'Pillow',
@@ -208,7 +225,8 @@ export const startups: IStartup[] = [
       'https://techcabal.com/2023/06/22/one-year-after-expanding-to-nigeria-crypto-platform-pillow-is-exiting-the-country/',
     location: 'Nigeria 🇳🇬, Ghana 🇬🇭',
     founded: '2022',
-    raised: '$21 million'
+    raised: '$21 million',
+    publication: 'Techcabal'
   },
   {
     name: 'Snapt',
@@ -220,7 +238,8 @@ export const startups: IStartup[] = [
       'https://disrupt-africa.com/2022/10/14/sa-software-startup-snapt-closes-its-doors/',
     location: 'South Africa 🇿🇦',
     founded: '2012',
-    raised: '$7.65 million'
+    raised: '$7.65 million',
+    publication: 'Disrupt Africa'
   },
   {
     name: 'Wabona',
@@ -231,7 +250,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://disrupt-africa.com/2015/08/05/wabona-shuts-down/',
     location: 'South Africa 🇿🇦',
     founded: '2012',
-    raised: 'Unknown'
+    raised: 'Unknown',
+    publication: 'Disrupt Africa'
   },
   {
     name: 'OyaPay',
@@ -242,7 +262,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://techpoint.africa/2019/02/19/oyapay-has-shutdown/',
     location: 'Nigeria 🇳🇬',
     founded: '2017',
-    raised: 'Unknown'
+    raised: 'Unknown',
+    publication: 'Techpoint'
   },
   {
     name: 'Mxit',
@@ -254,7 +275,8 @@ export const startups: IStartup[] = [
       'https://www.itnewsafrica.com/2021/10/what-happened-to-mxit-sas-own-super-popular-chat-app/',
     location: 'South Africa 🇿🇦',
     founded: '2005',
-    raised: 'Unknown'
+    raised: 'Unknown',
+    publication: 'IT News Africa'
   },
   {
     name: 'DealDey',
@@ -266,20 +288,23 @@ export const startups: IStartup[] = [
       'https://www.itnewsafrica.com/2019/01/nigerian-e-commerce-platform-dealdey-shuts-down/',
     location: 'Nigeria 🇳🇬',
     founded: '2011',
-    raised: '~ $6 million'
+    raised: '~ $6 million',
+    publication: 'IT News Africa'
   },
-  {
-    name: '*OMG Digital',
-    shutdownDate: '2018-10',
-    category: Category.Media,
-    description:
-      'OMG Digital was a media company that created digital editorial brands for African millennials.',
-    newsSource:
-      'https://techlabari.com/in-memorium-revisiting-five-ghanaian-startups-who-shut-down/',
-    location: 'Ghana 🇬🇭',
-    founded: '2016',
-    raised: '$1.2 million'
-  },
+  // needs news source
+  // {
+  //   name: '*OMG Digital',
+  //   shutdownDate: '2018-10',
+  //   category: Category.Media,
+  //   description:
+  //     'OMG Digital was a media company that created digital editorial brands for African millennials.',
+  //   newsSource:
+  //     'https://techlabari.com/in-memorium-revisiting-five-ghanaian-startups-who-shut-down/',
+  //   location: 'Ghana 🇬🇭',
+  //   founded: '2016',
+  //   raised: '$1.2 million',
+  //   publication: 'Techlabari'
+  // },
   {
     name: 'Showroom.ng',
     shutdownDate: '2016-08',
@@ -289,7 +314,8 @@ export const startups: IStartup[] = [
       'https://disrupt-africa.com/2016/08/25/nigerian-furniture-marketplace-showroom-ng-to-close/',
     location: 'Nigeria 🇳🇬',
     founded: '2014',
-    raised: 'Unknown'
+    raised: 'Unknown',
+    publication: 'Disrupt Africa'
   },
   {
     name: 'ConnectMed',
@@ -301,7 +327,8 @@ export const startups: IStartup[] = [
       'https://disrupt-africa.com/2019/04/05/kenyan-e-health-startup-connectmed-acquired-by-merck/',
     location: 'Kenya 🇰🇪, South Africa 🇿🇦',
     founded: '2017',
-    raised: '$250K'
+    raised: '$250K',
+    publication: 'Disrupt Africa'
   },
   {
     name: 'Redbird',
@@ -313,7 +340,8 @@ export const startups: IStartup[] = [
       'https://www.linkedin.com/feed/update/urn:li:activity:7036373198296240128/',
     location: 'Ghana 🇬🇭',
     founded: '2018',
-    raised: '$2.5 million'
+    raised: '$2.5 million',
+    publication: 'LinkedIn'
   },
   {
     name: 'Afrostream',
@@ -324,7 +352,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://techpoint.africa/2017/09/22/afrostream-shut-down/',
     location: 'Africa 🌍',
     founded: '2014',
-    raised: 'Unknown'
+    raised: 'Unknown',
+    publication: 'Techpoint'
   },
   {
     name: 'Bkam',
@@ -335,7 +364,8 @@ export const startups: IStartup[] = [
     newsSource: 'https://www.menabytes.com/failed-startups-bkam/',
     location: 'Egypt 🇪🇬',
     founded: '2012',
-    raised: '$500K'
+    raised: '$500K',
+    publication: 'Menabytes'
   },
   {
     name: 'Ousta',
@@ -345,6 +375,7 @@ export const startups: IStartup[] = [
     newsSource: 'https://www.menabytes.com/failed-startups-bkam/',
     location: 'Egypt 🇪🇬',
     founded: '2012',
-    raised: '$1.6 million'
+    raised: '$1.6 million',
+    publication: 'Menabytes'
   }
 ];
