@@ -2,9 +2,7 @@
   <div
     v-for="(item, index) in list"
     :key="index"
-    class="
-    startup-container mt-5 col-12 col-sm-6 col-md-5 col-lg-4
-    ">
+    class="startup-container mt-5 col-12 col-sm-8 col-md-5 col-lg-4">
     <startup-bio :startup="item" />
   </div>
 </template>
@@ -35,5 +33,17 @@ export default defineComponent({
 <style lang="scss" scoped>
 .startup-container {
   margin: auto;
+}
+
+@media (max-width: 992px) {
+  .startup-container {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .startup-container {
+    width: 100%;
+  }
 }
 </style>
