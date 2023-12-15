@@ -1,4 +1,4 @@
-export interface ICategory {
+export interface ICountry {
   name: string;
   count: number;
 }
