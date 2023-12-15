@@ -7,9 +7,11 @@
 
     <startup-list-filters
       :categories="categories"
+      :countries="countries"
       :search-text="searchText"
       :selected-category="selectedCategory"
       @update:search-text="updateSearchText"
+      @update:selected-country="updateSelectedCountry"
       @update:selected-category="updateSelectedCategory" />
 
     <section>
@@ -39,7 +41,8 @@ import { computed, defineComponent, ref } from 'vue';
 // data
 import {
   categories as allCategories,
-  startups as allStartups
+  startups as allStartups,
+  countries as allCountries
 } from '@/assets/data';
 
 // components
@@ -47,7 +50,7 @@ import StartupListFilters from '@/components/startup-list-filters.vue';
 import StartupList from '@/components/startup-list.vue';
 
 // models
-import { Category, ICategory, IStartup } from '@/models';
+import { Category, Country, ICategory, ICountry, IStartup } from '@/models';
 
 export default defineComponent({
   name: 'AppShell',
@@ -63,28 +66,30 @@ export default defineComponent({
     const categories: ICategory[] = allCategories.filter(
       item => item.count > 0
     );
+    const countries: ICountry[] = allCountries.filter(item => item.count > 0);
 
     // refs
     const searchText = ref<string>('');
     const selectedCategory = ref<Category>(Category.All);
+    const selectedCountry = ref<Country>(Country.All);
 
     // computed
+
     const computedStartups = computed(() =>
       startups.filter(item => {
-        if (searchText.value.length > 0) {
-          return selectedCategory.value === Category.All
-            ? item.name.toLowerCase().includes(searchText.value.toLowerCase())
-            : item.category === selectedCategory.value &&
-                item.name
-                  .toLowerCase()
-                  .includes(searchText.value.toLowerCase());
-        }
+        const textMatch =
+          searchText.value.length === 0 ||
+          item.name.toLowerCase().includes(searchText.value.toLowerCase());
 
-        if (selectedCategory.value === Category.All) {
-          return true;
-        }
+        const categoryMatch =
+          selectedCategory.value === Category.All ||
+          item.category === selectedCategory.value;
 
-        return item.category === selectedCategory.value;
+        const countryMatch =
+          selectedCountry.value === Country.All ||
+          item.location.includes(selectedCountry.value);
+
+        return textMatch && categoryMatch && countryMatch;
       })
     );
 
@@ -96,14 +101,19 @@ export default defineComponent({
     function updateSelectedCategory(value: Category): void {
       selectedCategory.value = value;
     }
+    function updateSelectedCountry(value: Country): void {
+      selectedCountry.value = value;
+    }
 
     return {
+      countries,
       categories,
       searchText,
       selectedCategory,
       computedStartups,
       updateSearchText,
-      updateSelectedCategory
+      updateSelectedCategory,
+      updateSelectedCountry
     };
   }
 });
