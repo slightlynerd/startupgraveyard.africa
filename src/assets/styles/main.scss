@@ -35,3 +35,9 @@ a {
     box-shadow: none;
   }
 }
+
+.btn {
+  background-color: $app-primary-color;
+  color: $app-secondary-color;
+  min-width: 10rem;
+}
