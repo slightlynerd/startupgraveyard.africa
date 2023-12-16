@@ -1,5 +1,7 @@
 <template>
   <footer class="container my-5">
+    <h2 class="h5">💀 startupgraveyard.africa</h2>
+    <startup-form />
     <p class="disclaimer small mx-auto pt-5">
       <strong>Disclaimer: </strong>
       <span>
@@ -25,8 +27,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+// components
+import StartupForm from '@/components/startup-form.vue';
+
 export default defineComponent({
-  name: 'AppFooter'
+  name: 'AppFooter',
+  components: {
+    StartupForm
+  }
 });
 </script>
 
