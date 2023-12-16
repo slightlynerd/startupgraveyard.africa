@@ -2,7 +2,7 @@
   <main class="container my-5">
     <h1 class="text-center h1">💀 startupgraveyard.africa</h1>
     <p class="lead text-center mt-3">
-      A catalog of startups operating in Africa that have shut down.
+      A catalogue of startups operating in Africa that have shut down.
     </p>
 
     <startup-list-filters
@@ -20,19 +20,7 @@
       </div>
     </section>
   </main>
-  <footer class="my-5">
-    <div class="pt-5">
-      <p class="text-center small">
-        &copy; 2023. Contributions are welcome on
-        <a
-          href="https://github.com/slightlynerd/startupgraveyard.africa"
-          target="_blank"
-          class="text-decoration-underline">
-          GitHub.
-        </a>
-      </p>
-    </div>
-  </footer>
+  <app-footer />
 </template>
 
 <script lang="ts">
@@ -46,6 +34,7 @@ import {
 } from '@/assets/data';
 
 // components
+import AppFooter from '@/components/app-footer.vue';
 import StartupListFilters from '@/components/startup-list-filters.vue';
 import StartupList from '@/components/startup-list.vue';
 
@@ -55,6 +44,7 @@ import { Category, Country, ICategory, ICountry, IStartup } from '@/models';
 export default defineComponent({
   name: 'AppShell',
   components: {
+    AppFooter,
     StartupListFilters,
     StartupList
   },
