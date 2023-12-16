@@ -74,7 +74,6 @@ export default defineComponent({
     const selectedCountry = ref<Country>(Country.All);
 
     // computed
-
     const computedStartups = computed(() =>
       startups.filter(item => {
         const textMatch =
@@ -101,6 +100,7 @@ export default defineComponent({
     function updateSelectedCategory(value: Category): void {
       selectedCategory.value = value;
     }
+
     function updateSelectedCountry(value: Country): void {
       selectedCountry.value = value;
     }
