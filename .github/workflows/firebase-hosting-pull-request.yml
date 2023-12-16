@@ -6,7 +6,7 @@ name: Deploy to Firebase Hosting on PR
 jobs:
   build_and_preview:
     branches:
-      - develop
+      - main
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
