@@ -1,8 +1,8 @@
-@import '~bootstrap/dist/css/bootstrap.css';
-// $default-color: #555;
-// $primary-color: #ff0000;
-// @import '~vue-datepicker-next/scss/index.scss';
 @import 'variables';
+@import '~bootstrap/dist/css/bootstrap.css';
+$primary-color: $app-primary-color;
+@import '~vue-datepicker-next/scss/index.scss';
+@import 'additional-styles';
 
 html, body {
   padding: 0;
@@ -36,6 +36,11 @@ a {
     outline: none;
     border-color: $border-color;
     box-shadow: none;
+  }
+
+  &::placeholder {
+    color: $placeholder-color;
+    font-size: 0.875rem;
   }
 }
 

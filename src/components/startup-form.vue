@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit()">
     <p>Don't see a startup on the list? Fill the form below.</p>
-    <div class="d-sm-flex">
+    <div class="d-lg-flex">
       <div class="form-group">
         <input
           v-model="form.startupName"
@@ -45,7 +45,7 @@
         </div>
       </div>
     </div>
-    <div class="d-sm-flex">
+    <div class="d-lg-flex">
       <div class="form-group">
         <input
           v-model="form.foundingYear"
@@ -83,13 +83,14 @@
         </div>
       </div>
     </div>
-    <div class="d-sm-flex">
+    <div class="d-lg-flex">
       <div class="form-group">
         <date-picker
           v-model:value="form.shutdownDate"
           format="YYYY-MM"
           value-type="format"
           aria-label="Shut Down Date"
+          placeholder="Enter Shut Down Date"
           class="form-control bg-transparent me-3 mt-3"
           :class="{
             'is-invalid': v$.$dirty && v$.shutdownDate.$invalid
@@ -127,7 +128,7 @@
         </div>
       </div>
     </div>
-    <div class="d-sm-flex">
+    <div class="d-lg-flex">
       <div class="form-group">
         <input
           v-model="form.newsPublication"
@@ -313,7 +314,7 @@ export default defineComponent({
 form {
   max-width: 75%;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     max-width: 100%;
   }
 
@@ -332,7 +333,7 @@ form {
     display: block;
     width: 70%;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 992px) {
       width: 100%;
     }
   }
