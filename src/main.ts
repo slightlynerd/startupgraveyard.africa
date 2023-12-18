@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
+import VueSelect from 'vue-select';
 import 'bootstrap';
 
 import { firebaseConfig } from './services';
@@ -18,5 +19,6 @@ if (process.env.NODE_ENV !== 'development') {
 const app = createApp(App);
 
 app.provide('firestore', firestore);
+app.component('VueSelect', VueSelect);
 
 app.mount('#app');

@@ -26,7 +26,7 @@
       }
     ],
     "@typescript-eslint/naming-convention": [
-      "warn",
+      "error",
       {
         "selector": ["enum", "enumMember"],
         "format": ["PascalCase"]
