@@ -169,7 +169,7 @@ export const startups: IStartup[] = [
     shutdownDate: '2022-07',
     category: Category.Agriculture,
     description:
-      'WeFarm Shop was an app that was developed by the company to help farmers acquire agricultural products online as well as share reviews and advice among each other',
+      'WeFarm Shop was an app that was developed by the company to help farmers acquire agricultural products online as well as share reviews and advice among each other.',
     newsSource:
       'https://cioafrica.co/agritech-start-up-wefarm-shop-closes-down/',
     location: 'Kenya 🇰🇪, Uganda 🇺🇬, Tanzania 🇹🇿',
@@ -270,7 +270,7 @@ export const startups: IStartup[] = [
     shutdownDate: '2021-10',
     category: Category.Other,
     description:
-      'Mxit was a free instant messaging application developed by Mxit (Pty) Ltd. in South Africa that ran on over 8,000 devices, including feature phones, Symbian S60, Android, BlackBerry, iPhone, iPad, Windows Phone and tablets.',
+      'Mxit was a free instant messaging application developed by Mxit (Pty) Ltd. in South Africa that ran on over 8,000 devices of various operating systems.',
     newsSource:
       'https://www.itnewsafrica.com/2021/10/what-happened-to-mxit-sas-own-super-popular-chat-app/',
     location: 'South Africa 🇿🇦',
