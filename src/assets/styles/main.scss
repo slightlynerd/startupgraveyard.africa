@@ -1,4 +1,7 @@
 @import '~bootstrap/dist/css/bootstrap.css';
+// $default-color: #555;
+// $primary-color: #ff0000;
+// @import '~vue-datepicker-next/scss/index.scss';
 @import 'variables';
 
 html, body {
@@ -40,4 +43,9 @@ a {
   background-color: $app-primary-color;
   color: $app-secondary-color;
   min-width: 10rem;
+
+  &:hover {
+    background-color: darken($app-primary-color, 10%);
+    color: $app-secondary-color;
+  }
 }

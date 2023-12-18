@@ -89,6 +89,11 @@ export const categories: ICategory[] = [
       0
   },
   {
+    name: Category.FoodTech,
+    count:
+      startups.filter(item => item.category === Category.FoodTech)?.length || 0
+  },
+  {
     name: Category.Other,
     count:
       startups.filter(item => item.category === Category.Other)?.length || 0
