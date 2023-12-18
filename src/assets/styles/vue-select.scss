@@ -1,0 +1,86 @@
+@import '~vue-select/dist/vue-select.css';
+
+:root {
+  // --vs-colors--lightest: rgba(60, 60, 60, 0.26);
+  // --vs-colors--light: rgba(60, 60, 60, 0.5);
+  // --vs-colors--dark: #333;
+  // --vs-colors--darkest: rgba(0, 0, 0, 0.15);
+
+  /* Search Input */
+  --vs-search-input-color: #{$sg-primary-color};
+  --vs-search-input-bg: #{sg-secondary-color};
+  --vs-search-input-placeholder-color: inherit;
+
+  /* Font */
+  --vs-font-size: 0.875rem;
+  --vs-line-height: 1.2;
+
+  /* Disabled State */
+  // --vs-state-disabled-bg: rgb(248, 248, 248);
+  // --vs-state-disabled-color: var(--vs-colors--light);
+  // --vs-state-disabled-controls-color: var(--vs-colors--light);
+  // --vs-state-disabled-cursor: not-allowed;
+
+  /* Borders */
+  // --vs-border-color: var(--vs-colors--lightest);
+  --vs-border-width: 0;
+  // --vs-border-style: solid;
+  --vs-border-radius: 0.25rem;
+
+  /* Actions: house the component controls */
+  --vs-actions-padding: 0;
+
+  /* Component Controls: Clear, Open Indicator */
+  --vs-controls-color: #{$sg-placeholder-color};
+  --vs-controls-size: 1;
+  --vs-controls--deselect-text-shadow: 0 1px 0 #{$sg-secondary-color};
+
+  /* Selected */
+  --vs-selected-bg: #{lighten($sg-secondary-color, 5%)};
+  --vs-selected-color: #{$sg-primary-color};
+  --vs-selected-border-color: var(--vs-border-color);
+  --vs-selected-border-style: var(--vs-border-style);
+  --vs-selected-border-width: var(--vs-border-width);
+
+  /* Dropdown */
+  --vs-dropdown-bg: #{$sg-secondary-color};
+  --vs-dropdown-color: inherit;
+  --vs-dropdown-z-index: 1000;
+  --vs-dropdown-min-width: 160px;
+  --vs-dropdown-max-height: 350px;
+  --vs-dropdown-box-shadow: 0px 3px 6px 0px var(--vs-colors--darkest);
+
+  /* Options */
+  --vs-dropdown-option-bg: #{$sg-primary-color};
+  --vs-dropdown-option-color: var(--vs-dropdown-color);
+  --vs-dropdown-option-padding: 3px 20px;
+
+  /* Active State */
+  --vs-dropdown-option--active-bg: #{$sg-primary-color};
+  --vs-dropdown-option--active-color: #{$sg-secondary-color};
+
+  /* Deselect State */
+  // --vs-dropdown-option--deselect-bg: #fb5858;
+  --vs-dropdown-option--deselect-color: #{$sg-secondary-color};
+
+  /* Transitions */
+  --vs-transition-timing-function: cubic-bezier(1, -0.115, 0.975, 0.855);
+  --vs-transition-duration: 150ms;
+}
+
+.v-select {
+  .vs__selected {
+    color: $sg-primary-color;
+    padding: 0;
+    margin: 0;
+    margin-right: 0.5rem;
+  }
+
+  .vs__search {
+    padding: 0;
+  
+    &::placeholder {
+      color: $sg-placeholder-color;
+    }
+  }
+}

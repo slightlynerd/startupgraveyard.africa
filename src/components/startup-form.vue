@@ -21,21 +21,15 @@
         </div>
       </div>
       <div class="form-group">
-        <select
+        <vue-select
           v-model="form.country"
-          aria-label="Countries"
+          label="name"
           class="form-control bg-transparent mt-3"
-          :class="{
-            'is-invalid': v$.$dirty && v$.country.$invalid
-          }">
-          <option value="" disabled>Select Country</option>
-          <option
-            v-for="(item, index) in countries"
-            :key="index"
-            :value="item.name">
-            {{ item.name }}
-          </option>
-        </select>
+          placeholder="Select Country"
+          multiple
+          :clear-on-select="false"
+          :reduce="country => country.name"
+          :options="countries" />
         <div v-for="(error, i) of v$.country.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
@@ -91,7 +85,7 @@
           value-type="format"
           aria-label="Shut Down Date"
           placeholder="Enter Shut Down Date"
-          class="form-control bg-transparent me-3 mt-3"
+          class="form-control bg-transparent me-3 mt-3 py-0"
           :class="{
             'is-invalid': v$.$dirty && v$.shutdownDate.$invalid
           }" />
@@ -104,21 +98,15 @@
         </div>
       </div>
       <div class="form-group">
-        <select
+        <vue-select
           v-model="form.category"
-          aria-label="Categories"
+          label="name"
           class="form-control bg-transparent mt-3"
-          :class="{
-            'is-invalid': v$.$dirty && v$.category.$invalid
-          }">
-          <option value="" disabled>Select Category</option>
-          <option
-            v-for="(item, index) in categories"
-            :key="index"
-            :value="item.name">
-            {{ item.name }}
-          </option>
-        </select>
+          placeholder="Select Category"
+          :clear-on-select="false"
+          :clearable="false"
+          :reduce="category => category.name"
+          :options="categories" />
         <div v-for="(error, i) of v$.category.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
@@ -219,7 +207,7 @@ import {
 
 // models
 import { Firestore } from 'firebase/firestore';
-import { ICountry, ICategory } from '@/models';
+import { ICountry, ICategory, Category, Country } from '@/models';
 
 export default defineComponent({
   name: 'StartupForm',
@@ -229,8 +217,12 @@ export default defineComponent({
   setup() {
     // common
     const firestore: Firestore = inject('firestore') as Firestore;
-    const countries: ICountry[] = allCountries;
-    const categories: ICategory[] = allCategories;
+    const countries: ICountry[] = allCountries.filter(
+      country => country.name !== Country.All
+    );
+    const categories: ICategory[] = allCategories.filter(
+      category => category.name !== Category.All
+    );
     const rules = {
       startupName: { required },
       country: { required },
