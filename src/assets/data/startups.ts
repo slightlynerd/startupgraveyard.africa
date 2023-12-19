@@ -377,5 +377,16 @@ export const startups: IStartup[] = [
     founded: '2012',
     raised: '$1.6 million',
     publication: 'Menabytes'
+  },
+  {
+    name: 'Zoto',
+    shutdownDate: '2018-08',
+    category: Category.Fintech,
+    description: 'Zoto was a mobile recharge and payments solution platform.',
+    newsSource: 'https://techpoint.africa/2018/08/20/zoto-shut-down/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2015',
+    raised: 'Unknown',
+    publication: 'Techpoint'
   }
 ];
