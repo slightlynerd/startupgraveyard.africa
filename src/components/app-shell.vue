@@ -16,7 +16,12 @@
 
     <section>
       <div class="row">
-        <startup-list :list="computedStartups" />
+        <template v-if="computedStartups.length > 0">
+          <startup-list :list="computedStartups" />
+        </template>
+        <template v-else>
+          <no-search-results />
+        </template>
       </div>
     </section>
   </main>
@@ -35,6 +40,7 @@ import {
 
 // components
 import AppFooter from '@/components/app-footer.vue';
+import NoSearchResults from './no-search-results.vue';
 import StartupListFilters from '@/components/startup-list-filters.vue';
 import StartupList from '@/components/startup-list.vue';
 
@@ -45,6 +51,7 @@ export default defineComponent({
   name: 'AppShell',
   components: {
     AppFooter,
+    NoSearchResults,
     StartupListFilters,
     StartupList
   },
