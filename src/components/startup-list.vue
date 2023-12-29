@@ -1,5 +1,8 @@
 <template>
-  <div v-for="(item, index) in list" :key="index" class="col-md-4 mt-5">
+  <div
+    v-for="(item, index) in list"
+    :key="index"
+    class="col-12 col-sm-8 col-md-6 col-lg-4 mt-5">
     <startup-bio :startup="item" />
   </div>
 </template>
