@@ -388,5 +388,17 @@ export const startups: IStartup[] = [
     founded: '2015',
     raised: 'Unknown',
     publication: 'Techpoint'
+  },
+  {
+    name: 'Woven Finance',
+    shutdownDate: '2024-01',
+    category: Category.Fintech,
+    description:
+      'Woven Finance offered a virtual accounts to business owners with which they could collect payments, eliminating common problems like reconciliation and settlements.',
+    newsSource: 'https://techcabal.com/2024/01/10/woven-finance-shuts-down',
+    location: 'Nigeria 🇳🇬',
+    founded: '2020',
+    raised: 'Unknown',
+    publication: 'Techcabal'
   }
 ];
