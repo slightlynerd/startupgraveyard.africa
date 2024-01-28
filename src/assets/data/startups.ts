@@ -291,20 +291,6 @@ export const startups: IStartup[] = [
     raised: '~ $6 million',
     publication: 'IT News Africa'
   },
-  // needs news source
-  // {
-  //   name: '*OMG Digital',
-  //   shutdownDate: '2018-10',
-  //   category: Category.Media,
-  //   description:
-  //     'OMG Digital was a media company that created digital editorial brands for African millennials.',
-  //   newsSource:
-  //     'https://techlabari.com/in-memorium-revisiting-five-ghanaian-startups-who-shut-down/',
-  //   location: 'Ghana 🇬🇭',
-  //   founded: '2016',
-  //   raised: '$1.2 million',
-  //   publication: 'Techlabari'
-  // },
   {
     name: 'Showroom.ng',
     shutdownDate: '2016-08',
@@ -390,15 +376,56 @@ export const startups: IStartup[] = [
     publication: 'Techpoint'
   },
   {
-    name: 'Woven Finance',
-    shutdownDate: '2024-01',
-    category: Category.Fintech,
-    description:
-      'Woven Finance offered a virtual accounts to business owners with which they could collect payments, eliminating common problems like reconciliation and settlements.',
-    newsSource: 'https://techcabal.com/2024/01/10/woven-finance-shuts-down',
-    location: 'Nigeria 🇳🇬',
-    founded: '2020',
+    name: 'Jumia Food',
+    shutdownDate: '2023-12',
+    category: Category.FoodTech,
+    description: 'Jumia Food was a food delivery service of the e-commerce company, Jumia Technologies.',
+    newsSource:
+      'https://techpoint.africa/2023/12/14/jumia-food-shutdown-nigeria-2023/',
+    location: 'Africa 🌍',
+    founded: '2013',
     raised: 'Unknown',
-    publication: 'Techcabal'
+    publication: 'Techpoint'
+  },
+  {
+    name: 'Cova',
+    shutdownDate: '2024-01',
+    category: Category.Finance,
+    description:
+      'Cova was a Nigerian wealthtech startup that enables users to track their assets in one place.',
+    newsSource:
+      'https://www.benjamindada.com/cova-shuts-down-nigerian-wealthtech/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2021',
+    raised: '$800,000+',
+    publication: 'Benjamindada'
   }
+  // company refuted shutdown news
+  // https://techcabal.com/2024/01/12/woven-finance-denies-shutting-down/
+  // {
+  //   name: 'Woven Finance',
+  //   shutdownDate: '2024-01',
+  //   category: Category.Fintech,
+  //   description:
+  //     'Woven Finance offered a virtual accounts to business owners with which they could collect payments, eliminating common problems like reconciliation and settlements.',
+  //   newsSource: 'https://techcabal.com/2024/01/10/woven-finance-shuts-down',
+  //   location: 'Nigeria 🇳🇬',
+  //   founded: '2020',
+  //   raised: 'Unknown',
+  //   publication: 'Techcabal'
+  // },
+  // needs news source
+  // {
+  //   name: '*OMG Digital',
+  //   shutdownDate: '2018-10',
+  //   category: Category.Media,
+  //   description:
+  //     'OMG Digital was a media company that created digital editorial brands for African millennials.',
+  //   newsSource:
+  //     'https://techlabari.com/in-memorium-revisiting-five-ghanaian-startups-who-shut-down/',
+  //   location: 'Ghana 🇬🇭',
+  //   founded: '2016',
+  //   raised: '$1.2 million',
+  //   publication: 'Techlabari'
+  // },
 ];
