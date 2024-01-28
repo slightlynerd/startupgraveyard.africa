@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
+import { format } from 'date-fns';
 
 // data
 import {
@@ -57,9 +58,12 @@ export default defineComponent({
   },
   setup() {
     // common
-    const startups: IStartup[] = allStartups.sort(
-      (a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate)
-    );
+    const startups: IStartup[] = allStartups
+      .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
+      .map(item => ({
+        ...item,
+        shutdownDate: format(new Date(item.shutdownDate), 'MMM. yyyy')
+      }));
     const categories: ICategory[] = allCategories.filter(
       item => item.count > 0
     );
