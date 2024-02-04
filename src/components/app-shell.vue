@@ -23,6 +23,8 @@
           <no-search-results />
         </template>
       </div>
+
+      <app-pagination :page-count="pageCount" @page-changed="onPaginationChanged" />
     </section>
   </main>
   <app-footer />
@@ -41,40 +43,45 @@ import {
 
 // components
 import AppFooter from '@/components/app-footer.vue';
+import AppPagination from '@/components/app-pagination.vue';
 import NoSearchResults from './no-search-results.vue';
 import StartupListFilters from '@/components/startup-list-filters.vue';
 import StartupList from '@/components/startup-list.vue';
 
 // models
-import { Category, Country, ICategory, ICountry, IStartup } from '@/models';
+import * as Models from '@/models';
 
 export default defineComponent({
   name: 'AppShell',
   components: {
     AppFooter,
+    AppPagination,
     NoSearchResults,
     StartupListFilters,
     StartupList
   },
   setup() {
     // common
-    const startups: IStartup[] = allStartups
+    const startups: Models.IStartup[] = allStartups
       .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
       .map(item => ({
         ...item,
         shutdownDate: format(new Date(item.shutdownDate), 'MMM. yyyy')
       }));
-    const categories: ICategory[] = allCategories.filter(
+    const categories: Models.ICategory[] = allCategories.filter(
       item => item.count > 0
     );
-    const countries: ICountry[] = allCountries.filter(item => item.count > 0);
+    const countries: Models.ICountry[] = allCountries.filter(item => item.count > 0);
 
     // refs
     const searchText = ref<string>('');
-    const selectedCategory = ref<Category>(Category.All);
-    const selectedCountry = ref<Country>(Country.All);
+    const selectedCategory = ref<Models.Category>(Models.Category.All);
+    const selectedCountry = ref<Models.Country>(Models.Country.All);
+    const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
+    const page = ref<number>(Models.DEFAULT_PAGE);
 
     // computed
+    const pageCount = computed(() => startups.length / pageSize.value);
     const computedStartups = computed(() =>
       startups.filter(item => {
         const textMatch =
@@ -82,15 +89,15 @@ export default defineComponent({
           item.name.toLowerCase().includes(searchText.value.toLowerCase());
 
         const categoryMatch =
-          selectedCategory.value === Category.All ||
+          selectedCategory.value === Models.Category.All ||
           item.category === selectedCategory.value;
 
         const countryMatch =
-          selectedCountry.value === Country.All ||
+          selectedCountry.value === Models.Country.All ||
           item.location.includes(selectedCountry.value);
 
         return textMatch && categoryMatch && countryMatch;
-      })
+      }).slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
     );
 
     // methods
@@ -98,23 +105,32 @@ export default defineComponent({
       searchText.value = value;
     }
 
-    function updateSelectedCategory(value: Category): void {
+    function updateSelectedCategory(value: Models.Category): void {
       selectedCategory.value = value;
     }
 
-    function updateSelectedCountry(value: Country): void {
+    function updateSelectedCountry(value: Models.Country): void {
       selectedCountry.value = value;
     }
 
+    function onPaginationChanged(currentPage: number): void {
+      page.value = currentPage;
+      document.getElementById('listFilters')?.scrollIntoView();
+    }
+
     return {
+      page,
+      pageSize,
       countries,
       categories,
       searchText,
       selectedCategory,
+      pageCount,
       computedStartups,
       updateSearchText,
       updateSelectedCategory,
-      updateSelectedCountry
+      updateSelectedCountry,
+      onPaginationChanged
     };
   }
 });

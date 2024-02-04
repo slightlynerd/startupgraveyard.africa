@@ -4,6 +4,7 @@ $primary-color: $sg-primary-color;
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~vue-datepicker-next/scss/index.scss';
 @import 'vue-select';
+@import 'pagination';
 @import 'additional-styles';
 
 html, body {

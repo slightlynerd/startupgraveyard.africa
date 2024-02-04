@@ -1,5 +1,5 @@
 <template>
-  <div class="startup-card shadow px-md-3 py-4">
+  <div class="startup-card shadow px-3 py-4">
     <a target="_blank" :href="startup.newsSource">
       <h2 class="h4">{{ startup.name }}</h2>
     </a>
