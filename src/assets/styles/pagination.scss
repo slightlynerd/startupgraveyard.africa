@@ -3,7 +3,7 @@
     // redesign default bootstrap pagination styling
     --bs-pagination-font-size: 1rem;
     --bs-pagination-color: $sg-primary-color;
-    --bs-pagination-hover-color: $sg-primary-color;
+    --bs-pagination-hover-color: $sg-secondary-color;
     --bs-pagination-hover-bg: $sg-secondary-color;
     --bs-pagination-focus-color: $sg-primary-color;
     --bs-pagination-focus-bg: $sg-secondary-color;
@@ -95,12 +95,6 @@
       .page-link {
         content: url(@/assets/images/page-change-arrow-black.svg);
         background: $sg-secondary-color;
-      }
-
-      &:hover {
-        .page-link {
-          background: $sg-primary-color;
-        }
       }
     }
 

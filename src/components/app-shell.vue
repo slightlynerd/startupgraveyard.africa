@@ -24,7 +24,9 @@
         </template>
       </div>
 
-      <app-pagination :page-count="pageCount" @page-changed="onPaginationChanged" />
+      <app-pagination
+        :page-count="pageCount"
+        @page-changed="onPaginationChanged" />
     </section>
   </main>
   <app-footer />
@@ -71,7 +73,9 @@ export default defineComponent({
     const categories: Models.ICategory[] = allCategories.filter(
       item => item.count > 0
     );
-    const countries: Models.ICountry[] = allCountries.filter(item => item.count > 0);
+    const countries: Models.ICountry[] = allCountries.filter(
+      item => item.count > 0
+    );
 
     // refs
     const searchText = ref<string>('');
@@ -83,21 +87,23 @@ export default defineComponent({
     // computed
     const pageCount = computed(() => startups.length / pageSize.value);
     const computedStartups = computed(() =>
-      startups.filter(item => {
-        const textMatch =
-          searchText.value.length === 0 ||
-          item.name.toLowerCase().includes(searchText.value.toLowerCase());
+      startups
+        .filter(item => {
+          const textMatch =
+            searchText.value.length === 0 ||
+            item.name.toLowerCase().includes(searchText.value.toLowerCase());
 
-        const categoryMatch =
-          selectedCategory.value === Models.Category.All ||
-          item.category === selectedCategory.value;
+          const categoryMatch =
+            selectedCategory.value === Models.Category.All ||
+            item.category === selectedCategory.value;
 
-        const countryMatch =
-          selectedCountry.value === Models.Country.All ||
-          item.location.includes(selectedCountry.value);
+          const countryMatch =
+            selectedCountry.value === Models.Country.All ||
+            item.location.includes(selectedCountry.value);
 
-        return textMatch && categoryMatch && countryMatch;
-      }).slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
+          return textMatch && categoryMatch && countryMatch;
+        })
+        .slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
     );
 
     // methods
