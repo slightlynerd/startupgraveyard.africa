@@ -1,5 +1,5 @@
 <template>
-  <div class="row align-items-center">
+  <div id="listFilters" class="row align-items-center">
     <div class="col-lg-6 col-md-8 mx-auto text-center">
       <input
         v-model="mSearchText"
