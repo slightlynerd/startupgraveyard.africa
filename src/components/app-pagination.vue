@@ -15,38 +15,28 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref, defineProps, defineEmits } from 'vue';
 import Paginate from 'vuejs-paginate-next';
 
 // models
 import { DEFAULT_PAGE } from '@/models/constants';
 
-export default defineComponent({
-  name: 'AppPagination',
-  components: {
-    Paginate
-  },
-  props: {
-    pageCount: {
-      type: Number,
-      default: 0
-    }
-  },
-  emits: ['page-changed'],
-  setup(_, { emit }) {
-    // refs
-    const page = ref<number>(DEFAULT_PAGE);
+// props
+defineProps<{
+  pageCount: number;
+}>();
 
-    // methods
-    function onPaginationChanged(page: number): void {
-      emit('page-changed', page);
-    }
+// emits
+const emit = defineEmits<{
+  (e: 'page-changed', page: number): void;
+}>();
 
-    return {
-      page,
-      onPaginationChanged
-    };
-  }
-});
+// refs
+const page = ref<number>(DEFAULT_PAGE);
+
+// methods
+function onPaginationChanged(page: number): void {
+  emit('page-changed', page);
+}
 </script>

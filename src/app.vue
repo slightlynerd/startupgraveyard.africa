@@ -2,18 +2,9 @@
   <app-shell />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
 // components
 import AppShell from '@/components/app-shell.vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    AppShell
-  }
-});
 </script>
 
 <style lang="scss">

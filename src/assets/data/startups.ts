@@ -379,7 +379,8 @@ export const startups: IStartup[] = [
     name: 'Jumia Food',
     shutdownDate: '2023-12',
     category: Category.FoodTech,
-    description: 'Jumia Food was a food delivery service of the e-commerce company, Jumia Technologies.',
+    description:
+      'Jumia Food was a food delivery service of the e-commerce company, Jumia Technologies.',
     newsSource:
       'https://techpoint.africa/2023/12/14/jumia-food-shutdown-nigeria-2023/',
     location: 'Africa 🌍',

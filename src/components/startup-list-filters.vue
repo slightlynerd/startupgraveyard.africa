@@ -33,66 +33,52 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { defineProps, withDefaults, defineEmits, ref, watch } from 'vue';
 
 // models
 import { ICategory, Category, ICountry, Country } from '@/models';
 
-export default defineComponent({
-  name: 'ListFilters',
-  props: {
-    searchText: {
-      type: String,
-      default: ''
-    },
-    selectedCategory: {
-      type: String,
-      default: Category.All
-    },
-    selectedCountry: {
-      type: String,
-      default: Country.All
-    },
-    categories: {
-      type: Array as () => ICategory[],
-      required: true
-    },
-    countries: {
-      type: Array as () => ICountry[],
-      required: true
-    }
-  },
-  emits: [
-    'update:search-text',
-    'update:selected-category',
-    'update:selected-country'
-  ],
-  data() {
-    return {
-      mSearchText: this.searchText,
-      mSelectedCategory: this.selectedCategory,
-      mSelectedCountry: this.selectedCountry
-    };
-  },
-  watch: {
-    mSearchText(newValue: string, oldValue: string): void {
-      if (newValue !== oldValue) {
-        this.$emit('update:search-text', newValue);
-      }
-    },
-    mSelectedCategory(newValue: string, oldValue: string): void {
-      if (newValue !== oldValue) {
-        this.$emit('update:selected-category', newValue);
-      }
-    },
-    mSelectedCountry(newValue: string, oldValue: string): void {
-      if (newValue !== oldValue) {
-        this.$emit('update:selected-country', newValue);
-      }
+interface IProps {
+  searchText: string;
+  selectedCategory: string;
+  selectedCountry: string;
+  categories: ICategory[];
+  countries: ICountry[];
+}
+
+// props
+const props = withDefaults(defineProps<IProps>(), {
+  searchText: '',
+  selectedCategory: Category.All,
+  selectedCountry: Country.All
+});
+
+// emits
+const emit = defineEmits<{
+  (e: 'update:search-text', value: string): void;
+  (e: 'update:selected-category', value: string): void;
+  (e: 'update:selected-country', value: string): void;
+}>();
+
+// refs
+const mSearchText = ref<string>(props.searchText);
+const mSelectedCategory = ref<string>(props.selectedCategory);
+const mSelectedCountry = ref<string>(props.selectedCountry);
+
+// watch
+watch(
+  [mSearchText, mSelectedCategory, mSelectedCountry],
+  ([newSearchText, newSelectedCategory, newSelectedCountry]) => {
+    if (newSearchText !== props.searchText) {
+      emit('update:search-text', newSearchText);
+    } else if (newSelectedCategory !== props.selectedCategory) {
+      emit('update:selected-category', newSelectedCategory);
+    } else if (newSelectedCountry !== props.selectedCountry) {
+      emit('update:selected-country', newSelectedCountry);
     }
   }
-});
+);
 </script>
 
 <style lang="scss" scoped>

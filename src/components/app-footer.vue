@@ -56,18 +56,9 @@
   </footer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script lang="ts" setup>
 // components
 import StartupForm from '@/components/startup-form.vue';
-
-export default defineComponent({
-  name: 'AppFooter',
-  components: {
-    StartupForm
-  }
-});
 </script>
 
 <style lang="scss" scoped>

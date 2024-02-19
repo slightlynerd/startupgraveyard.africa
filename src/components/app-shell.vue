@@ -32,8 +32,8 @@
   <app-footer />
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { computed, ref, defineEmits } from 'vue';
 import { format } from 'date-fns';
 
 // data
@@ -53,93 +53,73 @@ import StartupList from '@/components/startup-list.vue';
 // models
 import * as Models from '@/models';
 
-export default defineComponent({
-  name: 'AppShell',
-  components: {
-    AppFooter,
-    AppPagination,
-    NoSearchResults,
-    StartupListFilters,
-    StartupList
-  },
-  setup() {
-    // common
-    const startups: Models.IStartup[] = allStartups
-      .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
-      .map(item => ({
-        ...item,
-        shutdownDate: format(new Date(item.shutdownDate), 'MMM. yyyy')
-      }));
-    const categories: Models.ICategory[] = allCategories.filter(
-      item => item.count > 0
-    );
-    const countries: Models.ICountry[] = allCountries.filter(
-      item => item.count > 0
-    );
+// emits
+defineEmits<{
+  (e: 'update:search-text', value: string): void;
+  (e: 'update:selected-category', value: Models.Category): void;
+  (e: 'update:selected-country', value: Models.Country): void;
+}>();
 
-    // refs
-    const searchText = ref<string>('');
-    const selectedCategory = ref<Models.Category>(Models.Category.All);
-    const selectedCountry = ref<Models.Country>(Models.Country.All);
-    const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
-    const page = ref<number>(Models.DEFAULT_PAGE);
+// common
+const startups: Models.IStartup[] = allStartups
+  .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
+  .map(item => ({
+    ...item,
+    shutdownDate: format(new Date(item.shutdownDate), 'MMM. yyyy')
+  }));
+const categories: Models.ICategory[] = allCategories.filter(
+  item => item.count > 0
+);
+const countries: Models.ICountry[] = allCountries.filter(
+  item => item.count > 0
+);
 
-    // computed
-    const pageCount = computed(() => startups.length / pageSize.value);
-    const computedStartups = computed(() =>
-      startups
-        .filter(item => {
-          const textMatch =
-            searchText.value.length === 0 ||
-            item.name.toLowerCase().includes(searchText.value.toLowerCase());
+// refs
+const searchText = ref<string>('');
+const selectedCategory = ref<Models.Category>(Models.Category.All);
+const selectedCountry = ref<Models.Country>(Models.Country.All);
+const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
+const page = ref<number>(Models.DEFAULT_PAGE);
 
-          const categoryMatch =
-            selectedCategory.value === Models.Category.All ||
-            item.category === selectedCategory.value;
+// computed
+const pageCount = computed(() => startups.length / pageSize.value);
+const computedStartups = computed(() =>
+  startups
+    .filter(item => {
+      const textMatch =
+        searchText.value.length === 0 ||
+        item.name.toLowerCase().includes(searchText.value.toLowerCase());
 
-          const countryMatch =
-            selectedCountry.value === Models.Country.All ||
-            item.location.includes(selectedCountry.value);
+      const categoryMatch =
+        selectedCategory.value === Models.Category.All ||
+        item.category === selectedCategory.value;
 
-          return textMatch && categoryMatch && countryMatch;
-        })
-        .slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
-    );
+      const countryMatch =
+        selectedCountry.value === Models.Country.All ||
+        item.location.includes(selectedCountry.value);
 
-    // methods
-    function updateSearchText(value: string): void {
-      searchText.value = value;
-    }
+      return textMatch && categoryMatch && countryMatch;
+    })
+    .slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
+);
 
-    function updateSelectedCategory(value: Models.Category): void {
-      selectedCategory.value = value;
-    }
+// methods
+function updateSearchText(value: string): void {
+  searchText.value = value;
+}
 
-    function updateSelectedCountry(value: Models.Country): void {
-      selectedCountry.value = value;
-    }
+function updateSelectedCategory(value: Models.Category): void {
+  selectedCategory.value = value;
+}
 
-    function onPaginationChanged(currentPage: number): void {
-      page.value = currentPage;
-      document.getElementById('listFilters')?.scrollIntoView();
-    }
+function updateSelectedCountry(value: Models.Country): void {
+  selectedCountry.value = value;
+}
 
-    return {
-      page,
-      pageSize,
-      countries,
-      categories,
-      searchText,
-      selectedCategory,
-      pageCount,
-      computedStartups,
-      updateSearchText,
-      updateSelectedCategory,
-      updateSelectedCountry,
-      onPaginationChanged
-    };
-  }
-});
+function onPaginationChanged(currentPage: number): void {
+  page.value = currentPage;
+  document.getElementById('listFilters')?.scrollIntoView();
+}
 </script>
 
 <style lang="scss" scoped>
