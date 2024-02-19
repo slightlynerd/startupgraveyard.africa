@@ -190,8 +190,8 @@
   </form>
 </template>
 
-<script lang="ts">
-import { defineComponent, inject, ref } from 'vue';
+<script lang="ts" setup>
+import { inject, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, url } from '@vuelidate/validators';
 import { collection, addDoc } from 'firebase/firestore';
@@ -209,34 +209,61 @@ import {
 import { Firestore } from 'firebase/firestore';
 import { ICountry, ICategory, Category, Country } from '@/models';
 
-export default defineComponent({
-  name: 'StartupForm',
-  components: {
-    DatePicker
-  },
-  setup() {
-    // common
-    const firestore: Firestore = inject('firestore') as Firestore;
-    const countries: ICountry[] = allCountries.filter(
-      country => country.name !== Country.All
-    );
-    const categories: ICategory[] = allCategories.filter(
-      category => category.name !== Category.All
-    );
-    const rules = {
-      startupName: { required },
-      country: { required },
-      foundingYear: { required },
-      fundingAmount: { required },
-      shutdownDate: { required },
-      category: { required },
-      newsPublication: { required },
-      newsPublicationLink: { required, url },
-      description: { required }
-    };
+// common
+const firestore: Firestore = inject('firestore') as Firestore;
+const countries: ICountry[] = allCountries.filter(
+  country => country.name !== Country.All
+);
+const categories: ICategory[] = allCategories.filter(
+  category => category.name !== Category.All
+);
+const rules = {
+  startupName: { required },
+  country: { required },
+  foundingYear: { required },
+  fundingAmount: { required },
+  shutdownDate: { required },
+  category: { required },
+  newsPublication: { required },
+  newsPublicationLink: { required, url },
+  description: { required }
+};
 
-    // refs
-    const form = ref({
+// refs
+const form = ref({
+  startupName: '',
+  country: '',
+  foundingYear: '',
+  fundingAmount: '',
+  shutdownDate: '',
+  category: '',
+  newsPublication: '',
+  newsPublicationLink: '',
+  description: ''
+});
+const isFormSubmitted = ref<boolean>(false);
+const isProcessing = ref<boolean>(false);
+const errorMessage = ref<string>('');
+
+const v$ = useVuelidate(rules, form);
+
+// methods
+async function onSubmit(): Promise<void> {
+  v$.value.$touch();
+  if (v$.value.$invalid) {
+    return;
+  }
+
+  isProcessing.value = true;
+  errorMessage.value = '';
+
+  try {
+    await addDoc(collection(firestore, 'pendingStartups'), {
+      ...form.value,
+      shutdownDate: new Date(form.value.shutdownDate).toISOString()
+    });
+    isFormSubmitted.value = true;
+    form.value = {
       startupName: '',
       country: '',
       foundingYear: '',
@@ -246,60 +273,14 @@ export default defineComponent({
       newsPublication: '',
       newsPublicationLink: '',
       description: ''
-    });
-    const isFormSubmitted = ref<boolean>(false);
-    const isProcessing = ref<boolean>(false);
-    const errorMessage = ref<string>('');
-
-    const v$ = useVuelidate(rules, form);
-
-    // methods
-    async function onSubmit(): Promise<void> {
-      v$.value.$touch();
-      if (v$.value.$invalid) {
-        return;
-      }
-
-      isProcessing.value = true;
-      errorMessage.value = '';
-
-      try {
-        await addDoc(collection(firestore, 'pendingStartups'), {
-          ...form.value,
-          shutdownDate: new Date(form.value.shutdownDate).toISOString()
-        });
-        isFormSubmitted.value = true;
-        form.value = {
-          startupName: '',
-          country: '',
-          foundingYear: '',
-          fundingAmount: '',
-          shutdownDate: '',
-          category: '',
-          newsPublication: '',
-          newsPublicationLink: '',
-          description: ''
-        };
-        v$.value.$reset();
-      } catch (e) {
-        errorMessage.value = (e as Error).message;
-      } finally {
-        isProcessing.value = false;
-      }
-    }
-
-    return {
-      countries,
-      categories,
-      form,
-      isFormSubmitted,
-      isProcessing,
-      errorMessage,
-      v$,
-      onSubmit
     };
+    v$.value.$reset();
+  } catch (e) {
+    errorMessage.value = (e as Error).message;
+  } finally {
+    isProcessing.value = false;
   }
-});
+}
 </script>
 
 <style lang="scss" scoped>

@@ -30,21 +30,16 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 
 // models
 import { IStartup } from '@/models';
 
-export default defineComponent({
-  name: 'StartupBio',
-  props: {
-    startup: {
-      type: Object as () => IStartup,
-      required: true
-    }
-  }
-});
+// props
+defineProps<{
+  startup: IStartup;
+}>();
 </script>
 
 <style lang="scss" scoped>
