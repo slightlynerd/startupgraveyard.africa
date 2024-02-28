@@ -1,6 +1,7 @@
 <template>
   <div
-    class="pagination-wrapper d-flex flex-column align-items-center justify-content-center mt-5">
+    class="pagination-wrapper d-flex flex-column align-items-center justify-content-center mt-5"
+  >
     <div class="d-flex align-items-center">
       <paginate
         v-model="page"
@@ -10,7 +11,8 @@
         :click-handler="onPaginationChanged"
         :prev-text="''"
         :next-text="''"
-        :break-view-text="'...'" />
+        :break-view-text="'...'"
+      />
     </div>
   </div>
 </template>
@@ -28,6 +30,7 @@ defineProps<{
 }>();
 
 // emits
+// eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
   (e: 'page-changed', page: number): void;
 }>();
@@ -36,7 +39,7 @@ const emit = defineEmits<{
 const page = ref<number>(DEFAULT_PAGE);
 
 // methods
-function onPaginationChanged(page: number): void {
+function onPaginationChanged (page: number): void {
   emit('page-changed', page);
 }
 </script>

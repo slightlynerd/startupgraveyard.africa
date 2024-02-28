@@ -3,10 +3,14 @@
     <a target="_blank" :href="startup.newsSource">
       <h2 class="h4">{{ startup.name }}</h2>
     </a>
-    <p class="text-muted mb-1">{{ startup.location }}</p>
+    <p class="text-muted mb-1">
+      {{ startup.location }}
+    </p>
     <div class="row align-items-center justify-content-between">
       <div class="col">
-        <p class="shutdown text-muted small">❌ {{ startup.shutdownDate }}</p>
+        <p class="shutdown text-muted small">
+          ❌ {{ startup.shutdownDate }}
+        </p>
       </div>
       <div class="col">
         <p class="text-muted text-end small">
@@ -23,7 +27,8 @@
       <a
         class="text-decoration-underline"
         target="_blank"
-        :href="startup.newsSource">
+        :href="startup.newsSource"
+      >
         {{ startup.publication }}
       </a>
     </p>
@@ -34,7 +39,7 @@
 import { defineProps } from 'vue';
 
 // models
-import { IStartup } from '@/models';
+import { type IStartup } from '~/models';
 
 // props
 defineProps<{

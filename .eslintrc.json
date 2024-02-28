@@ -5,11 +5,7 @@
     "node": true
   },
   "extends": [
-    "plugin:vue/vue3-essential",
-    "plugin:vue/vue3-recommended",
-    "plugin:prettier/recommended",
-    "eslint:recommended",
-    "@vue/prettier"
+    "@nuxtjs/eslint-config-typescript"
   ],
   "plugins": ["vue", "@typescript-eslint"],
   "parserOptions": {
@@ -19,6 +15,7 @@
   "rules": {
     "no-console": "off",
     "no-debugger": "off",
+    "semi": ["error", "always"],
     "vue/component-tags-order": [
       "error",
       {
