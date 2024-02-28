@@ -1,6 +1,8 @@
 <template>
   <main class="container my-5">
-    <h1 class="text-center h1">💀 startupgraveyard.africa</h1>
+    <h1 class="text-center h1">
+      💀 startupgraveyard.africa
+    </h1>
     <p class="lead text-center mt-3">
       A catalogue of startups operating in Africa that have shut down.
     </p>
@@ -10,9 +12,11 @@
       :countries="countries"
       :search-text="searchText"
       :selected-category="selectedCategory"
+      :selected-country="selectedCountry"
       @update:search-text="updateSearchText"
       @update:selected-country="updateSelectedCountry"
-      @update:selected-category="updateSelectedCategory" />
+      @update:selected-category="updateSelectedCategory"
+    />
 
     <section>
       <div class="row">
@@ -26,7 +30,8 @@
 
       <app-pagination
         :page-count="pageCount"
-        @page-changed="onPaginationChanged" />
+        @page-changed="onPaginationChanged"
+      />
     </section>
   </main>
   <app-footer />
@@ -41,19 +46,13 @@ import {
   categories as allCategories,
   startups as allStartups,
   countries as allCountries
-} from '@/assets/data';
-
-// components
-import AppFooter from '@/components/app-footer.vue';
-import AppPagination from '@/components/app-pagination.vue';
-import NoSearchResults from './no-search-results.vue';
-import StartupListFilters from '@/components/startup-list-filters.vue';
-import StartupList from '@/components/startup-list.vue';
+} from '~/assets/data';
 
 // models
 import * as Models from '@/models';
 
 // emits
+// eslint-disable-next-line func-call-spacing
 defineEmits<{
   (e: 'update:search-text', value: string): void;
   (e: 'update:selected-category', value: Models.Category): void;
@@ -85,7 +84,7 @@ const page = ref<number>(Models.DEFAULT_PAGE);
 const pageCount = computed(() => startups.length / pageSize.value);
 const computedStartups = computed(() =>
   startups
-    .filter(item => {
+    .filter((item) => {
       const textMatch =
         searchText.value.length === 0 ||
         item.name.toLowerCase().includes(searchText.value.toLowerCase());
@@ -104,19 +103,19 @@ const computedStartups = computed(() =>
 );
 
 // methods
-function updateSearchText(value: string): void {
+function updateSearchText (value: string): void {
   searchText.value = value;
 }
 
-function updateSelectedCategory(value: Models.Category): void {
+function updateSelectedCategory (value: Models.Category): void {
   selectedCategory.value = value;
 }
 
-function updateSelectedCountry(value: Models.Country): void {
+function updateSelectedCountry (value: Models.Country): void {
   selectedCountry.value = value;
 }
 
-function onPaginationChanged(currentPage: number): void {
+function onPaginationChanged (currentPage: number): void {
   page.value = currentPage;
   document.getElementById('listFilters')?.scrollIntoView();
 }

@@ -11,29 +11,35 @@
           placeholder="Enter Startup Name"
           :class="{
             'is-invalid': v$.$dirty && v$.startupName.$invalid
-          }" />
+          }"
+        >
         <div v-for="(error, i) of v$.startupName.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
       </div>
       <div class="form-group">
-        <vue-select
-          v-model="form.country"
-          label="name"
-          class="form-control bg-transparent mt-3"
-          placeholder="Select Country"
-          multiple
-          :clear-on-select="false"
-          :reduce="country => country.name"
-          :options="countries" />
+        <client-only>
+          <vue-select
+            v-model="form.country"
+            label="name"
+            class="form-control bg-transparent mt-3"
+            placeholder="Select Country"
+            multiple
+            :clear-on-select="false"
+            :reduce="country => country.name"
+            :options="countries"
+          />
+        </client-only>
         <div v-for="(error, i) of v$.country.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
@@ -49,11 +55,13 @@
           placeholder="Enter Founding Year"
           :class="{
             'is-invalid': v$.$dirty && v$.foundingYear.$invalid
-          }" />
+          }"
+        >
         <div v-for="(error, i) of v$.foundingYear.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
@@ -67,11 +75,13 @@
           placeholder="Enter Funding Amount"
           :class="{
             'is-invalid': v$.$dirty && v$.fundingAmount.$invalid
-          }" />
+          }"
+        >
         <div v-for="(error, i) of v$.fundingAmount.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
@@ -79,38 +89,46 @@
     </div>
     <div class="d-lg-flex">
       <div class="form-group">
-        <date-picker
-          v-model:value="form.shutdownDate"
-          format="YYYY-MM"
-          value-type="format"
-          aria-label="Shut Down Date"
-          placeholder="Enter Shut Down Date"
-          class="form-control bg-transparent me-3 mt-3 py-0"
-          :class="{
-            'is-invalid': v$.$dirty && v$.shutdownDate.$invalid
-          }" />
+        <client-only>
+          <date-picker
+            v-model:value="form.shutdownDate"
+            format="YYYY-MM"
+            value-type="format"
+            aria-label="Shut Down Date"
+            placeholder="Enter Shut Down Date"
+            class="form-control bg-transparent me-3 mt-3 py-0"
+            :class="{
+              'is-invalid': v$.$dirty && v$.shutdownDate.$invalid
+            }"
+          />
+        </client-only>
         <div v-for="(error, i) of v$.shutdownDate.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
       </div>
       <div class="form-group">
-        <vue-select
-          v-model="form.category"
-          label="name"
-          class="form-control bg-transparent mt-3"
-          placeholder="Select Category"
-          :clear-on-select="false"
-          :clearable="false"
-          :reduce="category => category.name"
-          :options="categories" />
+        <client-only>
+          <vue-select
+            v-model="form.category"
+            label="name"
+            class="form-control bg-transparent mt-3"
+            placeholder="Select Category"
+            :clear-on-select="false"
+            :clearable="false"
+            :reduce="category => category.name"
+            :options="categories"
+          />
+        </client-only>
         <div v-for="(error, i) of v$.category.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
@@ -126,11 +144,13 @@
           placeholder="Enter News Publication"
           :class="{
             'is-invalid': v$.$dirty && v$.newsPublication.$invalid
-          }" />
+          }"
+        >
         <div v-for="(error, i) of v$.newsPublication.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
         </div>
@@ -144,11 +164,13 @@
           placeholder="Enter News Publication Link"
           :class="{
             'is-invalid': v$.$dirty && v$.newsPublicationLink.$invalid
-          }" />
+          }"
+        >
         <div v-for="(error, i) of v$.newsPublicationLink.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2">
+            class="text-danger small mb-2"
+          >
             This field is required
           </p>
           <p v-if="error.$validator === 'url'" class="text-danger small mb-2">
@@ -168,11 +190,13 @@
         maxlength="160"
         :class="{
           'is-invalid': v$.$dirty && v$.description.$invalid
-        }"></textarea>
+        }"
+      />
       <div v-for="(error, i) of v$.description.$errors" :key="i">
         <p
           v-if="error.$validator === 'required'"
-          class="text-danger small mb-2">
+          class="text-danger small mb-2"
+        >
           This field is required
         </p>
       </div>
@@ -191,26 +215,22 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, url } from '@vuelidate/validators';
 import { collection, addDoc } from 'firebase/firestore';
-
-// components
-import DatePicker from 'vue-datepicker-next';
 
 // data
 import {
   countries as allCountries,
   categories as allCategories
-} from '@/assets/data';
+} from 'assets/data';
 
 // models
-import { Firestore } from 'firebase/firestore';
-import { ICountry, ICategory, Category, Country } from '@/models';
+import { type ICountry, type ICategory, Category, Country } from '@/models';
 
 // common
-const firestore: Firestore = inject('firestore') as Firestore;
+const { $firestore } = useNuxtApp();
 const countries: ICountry[] = allCountries.filter(
   country => country.name !== Country.All
 );
@@ -248,7 +268,7 @@ const errorMessage = ref<string>('');
 const v$ = useVuelidate(rules, form);
 
 // methods
-async function onSubmit(): Promise<void> {
+async function onSubmit (): Promise<void> {
   v$.value.$touch();
   if (v$.value.$invalid) {
     return;
@@ -258,7 +278,7 @@ async function onSubmit(): Promise<void> {
   errorMessage.value = '';
 
   try {
-    await addDoc(collection(firestore, 'pendingStartups'), {
+    await addDoc(collection($firestore, 'pendingStartups'), {
       ...form.value,
       shutdownDate: new Date(form.value.shutdownDate).toISOString()
     });

@@ -1,6 +1,8 @@
 <template>
   <footer class="container my-5">
-    <h2 class="h6 footer-text mx-auto pt-5">💀 startupgraveyard.africa</h2>
+    <h2 class="h6 footer-text mx-auto pt-5">
+      💀 startupgraveyard.africa
+    </h2>
     <p class="footer-text small mx-auto mt-3">
       <strong>Disclaimer: </strong>
       <span>
@@ -14,7 +16,8 @@
       <a
         data-bs-toggle="modal"
         data-bs-target="#startupFormModal"
-        class="text-decoration-underline">
+        class="text-decoration-underline"
+      >
         Make a submission.
       </a>
     </p>
@@ -24,7 +27,8 @@
         <a
           href="https://github.com/slightlynerd/startupgraveyard.africa"
           target="_blank"
-          class="text-decoration-underline">
+          class="text-decoration-underline"
+        >
           GitHub.
         </a>
       </p>
@@ -36,16 +40,20 @@
       class="modal fade"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Add startup to list</h5>
+            <h5 class="modal-title">
+              Add startup to list
+            </h5>
             <button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
-              aria-label="Close"></button>
+              aria-label="Close"
+            />
           </div>
           <div class="modal-body">
             <startup-form />
@@ -55,11 +63,6 @@
     </div>
   </footer>
 </template>
-
-<script lang="ts" setup>
-// components
-import StartupForm from '@/components/startup-form.vue';
-</script>
 
 <style lang="scss" scoped>
 p.footer-text,

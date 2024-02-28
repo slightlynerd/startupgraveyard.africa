@@ -6,26 +6,31 @@
         aria-label="Search"
         class="form-control bg-transparent me-3 mt-3"
         type="text"
-        placeholder="Search" />
+        placeholder="Search"
+      >
       <select
         v-model="mSelectedCategory"
         aria-label="Categories"
-        class="form-control bg-transparent mt-3 me-3">
+        class="form-control bg-transparent mt-3 me-3"
+      >
         <option
           v-for="(item, index) in categories"
           :key="index"
-          :value="item.name">
+          :value="item.name"
+        >
           {{ item.name }} ({{ item.count }})
         </option>
       </select>
       <select
         v-model="mSelectedCountry"
         aria-label="Countries"
-        class="form-control bg-transparent mt-3">
+        class="form-control bg-transparent mt-3"
+      >
         <option
           v-for="(item, index) in countries"
           :key="index"
-          :value="item.name">
+          :value="item.name"
+        >
           {{ item.name }} ({{ item.count }})
         </option>
       </select>
@@ -37,7 +42,7 @@
 import { defineProps, withDefaults, defineEmits, ref, watch } from 'vue';
 
 // models
-import { ICategory, Category, ICountry, Country } from '@/models';
+import { type ICategory, Category, type ICountry, Country } from '@/models';
 
 interface IProps {
   searchText: string;
@@ -55,6 +60,7 @@ const props = withDefaults(defineProps<IProps>(), {
 });
 
 // emits
+// eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
   (e: 'update:search-text', value: string): void;
   (e: 'update:selected-category', value: string): void;
