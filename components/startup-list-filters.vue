@@ -1,40 +1,39 @@
 <template>
-  <div id="listFilters" class="row align-items-center">
-    <div class="col-lg-6 col-md-8 mx-auto text-center">
-      <input
-        v-model="mSearchText"
-        aria-label="Search"
-        class="form-control bg-transparent me-3 mt-3"
-        type="text"
-        placeholder="Search"
-      >
-      <select
+  <div class="sticky-top">
+    <p class="small fw-bold mb-2">
+      FILTERS
+    </p>
+    <input
+      v-model="mSearchText"
+      aria-label="Search"
+      class="form-control me-3 mb-2"
+      type="text"
+      placeholder="Enter Startup Name"
+    >
+    <client-only>
+      <vue-select
         v-model="mSelectedCategory"
+        label="name"
         aria-label="Categories"
-        class="form-control bg-transparent mt-3 me-3"
-      >
-        <option
-          v-for="(item, index) in categories"
-          :key="index"
-          :value="item.name"
-        >
-          {{ item.name }} ({{ item.count }})
-        </option>
-      </select>
-      <select
+        class="form-control me-3 mb-2"
+        placeholder="Select Category"
+        :clearable="true"
+        :reduce="item => item.name"
+        :options="categories"
+      />
+    </client-only>
+    <client-only>
+      <vue-select
         v-model="mSelectedCountry"
+        label="name"
         aria-label="Countries"
-        class="form-control bg-transparent mt-3"
-      >
-        <option
-          v-for="(item, index) in countries"
-          :key="index"
-          :value="item.name"
-        >
-          {{ item.name }} ({{ item.count }})
-        </option>
-      </select>
-    </div>
+        class="form-control me-3 mb-2"
+        placeholder="Select Country"
+        :clearable="true"
+        :reduce="item => item.name"
+        :options="countries"
+      />
+    </client-only>
   </div>
 </template>
 
@@ -42,7 +41,7 @@
 import { defineProps, withDefaults, defineEmits, ref, watch } from 'vue';
 
 // models
-import { type ICategory, Category, type ICountry, Country } from '@/models';
+import { type ICategory, type ICountry } from '@/models';
 
 interface IProps {
   searchText: string;
@@ -55,8 +54,8 @@ interface IProps {
 // props
 const props = withDefaults(defineProps<IProps>(), {
   searchText: '',
-  selectedCategory: Category.All,
-  selectedCountry: Country.All
+  selectedCategory: '',
+  selectedCountry: ''
 });
 
 // emits
@@ -86,15 +85,3 @@ watch(
   }
 );
 </script>
-
-<style lang="scss" scoped>
-.form-control {
-  height: 2.5rem;
-}
-
-@media screen and (max-width: 400px) {
-  .form-control {
-    width: 100%;
-  }
-}
-</style>

@@ -1,59 +1,10 @@
 @import 'variables';
-$primary-color: $sg-primary-color;
 
 @import 'bootstrap/dist/css/bootstrap.css';
 @import 'vue-datepicker-next/scss/index.scss';
 @import 'vue-select';
-@import 'pagination';
+
+
 @import 'additional-styles';
-
-html, body {
-  padding: 0;
-  margin: 0;
-  font-family: $sg-font-family;
-  font-size: 16px;
-  background-color: $sg-body-bg;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  margin-bottom: 0;
-  font-weight: 700;
-}
-
-p {
-  margin: 0;
-  margin-bottom: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.form-control {
-  display: inline-block;
-  width: auto;
-
-  &:focus {
-    outline: none;
-    border-color: $sg-border-color;
-    box-shadow: none;
-  }
-
-  &::placeholder {
-    color: $sg-placeholder-color;
-    font-size: 0.875rem;
-  }
-}
-
-.btn {
-  background-color: $sg-primary-color;
-  color: $sg-secondary-color;
-  min-width: 10rem;
-
-  &:hover {
-    background-color: darken($sg-primary-color, 10%);
-    color: $sg-secondary-color;
-  }
-}
+@import 'form';
+@import 'pagination';

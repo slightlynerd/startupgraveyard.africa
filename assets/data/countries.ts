@@ -1,11 +1,7 @@
 import { startups } from './startups';
-import { Country, ICountry } from '@/models';
+import { Country, type ICountry } from '@/models';
 
 export const countries: ICountry[] = [
-  {
-    name: Country.All,
-    count: startups.length
-  },
   {
     name: Country.Nigeria,
     count:

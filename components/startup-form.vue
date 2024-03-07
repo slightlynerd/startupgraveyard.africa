@@ -16,7 +16,7 @@
         <div v-for="(error, i) of v$.startupName.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -38,7 +38,7 @@
         <div v-for="(error, i) of v$.country.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -60,7 +60,7 @@
         <div v-for="(error, i) of v$.foundingYear.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -80,7 +80,7 @@
         <div v-for="(error, i) of v$.fundingAmount.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -105,7 +105,7 @@
         <div v-for="(error, i) of v$.shutdownDate.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -127,7 +127,7 @@
         <div v-for="(error, i) of v$.category.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -149,7 +149,7 @@
         <div v-for="(error, i) of v$.newsPublication.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
@@ -169,11 +169,11 @@
         <div v-for="(error, i) of v$.newsPublicationLink.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
-            class="text-danger small mb-2"
+            class="text-danger mb-2"
           >
             This field is required
           </p>
-          <p v-if="error.$validator === 'url'" class="text-danger small mb-2">
+          <p v-if="error.$validator === 'url'" class="text-danger mb-2">
             Please enter a valid URL.
           </p>
         </div>
@@ -195,7 +195,7 @@
       <div v-for="(error, i) of v$.description.$errors" :key="i">
         <p
           v-if="error.$validator === 'required'"
-          class="text-danger small mb-2"
+          class="text-danger mb-2"
         >
           This field is required
         </p>
