@@ -1,38 +1,41 @@
 <template>
-  <main class="container my-5">
-    <h1 class="text-center h1">
-      💀 startupgraveyard.africa
-    </h1>
-    <p class="lead text-center mt-3">
-      A catalogue of startups operating in Africa that have shut down.
+  <app-header />
+  <main class="container mb-5">
+    <p class="note mb-2">
+      A catalogue of startups that operated on the African continent which have shut down their services. This website serves as a graveyard for these fallen ventures, documenting their shortcomings so future entrepreneurs can avoid the same pitfalls and build even greater successes.
     </p>
 
-    <startup-list-filters
-      :categories="categories"
-      :countries="countries"
-      :search-text="searchText"
-      :selected-category="selectedCategory"
-      :selected-country="selectedCountry"
-      @update:search-text="updateSearchText"
-      @update:selected-country="updateSelectedCountry"
-      @update:selected-category="updateSelectedCategory"
-    />
+    <make-submission class="mb-3" />
 
-    <section>
-      <div class="row">
-        <template v-if="computedStartups.length > 0">
-          <startup-list :list="computedStartups" />
-        </template>
-        <template v-else>
-          <no-search-results />
-        </template>
+    <div class="row">
+      <div class="col-lg-2 col-md-3 col-12 mt-3">
+        <startup-list-filters
+          :categories="categories"
+          :countries="countries"
+          :search-text="searchText"
+          :selected-category="selectedCategory"
+          :selected-country="selectedCountry"
+          @update:search-text="updateSearchText"
+          @update:selected-country="updateSelectedCountry"
+          @update:selected-category="updateSelectedCategory"
+        />
       </div>
+      <div class="col-lg-10 col-md-9 col-12 mt-3">
+        <section>
+          <template v-if="computedStartups.length > 0">
+            <startup-list :list="computedStartups" :total="startups.length" />
+          </template>
+          <template v-else>
+            <no-search-results />
+          </template>
 
-      <app-pagination
-        :page-count="pageCount"
-        @page-changed="onPaginationChanged"
-      />
-    </section>
+          <app-pagination
+            :page-count="pageCount"
+            @page-changed="onPaginationChanged"
+          />
+        </section>
+      </div>
+    </div>
   </main>
   <app-footer />
 </template>
@@ -75,8 +78,8 @@ const countries: Models.ICountry[] = allCountries.filter(
 
 // refs
 const searchText = ref<string>('');
-const selectedCategory = ref<Models.Category>(Models.Category.All);
-const selectedCountry = ref<Models.Country>(Models.Country.All);
+const selectedCategory = ref<Models.Category>();
+const selectedCountry = ref<Models.Country>();
 const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
 const page = ref<number>(Models.DEFAULT_PAGE);
 
@@ -90,12 +93,12 @@ const computedStartups = computed(() =>
         item.name.toLowerCase().includes(searchText.value.toLowerCase());
 
       const categoryMatch =
-        selectedCategory.value === Models.Category.All ||
+        !selectedCategory.value ||
         item.category === selectedCategory.value;
 
       const countryMatch =
         selectedCountry.value === Models.Country.All ||
-        item.location.includes(selectedCountry.value);
+        item.location.includes(selectedCountry.value || '');
 
       return textMatch && categoryMatch && countryMatch;
     })
@@ -117,14 +120,18 @@ function updateSelectedCountry (value: Models.Country): void {
 
 function onPaginationChanged (currentPage: number): void {
   page.value = currentPage;
-  document.getElementById('listFilters')?.scrollIntoView();
+  document.getElementById('totalStartups')?.scrollIntoView();
 }
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 400px) {
-  .lead {
-    font-size: 1rem;
+.note {
+  max-width: 75%;
+}
+
+@media (max-width: 768px) {
+  .note {
+    max-width: 100%;
   }
 }
 </style>

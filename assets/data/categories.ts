@@ -1,8 +1,7 @@
 import { startups } from './startups';
-import { Category, ICategory } from '@/models';
+import { Category, type ICategory } from '@/models';
 
 export const categories: ICategory[] = [
-  { name: Category.All, count: startups.length },
   {
     name: Category.Fintech,
     count:

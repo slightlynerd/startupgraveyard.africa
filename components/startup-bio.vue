@@ -1,35 +1,36 @@
 <template>
-  <div class="startup-card shadow px-3 py-4">
+  <div class="startup-card px-3 py-4">
     <a target="_blank" :href="startup.newsSource">
-      <h2 class="h4">{{ startup.name }}</h2>
+      <h2 class="h6">{{ startup.name }}</h2>
     </a>
-    <p class="text-muted mb-1">
-      {{ startup.location }}
-    </p>
-    <div class="row align-items-center justify-content-between">
-      <div class="col">
-        <p class="shutdown text-muted small">
-          ❌ {{ startup.shutdownDate }}
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="col mt-2">
+        <p class="shutdown text-muted">
+          Shutdown: <span class="text-danger">{{ startup.shutdownDate }}</span>
         </p>
       </div>
-      <div class="col">
-        <p class="text-muted text-end small">
-          raised: <span class="text-success">{{ startup.raised }}</span>
+      <div class="col mt-2">
+        <p class="text-muted text-end">
+          Raised: <span class="text-success">{{ startup.raised }}</span>
         </p>
       </div>
     </div>
-    <p class="description mt-2">
-      Founded in {{ startup.founded }}.
-      {{ startup.description }}
-    </p>
-    <p class="text-muted small mt-3">
-      Source:
+    <div class="description mt-2">
+      <p>
+        Founded in {{ startup.founded }}.
+        {{ startup.description }}
+      </p>
+      <p class="text-muted  mt-2">
+        Countries: {{ startup.location }}
+      </p>
+    </div>
+    <p class="d-flex justify-content-end mt-3">
       <a
-        class="text-decoration-underline"
+        class="btn d-inline-block"
         target="_blank"
         :href="startup.newsSource"
       >
-        {{ startup.publication }}
+        READ MORE
       </a>
     </p>
   </div>
@@ -51,8 +52,7 @@ defineProps<{
 @import '@/assets/styles/variables.scss';
 
 .startup-card {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
+  background-color: $sg-secondary-color;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
@@ -61,20 +61,12 @@ defineProps<{
     transform: translateY(-5px);
   }
 
-  .h4 {
+  .h6 {
     display: inline-block;
-    border-bottom: 1px solid;
   }
 
   .description {
     min-height: 7.5rem;
-  }
-
-  .shutdown {
-    background: $sg-shutdown;
-    width: fit-content;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
   }
 }
 </style>
