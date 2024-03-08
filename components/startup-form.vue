@@ -215,10 +215,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, url } from '@vuelidate/validators';
 import { collection, addDoc } from 'firebase/firestore';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 
 // data
 import {
@@ -267,6 +268,12 @@ const errorMessage = ref<string>('');
 
 const v$ = useVuelidate(rules, form);
 
+// lifecycle hooks
+onMounted(() => {
+  const analytics = getAnalytics();
+  logEvent(analytics, 'startup_form_viewed');
+});
+
 // methods
 async function onSubmit (): Promise<void> {
   v$.value.$touch();
@@ -295,6 +302,8 @@ async function onSubmit (): Promise<void> {
       description: ''
     };
     v$.value.$reset();
+    const analytics = getAnalytics();
+    logEvent(analytics, 'startup_form_submitted');
   } catch (e) {
     errorMessage.value = (e as Error).message;
   } finally {
