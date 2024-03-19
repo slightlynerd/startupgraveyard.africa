@@ -1,7 +1,8 @@
 <template>
-  <app-shell />
+  <NuxtLayout>
+    <app-shell />
+  </NuxtLayout>
 </template>
 
-<style lang="scss">
-@import '~/assets/styles/main.scss';
-</style>
+<script lang="ts" setup>
+</script>

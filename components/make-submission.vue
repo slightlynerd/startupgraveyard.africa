@@ -5,7 +5,7 @@
       <a
         data-bs-toggle="modal"
         data-bs-target="#startupFormModal"
-        class="text-decoration-underline"
+        class="text-decoration-underline cursor-pointer"
       >
         Make a submission.
       </a>
@@ -46,5 +46,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>
