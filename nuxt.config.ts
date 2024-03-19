@@ -101,17 +101,16 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/bootstrap.client',
     '~/plugins/date-picker.client',
-    '~/plugins/firebase.client',
+    '~/plugins/firebase',
     '~/plugins/vue-select.client'
   ],
-  modules: [
-    '@nuxtjs/sitemap'
-  ],
+  modules: ['@nuxtjs/sitemap', '@pinia/nuxt'],
   sitemap: {
     hostname: 'https://startupgraveyard.africa',
     gzip: true,
     routes: [
-      '/'
+      '/',
+      '/blog'
     ]
   }
 });

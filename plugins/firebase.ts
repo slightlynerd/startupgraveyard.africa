@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 
-import { firebaseConfig } from '~/services';
+import { firebaseConfig } from '~/models';
 
 export default defineNuxtPlugin(() => {
   const firebase = initializeApp(firebaseConfig);
