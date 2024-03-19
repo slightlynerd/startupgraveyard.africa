@@ -23,66 +23,25 @@
         </div>
       </div>
       <div class="form-group">
-        <client-only>
-          <vue-select
-            v-model="form.country"
-            label="name"
-            class="form-control bg-transparent mt-3"
-            placeholder="Select Country"
-            multiple
-            :clear-on-select="false"
-            :reduce="country => country.name"
-            :options="countries"
-          />
-        </client-only>
-        <div v-for="(error, i) of v$.country.$errors" :key="i">
-          <p
-            v-if="error.$validator === 'required'"
-            class="text-danger mb-2"
-          >
-            This field is required
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="d-lg-flex">
-      <div class="form-group">
         <input
-          v-model="form.foundingYear"
-          aria-label="Founding Year"
-          class="form-control bg-transparent me-3 mt-3"
-          type="text"
-          placeholder="Enter Founding Year"
-          :class="{
-            'is-invalid': v$.$dirty && v$.foundingYear.$invalid
-          }"
-        >
-        <div v-for="(error, i) of v$.foundingYear.$errors" :key="i">
-          <p
-            v-if="error.$validator === 'required'"
-            class="text-danger mb-2"
-          >
-            This field is required
-          </p>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          v-model="form.fundingAmount"
-          aria-label="Funding Amount"
+          v-model="form.newsPublicationLink"
+          aria-label="News Publication Link"
           class="form-control bg-transparent mt-3"
           type="text"
-          placeholder="Enter Funding Amount"
+          placeholder="Enter News Publication Link"
           :class="{
-            'is-invalid': v$.$dirty && v$.fundingAmount.$invalid
+            'is-invalid': v$.$dirty && v$.newsPublicationLink.$invalid
           }"
         >
-        <div v-for="(error, i) of v$.fundingAmount.$errors" :key="i">
+        <div v-for="(error, i) of v$.newsPublicationLink.$errors" :key="i">
           <p
             v-if="error.$validator === 'required'"
             class="text-danger mb-2"
           >
             This field is required
+          </p>
+          <p v-if="error.$validator === 'url'" class="text-danger mb-2">
+            Please enter a valid URL.
           </p>
         </div>
       </div>
@@ -134,73 +93,6 @@
         </div>
       </div>
     </div>
-    <div class="d-lg-flex">
-      <div class="form-group">
-        <input
-          v-model="form.newsPublication"
-          aria-label="News Publication"
-          class="form-control bg-transparent me-3 mt-3"
-          type="text"
-          placeholder="Enter News Publication"
-          :class="{
-            'is-invalid': v$.$dirty && v$.newsPublication.$invalid
-          }"
-        >
-        <div v-for="(error, i) of v$.newsPublication.$errors" :key="i">
-          <p
-            v-if="error.$validator === 'required'"
-            class="text-danger mb-2"
-          >
-            This field is required
-          </p>
-        </div>
-      </div>
-      <div class="form-group">
-        <input
-          v-model="form.newsPublicationLink"
-          aria-label="News Publication Link"
-          class="form-control bg-transparent mt-3"
-          type="text"
-          placeholder="Enter News Publication Link"
-          :class="{
-            'is-invalid': v$.$dirty && v$.newsPublicationLink.$invalid
-          }"
-        >
-        <div v-for="(error, i) of v$.newsPublicationLink.$errors" :key="i">
-          <p
-            v-if="error.$validator === 'required'"
-            class="text-danger mb-2"
-          >
-            This field is required
-          </p>
-          <p v-if="error.$validator === 'url'" class="text-danger mb-2">
-            Please enter a valid URL.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <textarea
-        v-model="form.description"
-        aria-label="Startup Description"
-        class="form-control bg-transparent mt-3"
-        placeholder="Enter Short Description of Startup"
-        cols="30"
-        rows="5"
-        maxlength="160"
-        :class="{
-          'is-invalid': v$.$dirty && v$.description.$invalid
-        }"
-      />
-      <div v-for="(error, i) of v$.description.$errors" :key="i">
-        <p
-          v-if="error.$validator === 'required'"
-          class="text-danger mb-2"
-        >
-          This field is required
-        </p>
-      </div>
-    </div>
     <button type="submit" class="btn mt-3" :disabled="isProcessing">
       Submit
     </button>
@@ -223,44 +115,30 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 
 // data
 import {
-  countries as allCountries,
   categories as allCategories
 } from 'assets/data';
 
 // models
-import { type ICountry, type ICategory, Category, Country } from '@/models';
+import { type ICategory, Category } from '@/models';
 
 // common
 const { $firestore } = useNuxtApp();
-const countries: ICountry[] = allCountries.filter(
-  country => country.name !== Country.All
-);
 const categories: ICategory[] = allCategories.filter(
   category => category.name !== Category.All
 );
 const rules = {
   startupName: { required },
-  country: { required },
-  foundingYear: { required },
-  fundingAmount: { required },
   shutdownDate: { required },
   category: { required },
-  newsPublication: { required },
-  newsPublicationLink: { required, url },
-  description: { required }
+  newsPublicationLink: { required, url }
 };
 
 // refs
 const form = ref({
   startupName: '',
-  country: '',
-  foundingYear: '',
-  fundingAmount: '',
   shutdownDate: '',
   category: '',
-  newsPublication: '',
-  newsPublicationLink: '',
-  description: ''
+  newsPublicationLink: ''
 });
 const isFormSubmitted = ref<boolean>(false);
 const isProcessing = ref<boolean>(false);
@@ -292,14 +170,9 @@ async function onSubmit (): Promise<void> {
     isFormSubmitted.value = true;
     form.value = {
       startupName: '',
-      country: '',
-      foundingYear: '',
-      fundingAmount: '',
       shutdownDate: '',
       category: '',
-      newsPublication: '',
-      newsPublicationLink: '',
-      description: ''
+      newsPublicationLink: ''
     };
     v$.value.$reset();
     const analytics = getAnalytics();
