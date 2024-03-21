@@ -12,9 +12,10 @@
 
 <script lang="ts" setup>
 import { collection, query, limit, getDocs } from 'firebase/firestore';
+import sanitizeHtml from 'sanitize-html';
 
 // models
-import { FirestoreCollections, type IBlog } from '~/models';
+import { FirestoreCollection, type IBlog } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -25,7 +26,7 @@ const recentBlogPosts = ref<IBlog[]>([]);
 
 // lifecycle hooks
 onMounted(async () => {
-  const q = query(collection($firestore, FirestoreCollections.Blog), limit(12));
+  const q = query(collection($firestore, FirestoreCollection.Blog), limit(12));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     if (doc.data()) {
@@ -33,12 +34,18 @@ onMounted(async () => {
       if (featuredPost.value === undefined) {
         featuredPost.value = {
           ...blog,
-          id: doc.id
+          id: doc.id,
+          bodyContent: sanitizeHtml(blog.bodyContent, {
+            allowedTags: []
+          })
         };
       } else {
         recentBlogPosts.value.push({
           ...blog,
-          id: doc.id
+          id: doc.id,
+          bodyContent: sanitizeHtml(blog.bodyContent, {
+            allowedTags: []
+          })
         });
       }
     }

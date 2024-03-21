@@ -5,9 +5,7 @@
       <h3>
         {{ blog?.title }}
       </h3>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum deserunt a ut.
-      </p>
+      <p v-html="truncateText(blog?.bodyContent, recentPostTruncateLength)" />
       <router-link
         class="btn d-inline-block mt-4"
         :to="blog?.id ? `/blog/${blog.id}` : '/blog'"
@@ -20,11 +18,18 @@
 
 <script lang="ts" setup>
 // models
-import type { IBlog } from '~/models';
+import { type IBlog, RECENT_POST_TRUNCATE_LENGTH } from '~/models';
 
+// utils
+import { truncateText } from '~/utils';
+
+// props
 defineProps<{
   blog?: IBlog;
 }>();
+
+// constants
+const recentPostTruncateLength = RECENT_POST_TRUNCATE_LENGTH;
 </script>
 
 <style lang="scss" scoped>

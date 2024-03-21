@@ -3,21 +3,21 @@
     <img src="/graveyard.jpeg" alt="graveyard" class="blog-image">
     <div ref="blogContentRef" class="blog-content">
       <h1 class="mb-3">
-        {{ blogData?.title }}
+        {{ blogDetails?.title }}
       </h1>
       <p class="small mb-0">
-        Written By: <span class="text-muted">{{ blogData?.author }}</span>
+        Written By: <span class="text-muted">{{ blogDetails?.author }}</span>
       </p>
       <p class="small mb-3">
-        <time datetime="2022-03-01">
-          Published on: <span class="text-muted">March 1, 2022</span>
+        <time :datetime="datetime">
+          Published on: <span class="text-muted">{{ blogDetails?.createdAt }}</span>
         </time>
       </p>
-      <div v-html="blogData?.bodyContent" />
+      <div v-html="sanitizeHtmlContent(blogDetails?.bodyContent)" />
       <h6 class="mt-5">
         Share this article
       </h6>
-      <share-blog :blog-date="blogData" />
+      <share-blog :blog-date="blogDetails" />
     </div>
   </article>
 </template>
@@ -26,9 +26,10 @@
 import { useRoute } from 'vue-router';
 import { doc, getDoc } from 'firebase/firestore';
 import { format } from 'date-fns';
+import sanitizeHtml from 'sanitize-html';
 
 // models
-import { FirestoreCollections, type IBlog } from '~/models';
+import { FirestoreCollection, SANITIZE_HTML_OPTIONS, type IBlog } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -36,19 +37,26 @@ const route = useRoute();
 
 // refs
 const blogContentRef = ref<HTMLElement | undefined>();
-const blogData = ref<IBlog | undefined>();
+const blogDetails = ref<IBlog | undefined>();
 const blogContentHeight = ref<number | undefined>(blogContentRef.value?.offsetHeight);
+const datetime = ref<string>();
+
+// methods
+function sanitizeHtmlContent (content?: string): string {
+  return content ? sanitizeHtml(content, SANITIZE_HTML_OPTIONS) : '';
+}
 
 // lifecycle hooks
 onMounted(async () => {
   // fetch article
-  const articleRef = doc($firestore, FirestoreCollections.Blog, route.params.id.toString());
+  const articleRef = doc($firestore, FirestoreCollection.Blog, route.params.id.toString());
   const articleSnap = await getDoc(articleRef);
   if (articleSnap.exists()) {
-    blogData.value = {
+    blogDetails.value = {
       ...articleSnap.data(),
       createdAt: format(new Date(articleSnap.data()?.createdAt.toDate()), 'MMMM d, yyyy')
     } as IBlog;
+    datetime.value = new Date(articleSnap.data()?.createdAt.toDate()).toISOString();
   }
   nextTick(() => {
     blogContentHeight.value = blogContentRef.value?.offsetHeight;
