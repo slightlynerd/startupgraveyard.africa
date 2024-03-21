@@ -1,68 +1,58 @@
 <template>
   <article :style="{ marginBottom: `${blogContentHeight}px` }">
     <img src="/graveyard.jpeg" alt="graveyard" class="blog-image">
-    <div ref="blogContent" class="blog-content">
+    <div ref="blogContentRef" class="blog-content">
       <h1 class="mb-3">
-        How Startups Can Succeed
+        {{ blogData?.title }}
       </h1>
       <p class="small mb-0">
-        Written By: <span class="text-muted">Kelvin Gobo</span>
+        Written By: <span class="text-muted">{{ blogData?.author }}</span>
       </p>
       <p class="small mb-3">
         <time datetime="2022-03-01">
           Published on: <span class="text-muted">March 1, 2022</span>
         </time>
       </p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eius porro rem dolorem, minima temporibus placeat, neque facere, debitis itaque dolores delectus reprehenderit fuga. Pariatur voluptas quisquam magni reprehenderit ut?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique est beatae ducimus porro assumenda cumque aperiam ratione deleniti vel earum, odio veniam dolorum sunt voluptate illo vitae nemo? Neque, ullam?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores, incidunt dicta odit, quos, at neque facere libero voluptas eos tenetur reprehenderit sapiente impedit voluptatum excepturi quaerat eveniet natus itaque modi.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus eius porro rem dolorem, minima temporibus placeat, neque facere, debitis itaque dolores delectus reprehenderit fuga. Pariatur voluptas quisquam magni reprehenderit ut?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique est beatae ducimus porro assumenda cumque aperiam ratione deleniti vel earum, odio veniam dolorum sunt voluptate illo vitae nemo? Neque, ullam?</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Asperiores, incidunt dicta odit, quos, at neque facere libero voluptas eos tenetur reprehenderit sapiente impedit voluptatum excepturi quaerat eveniet natus itaque modi.</p>
-
+      <div v-html="blogData?.bodyContent" />
       <h6 class="mt-5">
         Share this article
       </h6>
-      <div class="d-flex align-items-center">
-        <a
-          class="twitter-share-button"
-          href="https://twitter.com/intent/tweet?text=%22How Startups Can Succeed%22%20by%20@slightlynerd"
-        >
-          Tweet
-        </a>
-        <iframe
-          :src="`https://www.facebook.com/plugins/share_button.php?href=${pageUrl}&layout=button&size=small&mobile_iframe=true&appId=821862128151423&width=59&height=20`"
-          class="ms-2"
-          width="60"
-          height="20"
-          style="border:none;overflow:hidden"
-          scrolling="no"
-          frameborder="0"
-          allowTransparency="true"
-          allow="encrypted-media"
-        />
-        <a :href="`https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=How Startups Can Succeed&summary=startupgraveyard.africa&source=Startup Graveyard`" class="ms-2" onclick="window.open(this.href, 'mywin', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
-          <img src="@/assets/images/linkedin-share.webp" alt="linkedIn share button" width="60">
-        </a>
-      </div>
+      <share-blog />
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
-// refs
-const pageUrl = ref<string>('');
-const blogContent = ref<HTMLElement | null>(null);
+import { useRoute } from 'vue-router';
+import { doc, getDoc } from 'firebase/firestore';
+import { format } from 'date-fns';
 
-// computed
-const blogContentHeight = computed(() => blogContent.value?.offsetHeight);
+// models
+import type { IBlog } from '~/models';
+
+// common
+const { $firestore } = useNuxtApp();
+const route = useRoute();
+
+// refs
+const blogContentRef = ref<HTMLElement | undefined>();
+const blogData = ref<IBlog | undefined>();
+const blogContentHeight = ref<number | undefined>(blogContentRef.value?.offsetHeight);
 
 // lifecycle hooks
-onMounted(() => {
-  pageUrl.value = `https://startupgraveyard.africa${window.location.pathname}`;
-  const script = document.createElement('script');
-  script.src = 'https://platform.twitter.com/widgets.js';
-  document.head.appendChild(script);
+onMounted(async () => {
+  // fetch article
+  const articleRef = doc($firestore, 'blog', route.params.id.toString());
+  const articleSnap = await getDoc(articleRef);
+  if (articleSnap.exists()) {
+    blogData.value = {
+      ...articleSnap.data(),
+      createdAt: format(new Date(articleSnap.data()?.createdAt.toDate()), 'MMMM d, yyyy')
+    } as IBlog;
+  }
+  nextTick(() => {
+    blogContentHeight.value = blogContentRef.value?.offsetHeight;
+  });
 });
 </script>
 
@@ -93,8 +83,14 @@ article {
       margin-left: 0;
     }
 
-    p {
+    p, img {
       margin-bottom: 1rem;
+    }
+
+    :deep(img) {
+      max-width: 100%;
+      max-height: 24rem;
+      object-fit: contain;
     }
   }
 }
