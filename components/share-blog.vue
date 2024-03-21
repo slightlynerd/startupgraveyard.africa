@@ -26,6 +26,13 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
+// models
+import type { IBlog } from '@/models';
+
+defineProps<{
+  blogData?: IBlog;
+}>();
+
 // common
 const route = useRoute();
 
@@ -35,9 +42,14 @@ const pageUrl = ref<string>('');
 // lifecycle hooks
 onMounted(() => {
   pageUrl.value = `https://startupgraveyard.africa/blog/${route.params.id}`;
-  const script = document.createElement('script');
-  script.src = 'https://platform.twitter.com/widgets.js';
-  document.head.appendChild(script);
+});
+
+useHead({
+  // title: blogData?.title,
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ],
+  script: [{ src: 'https://platform.twitter.com/widgets.js' }]
 });
 </script>
 

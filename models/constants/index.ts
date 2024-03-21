@@ -1,2 +1,2 @@
-export * from './firebase';
+export * from './firebase-config';
 export * from './pagination';
