@@ -1,4 +1,4 @@
-export enum FirestoreCollections {
+export enum FirestoreCollection {
   Blog = 'blog',
   Configuration = 'configuration',
 }

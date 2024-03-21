@@ -46,6 +46,7 @@
         "modifiers": ["const"],
         "format": ["UPPER_CASE", "PascalCase", "camelCase"]
       }
-    ]
+    ],
+    "vue/no-v-html": "off"
   }
 }

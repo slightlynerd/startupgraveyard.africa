@@ -1,3 +1,3 @@
 export * from './category.enum';
-export * from './countries.enum';
-export * from './firestore-collections.enum';
+export * from './country.enum';
+export * from './firestore-collection.enum';
