@@ -17,7 +17,7 @@
       <h6 class="mt-5">
         Share this article
       </h6>
-      <share-blog />
+      <share-blog :blog-date="blogData" />
     </div>
   </article>
 </template>
@@ -28,7 +28,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { format } from 'date-fns';
 
 // models
-import type { IBlog } from '~/models';
+import { FirestoreCollections, type IBlog } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -42,7 +42,7 @@ const blogContentHeight = ref<number | undefined>(blogContentRef.value?.offsetHe
 // lifecycle hooks
 onMounted(async () => {
   // fetch article
-  const articleRef = doc($firestore, 'blog', route.params.id.toString());
+  const articleRef = doc($firestore, FirestoreCollections.Blog, route.params.id.toString());
   const articleSnap = await getDoc(articleRef);
   if (articleSnap.exists()) {
     blogData.value = {

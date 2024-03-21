@@ -6,12 +6,12 @@
     <div class="col-12 col-lg-8 p-4">
       <div class="featured-info">
         <h2 class="h1">
-          MyCase, Transforming Startup Practice
+          {{ blog?.title }}
         </h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore veniam vel ut pariatur eos earum modi nulla unde rerum! Tempora illum distinctio aspernatur repellat voluptate at dolorem inventore iusto quam.</p>
         <router-link
           class="btn d-inline-block mt-4"
-          to="/blog/1"
+          :to="blog?.id ? `/blog/${blog.id}` : '/blog'"
         >
           READ MORE
         </router-link>
@@ -20,8 +20,13 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+// models
+import type { IBlog } from '~/models';
 
+defineProps<{
+  blog?: IBlog;
+}>();
 </script>
 
 <style lang="scss" scoped>
