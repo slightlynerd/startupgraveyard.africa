@@ -1,7 +1,7 @@
 <template>
   <div class="mb-5">
     <p class="note mb-2">
-      A catalogue of startups that operated on the African continent which have shut down their services. This website serves as a graveyard for these fallen ventures, documenting their shortcomings so future entrepreneurs can avoid the same pitfalls and build even greater successes.
+      A catalogue of African startups that have shut down their services. This website serves as a graveyard for these fallen ventures, documenting their shortcomings so future entrepreneurs can avoid the same pitfalls and build even greater successes.
     </p>
 
     <make-submission class="mb-3" />
@@ -39,7 +39,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, defineEmits } from 'vue';
 import { format } from 'date-fns';
 
 // data

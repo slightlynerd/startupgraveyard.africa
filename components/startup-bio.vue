@@ -37,8 +37,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-
 // models
 import { type IStartup } from '~/models';
 

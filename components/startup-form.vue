@@ -107,7 +107,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, url } from '@vuelidate/validators';
 import { collection, addDoc } from 'firebase/firestore';

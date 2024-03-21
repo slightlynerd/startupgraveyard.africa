@@ -18,7 +18,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, defineEmits } from 'vue';
 import Paginate from 'vuejs-paginate-next';
 
 // models

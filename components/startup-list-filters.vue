@@ -38,8 +38,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, withDefaults, defineEmits, ref, watch } from 'vue';
-
 // models
 import { type ICategory, type ICountry } from '@/models';
 
