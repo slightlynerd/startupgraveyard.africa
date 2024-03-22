@@ -44,7 +44,3 @@ onMounted(() => {
   pageUrl.value = `https://startupgraveyard.africa/blog/${route.params.id}`;
 });
 </script>
-
-<style scoped>
-
-</style>
