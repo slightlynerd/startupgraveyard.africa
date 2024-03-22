@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
-    <app-shell />
+    <home-content />
   </NuxtLayout>
 </template>
 
