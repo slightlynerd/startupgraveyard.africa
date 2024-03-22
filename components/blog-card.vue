@@ -32,7 +32,3 @@ defineProps<{
 // constants
 const recentPostTruncateLength = RECENT_POST_TRUNCATE_LENGTH;
 </script>
-
-<style lang="scss" scoped>
-
-</style>

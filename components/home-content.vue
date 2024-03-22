@@ -96,6 +96,7 @@ const categories: Models.ICategory[] = allCategories.filter(
 const countries: Models.ICountry[] = allCountries.filter(
   item => item.count > 0
 );
+const MIN_BLOG_POSTS = 3;
 
 // refs
 const searchText = ref<string>('');
@@ -155,7 +156,7 @@ onMounted(async () => {
   const q = query(
     collection($firestore, Models.FirestoreCollection.Blog),
     orderBy('createdAt', 'desc'),
-    limit(2)
+    limit(MIN_BLOG_POSTS)
   );
   const querySnapshot = await getDocs(q);
   recentBlogPosts.value = [];
