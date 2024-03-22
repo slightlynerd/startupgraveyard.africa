@@ -1,7 +1,7 @@
 <template>
   <article :style="{ marginBottom: `${blogContentHeight}px` }">
     <img src="/graveyard.jpeg" alt="graveyard" class="blog-image">
-    <div ref="blogContentRef" class="blog-content">
+    <div ref="blogContentRef" class="blog-container">
       <h1 class="mb-3">
         {{ blogDetails?.title }}
       </h1>
@@ -13,7 +13,7 @@
           Published on: <span class="text-muted">{{ blogDetails?.createdAt }}</span>
         </time>
       </p>
-      <div v-html="sanitizeHtmlContent(blogDetails?.bodyContent)" />
+      <div class="content" v-html="sanitizeHtmlContent(blogDetails?.bodyContent)" />
       <h6 class="mt-5">
         Share this article
       </h6>
@@ -64,15 +64,15 @@ onMounted(async () => {
       } as IBlog;
       datetime.value = new Date(articleSnap.data()?.createdAt.toDate()).toISOString();
     }
+    nextTick(() => {
+      // TODO: add styles to fix footer to bottom of article to replace workaround
+      blogContentHeight.value = blogContentRef.value?.offsetHeight;
+    });
   } catch (error) {
     // TODO: handle error
   } finally {
     blogStore.setLoading(false);
   }
-
-  nextTick(() => {
-    blogContentHeight.value = blogContentRef.value?.offsetHeight;
-  });
 });
 </script>
 
@@ -88,7 +88,7 @@ article {
     object-fit: cover;
   }
 
-  .blog-content {
+  .blog-container {
     position: absolute;
     top: 20rem;
     max-width: 60%;
@@ -103,14 +103,16 @@ article {
       margin-left: 0;
     }
 
-    p, img {
-      margin-bottom: 1rem;
-    }
+    .content {
+      p, img {
+        margin-bottom: 1rem;
+      }
 
-    :deep(img) {
-      max-width: 100%;
-      max-height: 24rem;
-      object-fit: contain;
+      :deep(img) {
+        max-width: 100%;
+        height: 24rem;
+        object-fit: contain;
+      }
     }
   }
 }
