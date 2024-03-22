@@ -2,15 +2,15 @@
   <div class="card border-0 shadow-0">
     <img src="/graveyard.jpeg" alt="graveyard">
     <div class="p-4">
-      <h3>
+      <h3 class="h5">
         {{ blog?.title }}
       </h3>
-      <p v-html="truncateText(blog?.bodyContent, recentPostTruncateLength)" />
+      <p v-if="!hideDescription" v-html="truncateText(blog?.bodyContent, recentPostTruncateLength)" />
       <router-link
-        class="btn d-inline-block mt-4"
+        class="btn d-inline-block mt-4 text-uppercase"
         :to="blog?.id ? `/blog/${blog.id}` : '/blog'"
       >
-        READ MORE
+        Read More
       </router-link>
     </div>
   </div>
@@ -26,6 +26,7 @@ import { truncateText } from '~/utils';
 // props
 defineProps<{
   blog?: IBlog;
+  hideDescription?: boolean;
 }>();
 
 // constants

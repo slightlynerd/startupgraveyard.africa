@@ -28,12 +28,16 @@ import { doc, getDoc } from 'firebase/firestore';
 import { format } from 'date-fns';
 import sanitizeHtml from 'sanitize-html';
 
+// stores
+import { useBlogStore } from '~/stores/blog';
+
 // models
 import { FirestoreCollection, SANITIZE_HTML_OPTIONS, type IBlog } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
 const route = useRoute();
+const blogStore = useBlogStore();
 
 // refs
 const blogContentRef = ref<HTMLElement | undefined>();
@@ -50,14 +54,22 @@ function sanitizeHtmlContent (content?: string): string {
 onMounted(async () => {
   // fetch article
   const articleRef = doc($firestore, FirestoreCollection.Blog, route.params.id.toString());
-  const articleSnap = await getDoc(articleRef);
-  if (articleSnap.exists()) {
-    blogDetails.value = {
-      ...articleSnap.data(),
-      createdAt: format(new Date(articleSnap.data()?.createdAt.toDate()), 'MMMM d, yyyy')
-    } as IBlog;
-    datetime.value = new Date(articleSnap.data()?.createdAt.toDate()).toISOString();
+  blogStore.setLoading(true);
+  try {
+    const articleSnap = await getDoc(articleRef);
+    if (articleSnap.exists()) {
+      blogDetails.value = {
+        ...articleSnap.data(),
+        createdAt: format(new Date(articleSnap.data()?.createdAt.toDate()), 'MMMM d, yyyy')
+      } as IBlog;
+      datetime.value = new Date(articleSnap.data()?.createdAt.toDate()).toISOString();
+    }
+  } catch (error) {
+    // TODO: handle error
+  } finally {
+    blogStore.setLoading(false);
   }
+
   nextTick(() => {
     blogContentHeight.value = blogContentRef.value?.offsetHeight;
   });

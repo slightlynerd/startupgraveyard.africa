@@ -1,10 +1,15 @@
 <template>
   <div>
-    <h1 class="h3 mb-4">
+    <h1 class="h6 text-uppercase fw-bold mb-3">
       Recent Posts
     </h1>
+
     <section>
-      <recent-blogs :blogs="recentBlogPosts" />
+      <div class="row">
+        <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
+          <blog-card :blog="blog" />
+        </div>
+      </div>
     </section>
 
     <app-pagination
@@ -30,11 +35,15 @@ import {
 } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
 
+// stores
+import { useBlogStore } from '~/stores/blog';
+
 // models
 import { DEFAULT_PAGE_SIZE, FirestoreCollection, type IBlog } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
+const blogStore = useBlogStore();
 
 // refs
 const recentBlogPosts = ref<IBlog[]>([]);
@@ -57,22 +66,29 @@ function onPaginationChanged (currentPage: number): void {
 }
 
 async function getBlogs (query: Query): Promise<void> {
-  const querySnapshot = await getDocs(query);
-  lastVisibleDocument.value = querySnapshot.docs[querySnapshot.docs.length - 1];
-  recentBlogPosts.value = [];
+  blogStore.setLoading(true);
+  try {
+    const querySnapshot = await getDocs(query);
+    lastVisibleDocument.value = querySnapshot.docs[querySnapshot.docs.length - 1];
+    recentBlogPosts.value = [];
 
-  querySnapshot.forEach((doc) => {
-    if (doc.data()) {
-      const blog = doc.data() as IBlog;
-      recentBlogPosts.value.push({
-        ...blog,
-        id: doc.id,
-        bodyContent: sanitizeHtml(blog.bodyContent, {
-          allowedTags: []
-        })
-      });
-    }
-  });
+    querySnapshot.forEach((doc) => {
+      if (doc.data()) {
+        const blog = doc.data() as IBlog;
+        recentBlogPosts.value.push({
+          ...blog,
+          id: doc.id,
+          bodyContent: sanitizeHtml(blog.bodyContent, {
+            allowedTags: []
+          })
+        });
+      }
+    });
+  } catch (error) {
+    // TODO: handle error
+  } finally {
+    blogStore.setLoading(false);
+  }
 }
 
 function goToPreviousPage (): void {
@@ -112,6 +128,6 @@ onMounted(async () => {
 // page metadata
 useHead({
   title: 'Blog | Startup Graveyard',
-  meta: [{ name: 'description', content: 'My amazing site.' }]
+  meta: [{ name: 'description', content: 'Dive deep into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.' }]
 });
 </script>
