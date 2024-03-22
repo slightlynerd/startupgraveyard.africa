@@ -74,6 +74,11 @@ onMounted(async () => {
     blogStore.setLoading(false);
   }
 });
+
+// hooks
+useHead({
+  script: [{ src: 'https://platform.twitter.com/widgets.js' }]
+});
 </script>
 
 <style lang="scss" scoped>

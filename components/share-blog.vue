@@ -43,14 +43,6 @@ const pageUrl = ref<string>('');
 onMounted(() => {
   pageUrl.value = `https://startupgraveyard.africa/blog/${route.params.id}`;
 });
-
-useHead({
-  // title: blogData?.title,
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ],
-  script: [{ src: 'https://platform.twitter.com/widgets.js' }]
-});
 </script>
 
 <style scoped>

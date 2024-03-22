@@ -1,10 +1,12 @@
 <template>
   <div>
-    <loading-indicator
-      v-model:active="isLoading"
-      :is-full-page="true"
-      :opacity="0.9"
-    />
+    <client-only>
+      <loading-indicator
+        v-model:active="isLoading"
+        :is-full-page="true"
+        :opacity="0.9"
+      />
+    </client-only>
     <app-header />
     <main class="container">
       <NuxtPage />
