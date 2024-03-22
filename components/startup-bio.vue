@@ -1,8 +1,8 @@
 <template>
   <div class="startup-card px-3 py-4">
-    <a target="_blank" :href="startup.newsSource">
-      <h2 class="h6">{{ startup.name }}</h2>
-    </a>
+    <h2 class="h6">
+      {{ startup.name }}
+    </h2>
     <div class="d-flex align-items-center justify-content-between">
       <div class="col mt-2">
         <p class="shutdown text-muted">
@@ -26,17 +26,21 @@
     </div>
     <p class="d-flex justify-content-end mt-3">
       <a
-        class="btn d-inline-block"
+        class="btn d-inline-block text-uppercase"
         target="_blank"
         :href="startup.newsSource"
+        @mousedown="handleReadMore"
+        @touchstart="handleReadMore"
       >
-        READ MORE
+        Learn More
       </a>
     </p>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { getAnalytics, logEvent } from 'firebase/analytics';
+
 // models
 import { type IStartup } from '~/models';
 
@@ -44,6 +48,14 @@ import { type IStartup } from '~/models';
 defineProps<{
   startup: IStartup;
 }>();
+
+// methods
+function handleReadMore (): void {
+  if (process.env.NODE_ENV !== 'development') {
+    const analytics = getAnalytics();
+    logEvent(analytics, 'startup_link_clicked');
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -51,7 +63,6 @@ defineProps<{
 
 .startup-card {
   background-color: $sg-secondary-color;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
 
   &:hover {

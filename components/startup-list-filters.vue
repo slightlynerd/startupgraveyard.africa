@@ -1,6 +1,6 @@
 <template>
-  <div class="sticky-top">
-    <p class="small fw-bold mb-2">
+  <div>
+    <p class="h6 fw-bold mb-2">
       FILTERS
     </p>
     <input

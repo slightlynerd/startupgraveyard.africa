@@ -147,8 +147,10 @@ const v$ = useVuelidate(rules, form);
 
 // lifecycle hooks
 onMounted(() => {
-  const analytics = getAnalytics();
-  logEvent(analytics, 'startup_form_viewed');
+  if (process.env.NODE_ENV !== 'development') {
+    const analytics = getAnalytics();
+    logEvent(analytics, 'startup_form_viewed');
+  }
 });
 
 // methods
@@ -174,8 +176,10 @@ async function onSubmit (): Promise<void> {
       newsPublicationLink: ''
     };
     v$.value.$reset();
-    const analytics = getAnalytics();
-    logEvent(analytics, 'startup_form_submitted');
+    if (process.env.NODE_ENV !== 'development') {
+      const analytics = getAnalytics();
+      logEvent(analytics, 'startup_form_submitted');
+    }
   } catch (e) {
     errorMessage.value = (e as Error).message;
   } finally {

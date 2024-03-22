@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex mb-2">
-      <p id="totalStartups" class="text-muted small">
+      <p id="totalStartups" class="text-muted h6">
         {{ total }} startups
       </p>
     </div>

@@ -1,7 +1,10 @@
 <template>
   <div class="mb-5">
     <p class="note mb-2">
-      A catalogue of African startups that have shut down their services. This website serves as a graveyard for these fallen ventures, documenting their shortcomings so future entrepreneurs can avoid the same pitfalls and build even greater successes.
+      A catalogue of African startups that have shut down their services. This
+      website serves as a graveyard for these fallen ventures, documenting their
+      shortcomings so future entrepreneurs can avoid the same pitfalls and build
+      even greater successes.
     </p>
 
     <make-submission class="mb-3" />
@@ -35,11 +38,28 @@
         </section>
       </div>
     </div>
+
+    <section v-if="showBlog" class="mt-5 pt-5">
+      <p class="h6 text-uppercase fw-bold mb-2">
+        Recent Blog Posts
+      </p>
+      <div class="row">
+        <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
+          <blog-card :blog="blog" />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { format } from 'date-fns';
+import { collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
+import sanitizeHtml from 'sanitize-html';
+import { storeToRefs } from 'pinia';
+
+// stores
+import { useBlogStore } from '@/stores/blog';
 
 // data
 import {
@@ -60,6 +80,10 @@ defineEmits<{
 }>();
 
 // common
+const { $firestore } = useNuxtApp();
+const blogStore = useBlogStore();
+
+// constants
 const startups: Models.IStartup[] = allStartups
   .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
   .map(item => ({
@@ -79,6 +103,8 @@ const selectedCategory = ref<Models.Category>();
 const selectedCountry = ref<Models.Country>();
 const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
 const page = ref<number>(Models.DEFAULT_PAGE);
+const recentBlogPosts = ref<Models.IBlog[]>([]);
+const { config } = storeToRefs(blogStore);
 
 // computed
 const pageCount = computed(() => startups.length / pageSize.value);
@@ -90,8 +116,7 @@ const computedStartups = computed(() =>
         item.name.toLowerCase().includes(searchText.value.toLowerCase());
 
       const categoryMatch =
-        !selectedCategory.value ||
-        item.category === selectedCategory.value;
+        !selectedCategory.value || item.category === selectedCategory.value;
 
       const countryMatch =
         selectedCountry.value === Models.Country.All ||
@@ -100,6 +125,11 @@ const computedStartups = computed(() =>
       return textMatch && categoryMatch && countryMatch;
     })
     .slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
+);
+const showBlog = computed(() =>
+  process.env.NODE_ENV === 'development'
+    ? config.value.testShowBlog
+    : config.value.showBlog
 );
 
 // methods
@@ -119,6 +149,30 @@ function onPaginationChanged (currentPage: number): void {
   page.value = currentPage;
   document.getElementById('totalStartups')?.scrollIntoView();
 }
+
+// lifecycle hooks
+onMounted(async () => {
+  const q = query(
+    collection($firestore, Models.FirestoreCollection.Blog),
+    orderBy('createdAt', 'desc'),
+    limit(2)
+  );
+  const querySnapshot = await getDocs(q);
+  recentBlogPosts.value = [];
+
+  querySnapshot.forEach((doc) => {
+    if (doc.data()) {
+      const blog = doc.data() as Models.IBlog;
+      recentBlogPosts.value.push({
+        ...blog,
+        id: doc.id,
+        bodyContent: sanitizeHtml(blog.bodyContent, {
+          allowedTags: []
+        })
+      });
+    }
+  });
+});
 </script>
 
 <style lang="scss" scoped>
