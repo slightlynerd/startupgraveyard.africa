@@ -1,5 +1,5 @@
 <template>
-  <div class="card border-0 shadow-0">
+  <div class="card border-0 shadow-0 rounded-0">
     <img src="/graveyard.jpeg" alt="graveyard">
     <div class="p-4">
       <h3 class="h5">

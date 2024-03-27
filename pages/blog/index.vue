@@ -111,23 +111,21 @@ function goToNextPage (): void {
   getBlogs(q);
 }
 
-// lifecycle hooks
-onMounted(async () => {
-  const totalPosts = await getCountFromServer(
-    collection($firestore, FirestoreCollection.Blog)
-  );
-  totalCount.value = totalPosts.data().count;
-  const q = query(
-    collection($firestore, FirestoreCollection.Blog),
-    orderBy('createdAt', 'desc'),
-    limit(DEFAULT_PAGE_SIZE)
-  );
-  await getBlogs(q);
-});
+// fetch blogs
+const totalPosts = await getCountFromServer(
+  collection($firestore, FirestoreCollection.Blog)
+);
+totalCount.value = totalPosts.data().count;
+const q = query(
+  collection($firestore, FirestoreCollection.Blog),
+  orderBy('createdAt', 'desc'),
+  limit(DEFAULT_PAGE_SIZE)
+);
+await getBlogs(q);
 
 // page metadata
 useHead({
   title: 'Blog | Startup Graveyard',
-  meta: [{ name: 'description', content: 'Dive deep into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.' }]
+  meta: [{ name: 'description', content: 'Get into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.' }]
 });
 </script>

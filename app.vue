@@ -29,10 +29,7 @@ const blogStore = useBlogStore();
 // refs
 const { isLoading } = storeToRefs(blogStore);
 
-// lifecycle hooks
-onMounted(() => {
-  blogStore.fetchConfig();
-});
+useAsyncData(() => blogStore.fetchConfig());
 </script>
 
 <style lang="scss">
