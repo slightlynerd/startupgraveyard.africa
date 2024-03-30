@@ -1,6 +1,10 @@
 <template>
   <article :style="{ marginBottom: `${blogContentHeight}px` }">
-    <img src="/graveyard.jpeg" alt="graveyard" class="blog-image">
+    <img
+      class="blog-image"
+      :src="blogDetails?.headerImage ? blogDetails.headerImage.url : '/graveyard.jpeg'"
+      :alt="blogDetails?.headerImage?.alt || blogDetails?.title"
+    >
     <div ref="blogContentRef" class="blog-container">
       <h1 class="mb-3">
         {{ blogDetails?.title }}
