@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p class="h6 fw-bold mb-2">
-      FILTERS
+    <p class="h6 fw-bold text-uppercase mb-2">
+      Filter Startups
     </p>
     <input
       v-model="mSearchText"

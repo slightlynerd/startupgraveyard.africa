@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
   app: {
     head: {
       meta: [
@@ -77,27 +76,15 @@ export default defineNuxtConfig({
           rel: 'icon',
           type: 'image/png',
           href: '/logo.png'
-        },
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.googleapis.com'
-        },
-        {
-          rel: 'preconnect',
-          href: 'https://fonts.gstatic.com',
-          crossorigin: true
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap'
         }
       ],
-      style: [],
-      script: [],
-      noscript: [],
       title: 'Startup Graveyard: Cataloguing Failure for Future Success'
     }
   },
+  build: {
+    transpile: ['bootstrap']
+  },
+  devtools: { enabled: true },
   plugins: [
     '~/plugins/bootstrap.client',
     '~/plugins/date-picker.client',
@@ -113,5 +100,9 @@ export default defineNuxtConfig({
       '/blog',
       '/blog/**'
     ]
+  },
+  sourcemap: {
+    client: false,
+    server: false
   }
 });

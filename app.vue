@@ -30,6 +30,12 @@ const blogStore = useBlogStore();
 const { isLoading } = storeToRefs(blogStore);
 
 useAsyncData(() => blogStore.fetchConfig());
+
+useHead({
+  htmlAttrs: {
+    lang: 'en'
+  }
+});
 </script>
 
 <style lang="scss">

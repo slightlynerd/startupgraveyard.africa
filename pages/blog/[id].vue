@@ -1,5 +1,5 @@
 <template>
-  <article :style="{ marginBottom: `${blogContentHeight}px` }">
+  <article :style="{ marginBottom: !isMobile ? `${blogContentHeight}px` : 0 }">
     <img
       class="blog-image"
       :src="blogDetails?.headerImage ? blogDetails.headerImage.url : '/graveyard.jpeg'"
@@ -36,7 +36,7 @@ import sanitizeHtml from 'sanitize-html';
 import { useBlogStore } from '~/stores/blog';
 
 // models
-import { FirestoreCollection, SANITIZE_HTML_OPTIONS, type IBlog } from '~/models';
+import { FirestoreCollection, SANITIZE_HTML_OPTIONS, type IBlog, MD_BREAKPOINT } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -48,10 +48,16 @@ const blogContentRef = ref<HTMLElement | undefined>();
 const blogDetails = ref<IBlog | undefined>();
 const blogContentHeight = ref<number | undefined>(blogContentRef.value?.offsetHeight);
 const datetime = ref<string>();
+const isMobile = ref<boolean>(false);
 
 // methods
 function sanitizeHtmlContent (content?: string): string {
   return content ? sanitizeHtml(content, SANITIZE_HTML_OPTIONS) : '';
+}
+
+function onResize (): void {
+  isMobile.value = window.innerWidth <= MD_BREAKPOINT;
+  blogContentHeight.value = blogContentRef.value?.offsetHeight;
 }
 
 // lifecycle hooks
@@ -77,6 +83,14 @@ onMounted(async () => {
   } finally {
     blogStore.setLoading(false);
   }
+
+  // set initial mobile state
+  onResize();
+  window.addEventListener('resize', onResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize);
 });
 
 // hooks
@@ -106,10 +120,14 @@ article {
     margin-left: 2rem;
 
     @media screen and (max-width: 768px) {
-      position: relative;
-      top: 0;
+      position: initial;
       max-width: 100%;
       margin-left: 0;
+      padding: 2rem;
+    }
+
+    @media screen and (max-width: 600px) {
+      padding: 1rem;
     }
 
     .content {

@@ -2,13 +2,14 @@
   <div>
     <p class="mt-3">
       Don't see a startup on the list?
-      <a
+      <span
         data-bs-toggle="modal"
         data-bs-target="#startupFormModal"
         class="text-decoration-underline cursor-pointer"
+        role="button"
       >
         Make a submission.
-      </a>
+      </span>
     </p>
 
     <!-- Modal -->
