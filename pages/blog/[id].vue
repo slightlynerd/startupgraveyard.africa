@@ -3,12 +3,9 @@
     :style="{ marginBottom: !isMobile ? `${blogContentHeight}px` : 0 }"
   >
     <img
+      v-if="blogDetails?.headerImage"
       class="blog-image"
-      :src="
-        blogDetails?.headerImage
-          ? blogDetails.headerImage.url
-          : '/graveyard.jpeg'
-      "
+      :src="blogDetails.headerImage.url"
       :alt="blogDetails?.headerImage?.alt || blogDetails?.title"
     >
     <div ref="blogContentRef" class="blog-container">
