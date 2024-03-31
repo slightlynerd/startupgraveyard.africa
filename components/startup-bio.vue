@@ -45,7 +45,7 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 import { type IStartup } from '~/models';
 
 // props
-defineProps<{
+const props = defineProps<{
   startup: IStartup;
 }>();
 
@@ -53,7 +53,9 @@ defineProps<{
 function handleReadMore (): void {
   if (process.env.NODE_ENV !== 'development') {
     const analytics = getAnalytics();
-    logEvent(analytics, 'startup_link_clicked');
+    logEvent(analytics, 'startup_link_clicked', {
+      startup_name: props.startup.name
+    });
   }
 }
 </script>
