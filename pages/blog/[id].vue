@@ -1,6 +1,5 @@
 <template>
   <article
-    v-if="blogDetails?.title"
     :style="{ marginBottom: !isMobile ? `${blogContentHeight}px` : 0 }"
   >
     <img
