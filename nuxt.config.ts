@@ -20,7 +20,7 @@ export default defineNuxtConfig({
         },
         {
           name: 'keywords',
-          content: 'startup graveyard, african startups, african startups, failed african startups, african startups that shut down, african startup funding, poor funding, macroeconomic issues, why startups fail, failed startups in africa, failed startups'
+          content: 'startup graveyard, africa startup graveyard, african startups that shut down, failed startups in africa'
         },
         {
           name: 'revisit-after',
