@@ -104,5 +104,14 @@ export default defineNuxtConfig({
   sourcemap: {
     client: false,
     server: false
+  },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/assets/styles/variables.scss";'
+        }
+      }
+    }
   }
 });

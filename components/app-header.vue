@@ -33,8 +33,6 @@ const showBlog = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
-
 hr {
   border: none;
   border-bottom: 1px solid $sg-placeholder-color;

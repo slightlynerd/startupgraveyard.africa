@@ -59,8 +59,6 @@ function handleReadMore (): void {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/variables.scss';
-
 .startup-card {
   background-color: $sg-secondary-color;
   transition: all 0.2s ease-in-out;
