@@ -25,6 +25,9 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true }
   },
+  site: {
+    url: 'https://startupgraveyard.africa'
+  },
   sitemap: {
     hostname: 'https://startupgraveyard.africa',
     gzip: true,
