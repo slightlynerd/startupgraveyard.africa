@@ -3,32 +3,32 @@
     :style="{ marginBottom: !isMobile ? `${blogContentHeight}px` : 0 }"
   >
     <img
-      v-if="blogDetails?.headerImage"
+      v-if="blogData?.data.headerImage"
       class="blog-image"
-      :src="blogDetails.headerImage.url"
-      :alt="blogDetails?.headerImage?.alt || blogDetails?.title"
+      :src="blogData.data.headerImage.url"
+      :alt="blogData?.data.headerImage?.alt || blogData?.data.title"
     >
     <div ref="blogContentRef" class="blog-container">
       <h1 class="mb-3">
-        {{ blogDetails?.title }}
+        {{ blogData?.data.title }}
       </h1>
       <p class="small mb-0">
-        Written By: <span class="text-muted">{{ blogDetails?.author }}</span>
+        Written By: <span class="text-muted">{{ blogData?.data.author }}</span>
       </p>
       <p class="small mb-3">
-        <time :datetime="datetime">
-          Published on:
-          <span class="text-muted">{{ blogDetails?.createdAt }}</span>
-        </time>
+        <!-- <time :datetime="datetime"> -->
+        Published on:
+        <span class="text-muted">{{ blogData?.data.createdAt }}</span>
+        <!-- </time> -->
       </p>
       <div
         class="content"
-        v-html="sanitizeHtmlContent(blogDetails?.bodyContent)"
+        v-html="sanitizeHtmlContent(blogData?.data.bodyContent)"
       />
       <h6 class="mt-5">
         Share this article
       </h6>
-      <share-blog :blog-date="blogDetails" />
+      <share-blog :blog-date="blogData" />
     </div>
   </article>
 </template>
@@ -39,9 +39,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import { format } from 'date-fns';
 import sanitizeHtml from 'sanitize-html';
 
-// stores
-import { useBlogStore } from '~/stores/blog';
-
 // models
 import {
   FirestoreCollection,
@@ -50,17 +47,12 @@ import {
   MD_BREAKPOINT
 } from '~/models';
 
-// utils
-import { capitalizeTexts } from '~/utils';
-
 // common
 const { $firestore } = useNuxtApp();
 const route = useRoute();
-const blogStore = useBlogStore();
 
 // refs
 const blogContentRef = ref<HTMLElement | undefined>();
-const blogDetails = ref<IBlog | undefined>();
 const blogContentHeight = ref<number | undefined>(
   blogContentRef.value?.offsetHeight
 );
@@ -77,19 +69,18 @@ function onResize (): void {
   blogContentHeight.value = blogContentRef.value?.offsetHeight;
 }
 
-// lifecycle hooks
-onMounted(async () => {
-  // fetch article
+// fetch blog data
+const { data: blogData } = await useAsyncData(route.params.id.toString(), async () => {
   const articleRef = doc(
     $firestore,
     FirestoreCollection.Blog,
     route.params.id.toString()
   );
-  blogStore.setLoading(true);
+  let blog: IBlog | undefined;
   try {
     const articleSnap = await getDoc(articleRef);
     if (articleSnap.exists()) {
-      blogDetails.value = {
+      blog = {
         ...articleSnap.data(),
         createdAt: format(
           new Date(articleSnap.data()?.createdAt.toDate()),
@@ -99,16 +90,21 @@ onMounted(async () => {
       datetime.value = new Date(
         articleSnap.data()?.createdAt.toDate()
       ).toISOString();
+      return {
+        data: { ...blog }
+      };
     }
-    nextTick(() => {
-      // TODO: add styles to fix footer to bottom of article to replace workaround
-      blogContentHeight.value = blogContentRef.value?.offsetHeight;
-    });
   } catch (error) {
     // TODO: handle error
-  } finally {
-    blogStore.setLoading(false);
   }
+});
+
+// lifecycle hooks
+onMounted(() => {
+  nextTick(() => {
+    // TODO: add styles to fix footer to bottom of article to replace this workaround
+    blogContentHeight.value = blogContentRef.value?.offsetHeight;
+  });
 
   // set initial mobile state
   onResize();
@@ -120,9 +116,58 @@ onUnmounted(() => {
 });
 
 useHead({
-  title: `${capitalizeTexts(
-    route.params.id?.toString().replaceAll('-', ' ') || ''
-  )} | Startup Graveyard`,
+  title: `${blogData.value?.data.title} | Startup Graveyard`,
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: `${blogData.value?.data.title} | Startup Graveyard`
+    },
+    {
+      hid: 'og:title',
+      property: 'og:title',
+      content: `${blogData.value?.data.title} | Startup Graveyard`
+    },
+    {
+      hid: 'og:description',
+      property: 'og:description',
+      content: `${blogData.value?.data.title} | Startup Graveyard`
+    },
+    {
+      hid: 'og:image',
+      property: 'og:image',
+      content: blogData.value?.data.headerImage?.url
+    },
+    {
+      hid: 'og:url',
+      property: 'og:url',
+      content: `https://startupgraveyard.africa/blog/${route.params.id}`
+    },
+    {
+      name: 'author',
+      content: blogData.value?.data.author
+    },
+    {
+      property: 'twitter:card',
+      content: 'summary_large_image'
+    },
+    {
+      property: 'twitter:url',
+      content: 'https://twitter.com/stgr_africa'
+    },
+    {
+      property: 'twitter:title',
+      content: `${blogData.value?.data.title} | Startup Graveyard`
+    },
+    {
+      property: 'twitter:description',
+      content: `${blogData.value?.data.title} | Startup Graveyard`
+    },
+    {
+      property: 'twitter:image',
+      content: blogData.value?.data.headerImage?.url
+    }
+  ],
   script: [{ src: 'https://platform.twitter.com/widgets.js' }]
 });
 </script>

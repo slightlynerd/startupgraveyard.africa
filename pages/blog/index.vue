@@ -34,6 +34,7 @@ import {
   orderBy
 } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
+import { useRoute } from 'vue-router';
 
 // stores
 import { useBlogStore } from '~/stores/blog';
@@ -44,6 +45,7 @@ import { DEFAULT_PAGE_SIZE, FirestoreCollection, type IBlog } from '~/models';
 // common
 const { $firestore } = useNuxtApp();
 const blogStore = useBlogStore();
+const route = useRoute();
 
 // refs
 const recentBlogPosts = ref<IBlog[]>([]);
@@ -126,6 +128,46 @@ await getBlogs(q);
 // page metadata
 useHead({
   title: 'Blog | Startup Graveyard',
-  meta: [{ name: 'description', content: 'Get into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.' }]
+  meta: [
+    {
+      name: 'description',
+      content: 'Get into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.'
+    },
+    {
+      hid: 'og:title',
+      property: 'og:title',
+      content: 'Blog | Startup Graveyard'
+    },
+    {
+      hid: 'og:description',
+      property: 'og:description',
+      content: 'Blog | Startup Graveyard'
+    },
+    {
+      hid: 'og:url',
+      property: 'og:url',
+      content: `https://startupgraveyard.africa/blog/${route.params.id}`
+    },
+    {
+      name: 'author',
+      content: 'Kelvin Gobo'
+    },
+    {
+      property: 'twitter:card',
+      content: 'summary_large_image'
+    },
+    {
+      property: 'twitter:url',
+      content: 'https://twitter.com/stgr_africa'
+    },
+    {
+      property: 'twitter:title',
+      content: 'Blog | Startup Graveyard'
+    },
+    {
+      property: 'twitter:description',
+      content: 'Blog | Startup Graveyard'
+    }
+  ]
 });
 </script>

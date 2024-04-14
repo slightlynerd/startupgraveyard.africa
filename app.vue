@@ -29,7 +29,7 @@ const blogStore = useBlogStore();
 // refs
 const { isLoading } = storeToRefs(blogStore);
 
-useAsyncData(() => blogStore.fetchConfig());
+await useAsyncData('blog', () => blogStore.fetchConfig());
 
 useHead({
   htmlAttrs: {

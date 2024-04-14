@@ -28,7 +28,7 @@
       <a
         class="btn d-inline-block text-uppercase"
         target="_blank"
-        :href="`${startup.newsSource}?utm_source=startupgraveyard.africa&utm_medium=referral&utm_content=textlink`"
+        :href="`${startup.newsSource}?referrer=startupgraveyard.africa`"
         @mousedown="handleReadMore"
         @touchstart="handleReadMore"
       >
