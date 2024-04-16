@@ -44,7 +44,8 @@ import {
   FirestoreCollection,
   SANITIZE_HTML_OPTIONS,
   type IBlog,
-  MD_BREAKPOINT
+  MD_BREAKPOINT,
+  META_DESCRIPTION_LENGTH
 } from '~/models';
 
 // common
@@ -123,7 +124,7 @@ useHead({
       name: 'description',
       content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
         allowedTags: []
-      }).substring(0, 160)}... ${blogData.value?.data.title}`
+      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.value?.data.title}`
     },
     {
       hid: 'og:title',
@@ -135,7 +136,7 @@ useHead({
       property: 'og:description',
       content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
         allowedTags: []
-      }).substring(0, 160)}... ${blogData.value?.data.title}`
+      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.value?.data.title}`
     },
     {
       hid: 'og:image',
@@ -167,7 +168,7 @@ useHead({
       property: 'twitter:description',
       content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
         allowedTags: []
-      }).substring(0, 160)}... ${blogData.value?.data.title}`
+      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.value?.data.title}`
     },
     {
       property: 'twitter:image',
