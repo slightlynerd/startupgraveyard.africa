@@ -116,22 +116,26 @@ onUnmounted(() => {
 });
 
 useHead({
-  title: `${blogData.value?.data.title} | Startup Graveyard`,
+  title: blogData.value?.data.title,
   meta: [
     {
       hid: 'description',
       name: 'description',
-      content: `${blogData.value?.data.title} | Startup Graveyard`
+      content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
+        allowedTags: []
+      }).substring(0, 160)}... ${blogData.value?.data.title}`
     },
     {
       hid: 'og:title',
       property: 'og:title',
-      content: `${blogData.value?.data.title} | Startup Graveyard`
+      content: blogData.value?.data.title
     },
     {
       hid: 'og:description',
       property: 'og:description',
-      content: `${blogData.value?.data.title} | Startup Graveyard`
+      content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
+        allowedTags: []
+      }).substring(0, 160)}... ${blogData.value?.data.title}`
     },
     {
       hid: 'og:image',
@@ -157,11 +161,13 @@ useHead({
     },
     {
       property: 'twitter:title',
-      content: `${blogData.value?.data.title} | Startup Graveyard`
+      content: blogData.value?.data.title
     },
     {
       property: 'twitter:description',
-      content: `${blogData.value?.data.title} | Startup Graveyard`
+      content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
+        allowedTags: []
+      }).substring(0, 160)}... ${blogData.value?.data.title}`
     },
     {
       property: 'twitter:image',
