@@ -12,14 +12,14 @@
       <h1 class="mb-3">
         {{ blogData?.data.title }}
       </h1>
-      <p class="small mb-0">
+      <p class="mb-0">
         Written By: <span class="text-muted">{{ blogData?.data.author }}</span>
       </p>
-      <p class="small mb-3">
-        <!-- <time :datetime="datetime"> -->
-        Published on:
-        <span class="text-muted">{{ blogData?.data.createdAt }}</span>
-        <!-- </time> -->
+      <p class="mb-3">
+        <time :datetime="datetime">
+          Published on:
+          <span class="text-muted">{{ blogData?.data.createdAt }}</span>
+        </time>
       </p>
       <div
         class="content"
@@ -28,7 +28,7 @@
       <h6 class="mt-5">
         Share this article
       </h6>
-      <share-blog :blog-date="blogData" />
+      <share-blog :blog-data="blogData?.data" />
     </div>
   </article>
 </template>
@@ -197,6 +197,10 @@ article {
     padding: 3rem;
     margin-left: 2rem;
 
+    @media screen and (max-width: 992px) {
+      max-width: 75%;
+    }
+
     @media screen and (max-width: 768px) {
       position: initial;
       max-width: 100%;
@@ -218,6 +222,11 @@ article {
         max-width: 100%;
         height: 24rem;
         object-fit: contain;
+      }
+
+      :deep(p) {
+        margin-bottom: 1rem;
+        font-size: 1.15rem;
       }
     }
   }

@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center">
     <a
       class="twitter-share-button"
-      href="https://twitter.com/intent/tweet?text=%22How Startups Can Succeed%22%20by%20@slightlynerd"
+      :href="`https://twitter.com/intent/tweet?text=%22${blogData?.title}%22%20by%20@stgr_africa`"
     >
       Tweet
     </a>
@@ -17,7 +17,7 @@
       allowTransparency="true"
       allow="encrypted-media"
     />
-    <a :href="`https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=How Startups Can Succeed&summary=startupgraveyard.africa&source=Startup Graveyard`" class="ms-2" onclick="window.open(this.href, 'mywin', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
+    <a :href="`https://www.linkedin.com/shareArticle?mini=true&url=${pageUrl}&title=${blogData?.title}&summary=startupgraveyard.africa&source=startupgraveyard.africa`" class="ms-2" onclick="window.open(this.href, 'mywin', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;">
       <img src="@/assets/images/linkedin-share.webp" alt="linkedIn share button" width="60">
     </a>
   </div>

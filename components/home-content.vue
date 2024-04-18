@@ -41,7 +41,7 @@
 
     <section v-if="showBlog" class="mt-5 pt-5">
       <p class="h6 text-uppercase fw-bold mb-2">
-        Recent Blog Posts
+        Recent Posts
       </p>
       <div class="row">
         <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
