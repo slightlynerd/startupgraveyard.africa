@@ -179,6 +179,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .note {
   max-width: 75%;
+  font-size: 1.15rem;
 }
 
 @media (max-width: 768px) {

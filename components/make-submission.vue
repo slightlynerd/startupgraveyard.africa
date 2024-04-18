@@ -46,4 +46,8 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+p {
+  font-size: 1.15rem;
+}
 </style>
