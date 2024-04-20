@@ -6,7 +6,11 @@
 
     <section>
       <div class="row">
-        <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
+        <div
+          v-for="blog in recentBlogPosts"
+          :key="blog.id"
+          class="col-lg-4 col-md-6 mb-4"
+        >
           <blog-card :blog="blog" />
         </div>
       </div>
@@ -71,7 +75,8 @@ async function getBlogs (query: Query): Promise<void> {
   blogStore.setLoading(true);
   try {
     const querySnapshot = await getDocs(query);
-    lastVisibleDocument.value = querySnapshot.docs[querySnapshot.docs.length - 1];
+    lastVisibleDocument.value =
+      querySnapshot.docs[querySnapshot.docs.length - 1];
     recentBlogPosts.value = [];
 
     querySnapshot.forEach((doc) => {
@@ -131,7 +136,8 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'Get into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.'
+      content:
+        'Get into the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.'
     },
     {
       hid: 'og:title',
@@ -146,7 +152,7 @@ useHead({
     {
       hid: 'og:url',
       property: 'og:url',
-      content: `https://startupgraveyard.africa/blog/${route.params.id}`
+      content: 'https://startupgraveyard.africa/blog'
     },
     {
       name: 'author',

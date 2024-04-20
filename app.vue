@@ -29,8 +29,6 @@ const blogStore = useBlogStore();
 // refs
 const { isLoading } = storeToRefs(blogStore);
 
-await useAsyncData('blog', () => blogStore.fetchConfig());
-
 useHead({
   htmlAttrs: {
     lang: 'en'

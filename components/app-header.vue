@@ -4,7 +4,7 @@
       <router-link class="text-center text-uppercase fw-bold h5 mb-0" to="/">
         💀 startupgraveyard.africa
       </router-link>
-      <router-link v-if="showBlog" to="/blog">
+      <router-link to="/blog">
         Blog
       </router-link>
     </div>
@@ -13,23 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia';
-
-// stores
-import { useBlogStore } from '@/stores/blog';
-
-// common
-const blogStore = useBlogStore();
-
-// refs
-const { config } = storeToRefs(blogStore);
-
-// computed
-const showBlog = computed(() =>
-  process.env.NODE_ENV === 'development'
-    ? config.value.testShowBlog
-    : config.value.showBlog
-);
 </script>
 
 <style lang="scss" scoped>

@@ -59,6 +59,7 @@ const blogContentHeight = ref<number | undefined>(
 );
 const datetime = ref<string>();
 const isMobile = ref<boolean>(false);
+const metaDescription = ref<string>('');
 
 // methods
 function sanitizeHtmlContent (content?: string): string {
@@ -91,6 +92,9 @@ const { data: blogData } = await useAsyncData(route.params.id.toString(), async 
       datetime.value = new Date(
         articleSnap.data()?.createdAt.toDate()
       ).toISOString();
+      metaDescription.value = `${sanitizeHtml(blog.bodyContent, {
+        allowedTags: []
+      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blog.title}`;
       return {
         data: { ...blog }
       };
@@ -122,9 +126,7 @@ useHead({
     {
       hid: 'description',
       name: 'description',
-      content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
-        allowedTags: []
-      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.value?.data.title}`
+      content: metaDescription.value
     },
     {
       hid: 'og:title',
@@ -134,9 +136,7 @@ useHead({
     {
       hid: 'og:description',
       property: 'og:description',
-      content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
-        allowedTags: []
-      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.value?.data.title}`
+      content: metaDescription.value
     },
     {
       hid: 'og:image',
@@ -166,9 +166,7 @@ useHead({
     },
     {
       property: 'twitter:description',
-      content: `${sanitizeHtml(blogData.value?.data.bodyContent || '', {
-        allowedTags: []
-      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.value?.data.title}`
+      content: metaDescription.value
     },
     {
       property: 'twitter:image',

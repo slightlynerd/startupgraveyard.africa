@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <section v-if="showBlog" class="mt-5 pt-5">
+    <section class="mt-5 pt-5">
       <p class="h6 text-uppercase fw-bold mb-2">
         Recent Posts
       </p>
@@ -56,10 +56,6 @@
 import { format } from 'date-fns';
 import { collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
-import { storeToRefs } from 'pinia';
-
-// stores
-import { useBlogStore } from '@/stores/blog';
 
 // data
 import {
@@ -81,7 +77,6 @@ defineEmits<{
 
 // common
 const { $firestore } = useNuxtApp();
-const blogStore = useBlogStore();
 
 // constants
 const startups: Models.IStartup[] = allStartups
@@ -105,7 +100,6 @@ const selectedCountry = ref<Models.Country>();
 const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
 const page = ref<number>(Models.DEFAULT_PAGE);
 const recentBlogPosts = ref<Models.IBlog[]>([]);
-const { config } = storeToRefs(blogStore);
 
 // computed
 const pageCount = computed(() => startups.length / pageSize.value);
@@ -126,11 +120,6 @@ const computedStartups = computed(() =>
       return textMatch && categoryMatch && countryMatch;
     })
     .slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
-);
-const showBlog = computed(() =>
-  process.env.NODE_ENV === 'development'
-    ? config.value.testShowBlog
-    : config.value.showBlog
 );
 
 // methods
