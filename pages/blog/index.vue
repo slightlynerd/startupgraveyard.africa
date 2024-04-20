@@ -38,7 +38,6 @@ import {
   orderBy
 } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
-import { useRoute } from 'vue-router';
 
 // stores
 import { useBlogStore } from '~/stores/blog';
@@ -49,7 +48,6 @@ import { DEFAULT_PAGE_SIZE, FirestoreCollection, type IBlog } from '~/models';
 // common
 const { $firestore } = useNuxtApp();
 const blogStore = useBlogStore();
-const route = useRoute();
 
 // refs
 const recentBlogPosts = ref<IBlog[]>([]);
