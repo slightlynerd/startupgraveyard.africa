@@ -28,7 +28,7 @@
       <h6 class="mt-5">
         Share this article
       </h6>
-      <share-blog :blog-data="blogData?.data" />
+      <share-buttons :blog-data="blogData?.data" />
     </div>
   </article>
 </template>
