@@ -226,6 +226,16 @@ article {
         margin-bottom: 1rem;
         font-size: 1.15rem;
       }
+
+      :deep(h1),
+      :deep(h2),
+      :deep(h3),
+      :deep(h4),
+      :deep(h5),
+      :deep(h6) {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
     }
   }
 }
