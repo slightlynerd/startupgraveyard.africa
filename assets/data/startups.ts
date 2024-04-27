@@ -335,7 +335,7 @@ export const startups: IStartup[] = [
     category: Category.Entertainment,
     description:
       'Afrostream was a subscription video on demand (SVOD) that provides millions of fans with unlimited access to Afro-American and African movies.',
-    newsSource: 'https://techpoint.africa/2017/09/22/afrostream-shut-down',
+    newsSource: '/blog/case-study-lessons-from-the-downfall-of-afrostream',
     location: 'Africa 🌍',
     founded: '2014',
     raised: 'Unknown',

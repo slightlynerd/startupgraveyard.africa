@@ -26,6 +26,7 @@
     </div>
     <p class="d-flex justify-content-end mt-3">
       <a
+        v-if="isExternalLink"
         class="btn d-inline-block text-uppercase"
         target="_blank"
         :href="`${startup.newsSource}?referrer=startupgraveyard.africa`"
@@ -34,6 +35,13 @@
       >
         Learn More
       </a>
+      <nuxt-link
+        v-else
+        class="btn d-inline-block text-uppercase"
+        :to="startup.newsSource"
+      >
+        Learn more
+      </nuxt-link>
     </p>
   </div>
 </template>
@@ -48,6 +56,9 @@ import { type IStartup } from '~/models';
 const props = defineProps<{
   startup: IStartup;
 }>();
+
+// computed
+const isExternalLink = computed(() => props.startup.newsSource.startsWith('http'));
 
 // methods
 function handleReadMore (): void {
