@@ -16,4 +16,4 @@ If you are proposing a feature/enhancement you would like to make, please open a
 
 ## License
 
-This project is licensed under the [MIT License](./LICENSE).
+This project is licensed under the [MIT License](./LICENSE.md).
