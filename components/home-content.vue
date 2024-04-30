@@ -25,7 +25,7 @@
       <div class="col-lg-10 col-md-9 col-12 mt-3">
         <section>
           <template v-if="computedStartups.length > 0">
-            <startup-list :list="computedStartups" :total="startups.length" />
+            <startup-list :list="computedStartups" :total="filteredStartups.length" />
           </template>
           <template v-else>
             <no-search-results />
@@ -102,8 +102,9 @@ const page = ref<number>(Models.DEFAULT_PAGE);
 const recentBlogPosts = ref<Models.IBlog[]>([]);
 
 // computed
-const pageCount = computed(() => startups.length / pageSize.value);
-const computedStartups = computed(() =>
+const pageCount = computed(() => filteredStartups.value.length / pageSize.value);
+
+const filteredStartups = computed(() =>
   startups
     .filter((item) => {
       const textMatch =
@@ -119,6 +120,10 @@ const computedStartups = computed(() =>
 
       return textMatch && categoryMatch && countryMatch;
     })
+);
+
+const computedStartups = computed(() =>
+  filteredStartups.value
     .slice((page.value - 1) * pageSize.value, pageSize.value * page.value)
 );
 
