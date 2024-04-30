@@ -6,7 +6,7 @@ A compilation of African startups that have shut down.
 
 1. Clone this repository
 2. Install dependencies: `yarn install`
-3. Run the app: `yarn serve`
+3. Run the app: `yarn dev`
 
 ## Contribution
 
