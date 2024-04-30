@@ -102,7 +102,7 @@ const page = ref<number>(Models.DEFAULT_PAGE);
 const recentBlogPosts = ref<Models.IBlog[]>([]);
 
 // computed
-const pageCount = computed(() => filteredStartups.value.length / pageSize.value);
+const pageCount = computed(() => Math.ceil(filteredStartups.value.length / pageSize.value));
 
 const filteredStartups = computed(() =>
   startups
