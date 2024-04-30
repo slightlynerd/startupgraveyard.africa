@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex mb-2">
       <p id="totalStartups" class="text-muted h6">
-        {{ total }} startups
+        {{ totalStartups }}
       </p>
     </div>
     <div class="row">
@@ -22,8 +22,13 @@
 import { type IStartup } from '@/models';
 
 // props
-defineProps<{
+const props = defineProps<{
   list: IStartup[];
   total: number;
 }>();
+
+// computed
+const totalStartups = computed(() => {
+  return `${props.total} startup${props.total > 1 ? 's' : ''}`;
+});
 </script>
