@@ -93,8 +93,10 @@
       z-index: 3;
 
       .page-link {
-        content: url(@/assets/images/page-change-arrow-black.svg);
         background: $sg-secondary-color;
+        background-image: url(@/assets/images/page-change-arrow-black.svg);
+        background-repeat: no-repeat;
+        background-position: 50%;
       }
     }
 
@@ -105,7 +107,9 @@
     .prev-item.disabled,
     .next-item.disabled {
       .page-link {
-        content: url(@/assets/images/page-change-arrow-black.svg);
+        background-image: url(@/assets/images/page-change-arrow-black.svg);
+        background-repeat: no-repeat;
+        background-position: 50%;
       }
     }
 
