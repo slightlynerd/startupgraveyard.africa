@@ -29,13 +29,25 @@
         </h6>
         <share-buttons :blog-data="blogData?.data" />
       </div>
+      <div class="blog-sidebar">
+        <p class="h6 text-uppercase fw-bold mb-3">
+          Recent Posts
+        </p>
+        <div class="blog-recent">
+          <blog-card
+            v-for="blog in recentBlogPosts"
+            :key="blog.id"
+            :blog
+          />
+        </div>
+      </div>
     </div>
   </article>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
 import { format } from 'date-fns';
 import sanitizeHtml from 'sanitize-html';
 
@@ -51,9 +63,13 @@ import {
 const { $firestore } = useNuxtApp();
 const route = useRoute();
 
+// constants
+const MIN_BLOG_POSTS = 4;
+
 // refs
 const datetime = ref<string>();
 const metaDescription = ref<string>('');
+const recentBlogPosts = ref<IBlog[]>([]);
 
 // methods
 function sanitizeHtmlContent (content?: string): string {
@@ -91,6 +107,30 @@ const { data: blogData } = await useAsyncData(route.params.id.toString(), async 
   } catch (error) {
     // TODO: handle error
   }
+});
+
+// lifecycle hooks
+onMounted(async () => {
+  const q = query(
+    collection($firestore, FirestoreCollection.Blog),
+    orderBy('createdAt', 'desc'),
+    limit(MIN_BLOG_POSTS)
+  );
+  const querySnapshot = await getDocs(q);
+  recentBlogPosts.value = [];
+
+  querySnapshot.forEach((doc) => {
+    if (doc.data() && doc.id !== route.params.id) {
+      const blog = doc.data() as IBlog;
+      recentBlogPosts.value.push({
+        ...blog,
+        id: doc.id,
+        bodyContent: sanitizeHtml(blog.bodyContent, {
+          allowedTags: []
+        })
+      });
+    }
+  });
 });
 
 useHead({
@@ -218,6 +258,22 @@ article {
         margin-bottom: 0.5rem;
       }
     }
+  }
+
+  .blog-sidebar {
+    margin-left: 2rem;
+    margin-top: 2rem;
+
+    @media screen and (max-width: 768px) {
+      margin-left: 0;
+      margin-top: 4rem;
+    }
+  }
+
+  .blog-recent {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 }
 </style>
