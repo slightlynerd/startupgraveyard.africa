@@ -131,6 +131,8 @@ onMounted(async () => {
       });
     }
   });
+
+  recentBlogPosts.value = recentBlogPosts.value.slice(0, 3);
 });
 
 useHead({
