@@ -1,34 +1,34 @@
 <template>
-  <article
-    :style="{ marginBottom: !isMobile ? `${blogContentHeight}px` : 0 }"
-  >
+  <article>
     <img
       v-if="blogData?.data.headerImage"
       class="blog-image"
       :src="blogData.data.headerImage.url"
       :alt="blogData?.data.headerImage?.alt || blogData?.data.title"
     >
-    <div ref="blogContentRef" class="blog-container">
-      <h1 class="mb-3">
-        {{ blogData?.data.title }}
-      </h1>
-      <p class="mb-0">
-        Written By: <span class="text-muted">{{ blogData?.data.author }}</span>
-      </p>
-      <p class="mb-3">
-        <time :datetime="datetime">
-          Published on:
-          <span class="text-muted">{{ blogData?.data.createdAt }}</span>
-        </time>
-      </p>
-      <div
-        class="content"
-        v-html="sanitizeHtmlContent(blogData?.data.bodyContent)"
-      />
-      <h6 class="mt-5">
-        Share this article
-      </h6>
-      <share-buttons :blog-data="blogData?.data" />
+    <div class="blog-container">
+      <div class="blog-content">
+        <h1 class="mb-3">
+          {{ blogData?.data.title }}
+        </h1>
+        <p class="mb-0">
+          Written By: <span class="text-muted">{{ blogData?.data.author }}</span>
+        </p>
+        <p class="mb-3">
+          <time :datetime="datetime">
+            Published on:
+            <span class="text-muted">{{ blogData?.data.createdAt }}</span>
+          </time>
+        </p>
+        <div
+          class="content"
+          v-html="sanitizeHtmlContent(blogData?.data.bodyContent)"
+        />
+        <h6 class="mt-5">
+          Share this article
+        </h6>
+        <share-buttons :blog-data="blogData?.data" />
+      </div>
     </div>
   </article>
 </template>
@@ -44,7 +44,6 @@ import {
   FirestoreCollection,
   SANITIZE_HTML_OPTIONS,
   type IBlog,
-  MD_BREAKPOINT,
   META_DESCRIPTION_LENGTH
 } from '~/models';
 
@@ -53,22 +52,12 @@ const { $firestore } = useNuxtApp();
 const route = useRoute();
 
 // refs
-const blogContentRef = ref<HTMLElement | undefined>();
-const blogContentHeight = ref<number | undefined>(
-  blogContentRef.value?.offsetHeight
-);
 const datetime = ref<string>();
-const isMobile = ref<boolean>(false);
 const metaDescription = ref<string>('');
 
 // methods
 function sanitizeHtmlContent (content?: string): string {
   return content ? sanitizeHtml(content, SANITIZE_HTML_OPTIONS) : '';
-}
-
-function onResize (): void {
-  isMobile.value = window.innerWidth <= MD_BREAKPOINT;
-  blogContentHeight.value = blogContentRef.value?.offsetHeight;
 }
 
 // fetch blog data
@@ -102,22 +91,6 @@ const { data: blogData } = await useAsyncData(route.params.id.toString(), async 
   } catch (error) {
     // TODO: handle error
   }
-});
-
-// lifecycle hooks
-onMounted(() => {
-  nextTick(() => {
-    // TODO: add styles to fix footer to bottom of article to replace this workaround
-    blogContentHeight.value = blogContentRef.value?.offsetHeight;
-  });
-
-  // set initial mobile state
-  onResize();
-  window.addEventListener('resize', onResize);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', onResize);
 });
 
 useHead({
@@ -188,21 +161,29 @@ article {
   }
 
   .blog-container {
-    position: absolute;
-    top: 20rem;
+    display: flex;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .blog-content {
+    position: relative;
     max-width: 60%;
     background-color: $sg-secondary-color;
     padding: 3rem;
     margin-left: 2rem;
+    margin-top: -4rem;
 
     @media screen and (max-width: 992px) {
       max-width: 75%;
     }
 
     @media screen and (max-width: 768px) {
-      position: initial;
       max-width: 100%;
       margin-left: 0;
+      margin-top: 0;
       padding: 2rem;
     }
 
