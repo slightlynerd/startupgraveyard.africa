@@ -146,6 +146,9 @@ function onPaginationChanged (currentPage: number): void {
   document.getElementById('totalStartups')?.scrollIntoView();
 }
 
+// watch
+watch(filteredStartups, () => (page.value = 1));
+
 // lifecycle hooks
 onMounted(async () => {
   const q = query(
