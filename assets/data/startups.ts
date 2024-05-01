@@ -426,6 +426,19 @@ export const startups: IStartup[] = [
     founded: '2021',
     raised: '~$2.3 million',
     publication: 'Techcabal'
+  },
+  {
+    name: 'RejaReja',
+    shutdownDate: '2024-04',
+    category: Category.Ecommerce,
+    description:
+      'RejaReja was a Kenyan e-commerce platform that allowed users to buy and sell goods and services.',
+    newsSource:
+      'https://techcabal.com/2024/04/17/marketforce-shuts-down-rejareja/',
+    location: 'Kenya 🇰🇪',
+    founded: '2021',
+    raised: 'Unknown',
+    publication: 'Techcabal'
   }
   // company refuted shutdown news
   // https://techcabal.com/2024/01/12/woven-finance-denies-shutting-down/

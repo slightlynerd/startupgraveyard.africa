@@ -1,7 +1,7 @@
 <template>
   <div class="mb-5">
     <p class="note mb-2">
-      A catalogue of African startups that have shut down their services. This
+      A catalogue of African startups and products that have shut down. This
       website serves as a graveyard for these fallen ventures, documenting their
       shortcomings so future entrepreneurs can avoid the same pitfalls and build
       even greater successes.
