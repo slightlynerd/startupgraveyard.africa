@@ -28,17 +28,10 @@ defineProps<{
   pageCount: number;
 }>();
 
-// emits
-// eslint-disable-next-line func-call-spacing
-const emit = defineEmits<{
-  (e: 'page-changed', page: number): void;
-}>();
-
-// refs
-const page = ref<number>(DEFAULT_PAGE);
+const page = defineModel<number>({ default: DEFAULT_PAGE });
 
 // methods
-function onPaginationChanged (page: number): void {
-  emit('page-changed', page);
+function onPaginationChanged (newPage: number): void {
+  page.value = newPage;
 }
 </script>
