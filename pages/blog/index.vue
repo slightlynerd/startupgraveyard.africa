@@ -58,7 +58,7 @@ const lastVisibleDocument =
   ref<QueryDocumentSnapshot<DocumentData, DocumentData>>();
 
 // computed
-const pageCount = computed(() => totalCount.value / DEFAULT_PAGE_SIZE);
+const pageCount = computed(() => Math.ceil(totalCount.value / DEFAULT_PAGE_SIZE));
 
 // methods
 function onPaginationChanged (currentPage: number): void {
