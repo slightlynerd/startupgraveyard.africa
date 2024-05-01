@@ -44,7 +44,7 @@ import sanitizeHtml from 'sanitize-html';
 import { useBlogStore } from '~/stores/blog';
 
 // models
-import { DEFAULT_PAGE_SIZE, FirestoreCollection, type IBlog } from '~/models';
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, FirestoreCollection, type IBlog } from '~/models';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -53,7 +53,7 @@ const blogStore = useBlogStore();
 // refs
 const recentBlogPosts = ref<IBlog[]>([]);
 const totalCount = ref<number>(1);
-const page = ref<number>(1);
+const page = ref<number>(DEFAULT_PAGE);
 const lastVisibleDocument =
   ref<QueryDocumentSnapshot<DocumentData, DocumentData>>();
 
