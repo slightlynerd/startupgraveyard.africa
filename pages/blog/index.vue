@@ -18,7 +18,8 @@
 
     <app-pagination
       :page-count="pageCount"
-      @page-changed="onPaginationChanged"
+      :model-value="page"
+      @update:model-value="onPaginationChanged"
     />
   </div>
 </template>
