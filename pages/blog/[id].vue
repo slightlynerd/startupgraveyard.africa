@@ -205,7 +205,7 @@ article {
   .blog-container {
     display: flex;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 992px) {
       flex-direction: column;
     }
   }
@@ -266,7 +266,7 @@ article {
     margin-left: 2rem;
     margin-top: 2rem;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 992px) {
       margin-left: 0;
       margin-top: 4rem;
     }
