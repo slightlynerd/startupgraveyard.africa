@@ -436,7 +436,7 @@ export const startups: IStartup[] = [
     newsSource:
       'https://techcabal.com/2024/04/17/marketforce-shuts-down-rejareja/',
     location: 'Kenya 🇰🇪',
-    founded: '2021',
+    founded: '2020',
     raised: 'Unknown',
     publication: 'Techcabal'
   }
