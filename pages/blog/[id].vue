@@ -6,7 +6,7 @@
       :src="blogData.data.headerImage.url"
       :alt="blogData?.data.headerImage?.alt || blogData?.data.title"
     >
-    <div class="blog-container">
+    <div class="row gx-0">
       <div class="blog-content">
         <h1 class="mb-3">
           {{ blogData?.data.title }}
@@ -29,16 +29,12 @@
         </h6>
         <share-buttons :blog-data="blogData?.data" />
       </div>
-      <div class="blog-sidebar">
+      <div class="blog-sidebar col-lg-4">
         <p class="h6 text-uppercase fw-bold mb-3">
           Recent Posts
         </p>
-        <div class="blog-recent">
-          <blog-card
-            v-for="blog in recentBlogPosts"
-            :key="blog.id"
-            :blog
-          />
+        <div class="row gy-4 gx-0">
+          <blog-card v-for="blog in recentBlogPosts" :key="blog.id" :blog />
         </div>
       </div>
     </div>
@@ -202,14 +198,6 @@ article {
     object-fit: cover;
   }
 
-  .blog-container {
-    display: flex;
-
-    @media screen and (max-width: 992px) {
-      flex-direction: column;
-    }
-  }
-
   .blog-content {
     position: relative;
     max-width: 60%;
@@ -219,10 +207,6 @@ article {
     margin-top: -4rem;
 
     @media screen and (max-width: 992px) {
-      max-width: 75%;
-    }
-
-    @media screen and (max-width: 768px) {
       max-width: 100%;
       margin-left: 0;
       margin-top: 0;
@@ -270,12 +254,6 @@ article {
       margin-left: 0;
       margin-top: 4rem;
     }
-  }
-
-  .blog-recent {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
   }
 }
 </style>
