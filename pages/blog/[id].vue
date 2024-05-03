@@ -60,7 +60,8 @@ const { $firestore } = useNuxtApp();
 const route = useRoute();
 
 // constants
-const MIN_BLOG_POSTS = 4;
+const MAX_RECENT_POSTS = 3;
+const NO_OF_POSTS_TO_FETCH = 4;
 
 // refs
 const datetime = ref<string>();
@@ -110,7 +111,7 @@ onMounted(async () => {
   const q = query(
     collection($firestore, FirestoreCollection.Blog),
     orderBy('createdAt', 'desc'),
-    limit(MIN_BLOG_POSTS)
+    limit(NO_OF_POSTS_TO_FETCH)
   );
   const querySnapshot = await getDocs(q);
   recentBlogPosts.value = [];
@@ -128,7 +129,9 @@ onMounted(async () => {
     }
   });
 
-  recentBlogPosts.value = recentBlogPosts.value.slice(0, 3);
+  if (recentBlogPosts.value?.length > MAX_RECENT_POSTS) {
+    recentBlogPosts.value = recentBlogPosts.value.slice(0, MAX_RECENT_POSTS);
+  }
 });
 
 useHead({
