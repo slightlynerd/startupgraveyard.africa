@@ -8,26 +8,13 @@
     >
     <div class="row gx-0">
       <div class="blog-content">
-        <h1 class="mb-3">
-          {{ blogData?.data.title }}
-        </h1>
-        <p class="mb-0">
-          Written By: <span class="text-muted">{{ blogData?.data.author }}</span>
-        </p>
-        <p class="mb-3">
-          <time :datetime="datetime">
-            Published on:
-            <span class="text-muted">{{ blogData?.data.createdAt }}</span>
-          </time>
-        </p>
-        <div
-          class="content"
-          v-html="sanitizeHtmlContent(blogData?.data.bodyContent)"
-        />
+        <blog-article :blog-data="blogData?.data" :datetime="datetime" />
         <h6 class="mt-5">
           Share this article
         </h6>
         <share-buttons :blog-data="blogData?.data" />
+
+        <div id="disqus_thread" />
       </div>
       <div class="blog-sidebar col-lg-4">
         <p class="h6 text-uppercase fw-bold mb-3">
@@ -50,7 +37,6 @@ import sanitizeHtml from 'sanitize-html';
 // models
 import {
   FirestoreCollection,
-  SANITIZE_HTML_OPTIONS,
   type IBlog,
   META_DESCRIPTION_LENGTH
 } from '~/models';
@@ -67,11 +53,6 @@ const NO_OF_POSTS_TO_FETCH = 4;
 const datetime = ref<string>();
 const metaDescription = ref<string>('');
 const recentBlogPosts = ref<IBlog[]>([]);
-
-// methods
-function sanitizeHtmlContent (content?: string): string {
-  return content ? sanitizeHtml(content, SANITIZE_HTML_OPTIONS) : '';
-}
 
 // fetch blog data
 const { data: blogData } = await useAsyncData(route.params.id.toString(), async () => {
@@ -132,6 +113,13 @@ onMounted(async () => {
   if (recentBlogPosts.value?.length > MAX_RECENT_POSTS) {
     recentBlogPosts.value = recentBlogPosts.value.slice(0, MAX_RECENT_POSTS);
   }
+
+  // disqus configuration
+  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars, camelcase
+  const disqus_config = function (this: any) {
+    this.page.url = `https://startupgraveyard.africa/blog/${route.params.id}`;
+    this.page.identifier = route.params.id;
+  };
 });
 
 useHead({
@@ -187,7 +175,13 @@ useHead({
       content: blogData.value?.data.headerImage?.url
     }
   ],
-  script: [{ src: 'https://platform.twitter.com/widgets.js' }]
+  script: [
+    { src: 'https://platform.twitter.com/widgets.js' },
+    {
+      src: 'https://startupgraveyard-africa.disqus.com/embed.js',
+      async: true
+    }
+  ]
 });
 </script>
 
@@ -218,34 +212,6 @@ article {
 
     @media screen and (max-width: 600px) {
       padding: 1rem;
-    }
-
-    .content {
-      p,
-      img {
-        margin-bottom: 1rem;
-      }
-
-      :deep(img) {
-        max-width: 100%;
-        height: 24rem;
-        object-fit: contain;
-      }
-
-      :deep(p) {
-        margin-bottom: 1rem;
-        font-size: 1.15rem;
-      }
-
-      :deep(h1),
-      :deep(h2),
-      :deep(h3),
-      :deep(h4),
-      :deep(h5),
-      :deep(h6) {
-        margin-top: 1.5rem;
-        margin-bottom: 0.5rem;
-      }
     }
   }
 
