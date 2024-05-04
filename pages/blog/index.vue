@@ -17,7 +17,7 @@
     <section>
       <div class="row">
         <div
-          v-for="blog in recentBlogPosts"
+          v-for="blog in filteredBlogs"
           :key="blog.id"
           class="col-lg-4 col-md-6 mb-4"
         >
@@ -70,6 +70,16 @@ const searchTerm = ref<string>('');
 
 // computed
 const pageCount = computed(() => Math.ceil(totalCount.value / DEFAULT_PAGE_SIZE));
+
+const filteredBlogs = computed(() => {
+  if (!searchTerm.value || searchTerm.value.length < 2) {
+    return recentBlogPosts.value;
+  }
+
+  return recentBlogPosts.value.filter(blog =>
+    blog.title.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+});
 
 // methods
 function onPaginationChanged (currentPage: number): void {
