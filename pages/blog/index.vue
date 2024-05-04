@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div class="row">
+    <div class="search-wrapper mx-auto">
+      <input
+        v-model="searchTerm"
+        aria-label="Search blog"
+        class="search-input form-control mb-4"
+        type="text"
+        placeholder="Enter search term"
+      >
+    </div>
+
     <h1 class="h6 text-uppercase fw-bold mb-3">
       Recent Posts
     </h1>
@@ -56,6 +66,7 @@ const totalCount = ref<number>(1);
 const page = ref<number>(DEFAULT_PAGE);
 const lastVisibleDocument =
   ref<QueryDocumentSnapshot<DocumentData, DocumentData>>();
+const searchTerm = ref<string>('');
 
 // computed
 const pageCount = computed(() => Math.ceil(totalCount.value / DEFAULT_PAGE_SIZE));
@@ -176,3 +187,22 @@ useHead({
   ]
 });
 </script>
+
+<style lang="scss" scoped>
+.search-wrapper {
+  width: 50%;
+
+  @media screen and (max-width: 992px) {
+    width: 75%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  .search-input {
+    max-width: unset;
+  }
+}
+
+</style>
