@@ -49,13 +49,13 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, FirestoreCollection, type IBlog } from
 // common
 const { $firestore } = useNuxtApp();
 const blogStore = useBlogStore();
+const firestoreRef = collection($firestore, FirestoreCollection.Blog);
 
 // refs
 const recentBlogPosts = ref<IBlog[]>([]);
 const totalCount = ref<number>(1);
 const page = ref<number>(DEFAULT_PAGE);
-const lastVisibleDocument =
-  ref<QueryDocumentSnapshot<DocumentData, DocumentData>>();
+const lastVisibleDocument = ref<QueryDocumentSnapshot<DocumentData, DocumentData>>();
 
 // computed
 const pageCount = computed(() => Math.ceil(totalCount.value / DEFAULT_PAGE_SIZE));
@@ -99,31 +99,29 @@ async function getBlogs (query: Query): Promise<void> {
 
 function goToPreviousPage (): void {
   const q = query(
-    collection($firestore, FirestoreCollection.Blog),
+    firestoreRef,
     orderBy('createdAt', 'desc'),
-    limit(DEFAULT_PAGE_SIZE),
-    endBefore(lastVisibleDocument.value)
+    endBefore(lastVisibleDocument.value),
+    limit(DEFAULT_PAGE_SIZE)
   );
   getBlogs(q);
 }
 
 function goToNextPage (): void {
   const q = query(
-    collection($firestore, FirestoreCollection.Blog),
+    firestoreRef,
     orderBy('createdAt', 'desc'),
-    limit(DEFAULT_PAGE_SIZE),
-    startAfter(lastVisibleDocument.value)
+    startAfter(lastVisibleDocument.value),
+    limit(DEFAULT_PAGE_SIZE)
   );
   getBlogs(q);
 }
 
 // fetch blogs
-const totalPosts = await getCountFromServer(
-  collection($firestore, FirestoreCollection.Blog)
-);
+const totalPosts = await getCountFromServer(firestoreRef);
 totalCount.value = totalPosts.data().count;
 const q = query(
-  collection($firestore, FirestoreCollection.Blog),
+  firestoreRef,
   orderBy('createdAt', 'desc'),
   limit(DEFAULT_PAGE_SIZE)
 );

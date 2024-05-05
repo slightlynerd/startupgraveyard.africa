@@ -8,7 +8,6 @@
         prev-class="page-item prev-item"
         next-class="page-item next-item"
         :page-count="pageCount"
-        :click-handler="onPaginationChanged"
         :prev-text="''"
         :next-text="''"
         :break-view-text="'...'"
@@ -29,9 +28,4 @@ defineProps<{
 }>();
 
 const page = defineModel<number>({ default: DEFAULT_PAGE });
-
-// methods
-function onPaginationChanged (newPage: number): void {
-  page.value = newPage;
-}
 </script>
