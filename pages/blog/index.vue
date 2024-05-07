@@ -72,6 +72,7 @@ const searchTerm = ref<string>('');
 // computed
 const pageCount = computed(() => Math.ceil(totalCount.value / DEFAULT_PAGE_SIZE));
 
+// TODO: refactor to use server-side search and pagination
 const filteredBlogs = computed(() => {
   if (!searchTerm.value || searchTerm.value.length < 2) {
     return recentBlogPosts.value;
