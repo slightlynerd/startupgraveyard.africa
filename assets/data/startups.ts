@@ -420,8 +420,7 @@ export const startups: IStartup[] = [
     category: Category.Fintech,
     description:
       'Thepeer was a Nigeria-based API startup that hoped to power infrastructure for mainly fintech businesses, from small to medium-sized.',
-    newsSource:
-      'https://techcabal.com/2024/04/01/thepeer-shuts-down',
+    newsSource: '/blog/thepeer-failed-for-one-simple-reason-a-case-study',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
     raised: '~$2.3 million',
