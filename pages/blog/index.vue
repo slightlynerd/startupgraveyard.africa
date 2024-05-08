@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div class="row">
+    <div class="search-wrapper mx-auto">
+      <input
+        v-model="searchText"
+        aria-label="Search blog"
+        class="search-input form-control mb-4"
+        type="text"
+        placeholder="Enter search term"
+      >
+    </div>
+
     <h1 class="h6 text-uppercase fw-bold mb-3">
       Recent Posts
     </h1>
@@ -7,7 +17,7 @@
     <section>
       <div class="row">
         <div
-          v-for="blog in recentBlogPosts"
+          v-for="blog in computedBlogs"
           :key="blog.id"
           class="col-lg-4 col-md-6 mb-4"
         >
@@ -26,17 +36,11 @@
 
 <script lang="ts" setup>
 import {
-  collection,
-  query,
-  limit,
-  getDocs,
-  getCountFromServer,
-  endBefore,
-  startAfter,
-  QueryDocumentSnapshot,
-  type DocumentData,
   Query,
-  orderBy
+  collection,
+  getDocs,
+  orderBy,
+  query
 } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
 
@@ -52,21 +56,31 @@ const blogStore = useBlogStore();
 const firestoreRef = collection($firestore, FirestoreCollection.Blog);
 
 // refs
-const recentBlogPosts = ref<IBlog[]>([]);
-const totalCount = ref<number>(1);
+const searchText = ref<string>('');
 const page = ref<number>(DEFAULT_PAGE);
-const lastVisibleDocument = ref<QueryDocumentSnapshot<DocumentData, DocumentData>>();
+const recentBlogPosts = ref<IBlog[]>([]);
 
 // computed
-const pageCount = computed(() => Math.ceil(totalCount.value / DEFAULT_PAGE_SIZE));
+const pageCount = computed(() => Math.ceil(filteredBlogs.value.length / DEFAULT_PAGE_SIZE));
+
+// TODO: refactor to use server-side search and pagination
+const filteredBlogs = computed(() => {
+  if (!searchText.value || searchText.value.length < 2) {
+    return recentBlogPosts.value;
+  }
+
+  return recentBlogPosts.value.filter(blog =>
+    blog.title.toLowerCase().includes(searchText.value.toLowerCase())
+  );
+});
+
+const computedBlogs = computed(() =>
+  filteredBlogs.value
+    .slice((page.value - 1) * DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE * page.value)
+);
 
 // methods
 function onPaginationChanged (currentPage: number): void {
-  if (currentPage > page.value) {
-    goToNextPage();
-  } else {
-    goToPreviousPage();
-  }
   page.value = currentPage;
 }
 
@@ -74,8 +88,6 @@ async function getBlogs (query: Query): Promise<void> {
   blogStore.setLoading(true);
   try {
     const querySnapshot = await getDocs(query);
-    lastVisibleDocument.value =
-      querySnapshot.docs[querySnapshot.docs.length - 1];
     recentBlogPosts.value = [];
 
     querySnapshot.forEach((doc) => {
@@ -97,33 +109,10 @@ async function getBlogs (query: Query): Promise<void> {
   }
 }
 
-function goToPreviousPage (): void {
-  const q = query(
-    firestoreRef,
-    orderBy('createdAt', 'desc'),
-    endBefore(lastVisibleDocument.value),
-    limit(DEFAULT_PAGE_SIZE)
-  );
-  getBlogs(q);
-}
-
-function goToNextPage (): void {
-  const q = query(
-    firestoreRef,
-    orderBy('createdAt', 'desc'),
-    startAfter(lastVisibleDocument.value),
-    limit(DEFAULT_PAGE_SIZE)
-  );
-  getBlogs(q);
-}
-
 // fetch blogs
-const totalPosts = await getCountFromServer(firestoreRef);
-totalCount.value = totalPosts.data().count;
 const q = query(
   firestoreRef,
-  orderBy('createdAt', 'desc'),
-  limit(DEFAULT_PAGE_SIZE)
+  orderBy('createdAt', 'desc')
 );
 await getBlogs(q);
 
@@ -174,3 +163,22 @@ useHead({
   ]
 });
 </script>
+
+<style lang="scss" scoped>
+.search-wrapper {
+  width: 50%;
+
+  @media screen and (max-width: 992px) {
+    width: 75%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  .search-input {
+    max-width: unset;
+  }
+}
+
+</style>
