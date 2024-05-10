@@ -3,7 +3,7 @@
     <h2 class="h6 footer-text mx-auto pt-5">
       💀 startupgraveyard.africa
     </h2>
-    <p class="footer-text small mx-auto mt-3">
+    <p class="footer-text small mx-auto my-3">
       <strong>Disclaimer: </strong>
       <span>
         While this site offers valuable insights, remember it's not a definitive
@@ -11,6 +11,14 @@
         long-term influences, making simple pronouncements risky.
       </span>
     </p>
+    <iframe
+      src="https://startupgraveyardafrica.substack.com/embed"
+      width="480"
+      height="320"
+      frameborder="0"
+      scrolling="no"
+    />
+    <social-icons />
     <div class="pt-4">
       <p class="text-center small">
         &copy; 2023. Contributions are welcome on
@@ -27,14 +35,12 @@
 </template>
 
 <style lang="scss" scoped>
-p.footer-text,
-h2.footer-text {
+footer {
   max-width: 75%;
 }
 
 @media screen and (max-width: 768px) {
-  p.footer-text,
-  h2.footer-text {
+  footer {
     max-width: 100%;
   }
 }
