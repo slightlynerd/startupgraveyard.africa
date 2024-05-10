@@ -11,13 +11,15 @@
         long-term influences, making simple pronouncements risky.
       </span>
     </p>
-    <iframe
-      src="https://startupgraveyardafrica.substack.com/embed"
-      width="480"
-      height="320"
-      frameborder="0"
-      scrolling="no"
-    />
+    <div class="d-flex justify-content-center">
+      <iframe
+        src="https://startupgraveyardafrica.substack.com/embed"
+        width="480"
+        height="320"
+        frameborder="0"
+        scrolling="no"
+      />
+    </div>
     <social-icons />
     <div class="pt-4">
       <p class="text-center small">
