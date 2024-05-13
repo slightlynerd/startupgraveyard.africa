@@ -1,14 +1,5 @@
 <template>
   <div class="mb-5">
-    <p class="note mb-2">
-      A catalogue of African startups and products that have shut down. This
-      website serves as a graveyard for these fallen ventures, documenting their
-      shortcomings so future entrepreneurs can avoid the same pitfalls and build
-      even greater successes.
-    </p>
-
-    <startup-submission class="mb-3" />
-
     <div class="row">
       <div class="col-lg-2 col-md-3 col-12 mt-3">
         <startup-list-filters
@@ -39,24 +30,11 @@
         </section>
       </div>
     </div>
-
-    <section class="mt-5 pt-5">
-      <p class="h6 text-uppercase fw-bold mb-2">
-        Recent Posts
-      </p>
-      <div class="row">
-        <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
-          <blog-card :blog="blog" />
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { format } from 'date-fns';
-import { collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
-import sanitizeHtml from 'sanitize-html';
 
 // data
 import {
@@ -76,9 +54,6 @@ defineEmits<{
   (e: 'update:selected-country', value: Models.Country): void;
 }>();
 
-// common
-const { $firestore } = useNuxtApp();
-
 // constants
 const startups: Models.IStartup[] = allStartups
   .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
@@ -92,7 +67,6 @@ const categories: Models.ICategory[] = allCategories.filter(
 const countries: Models.ICountry[] = allCountries.filter(
   item => item.count > 0
 );
-const MIN_BLOG_POSTS = 3;
 
 // refs
 const searchText = ref<string>('');
@@ -100,7 +74,6 @@ const selectedCategory = ref<Models.Category>();
 const selectedCountry = ref<Models.Country>();
 const pageSize = ref<number>(Models.DEFAULT_PAGE_SIZE);
 const page = ref<number>(Models.DEFAULT_PAGE);
-const recentBlogPosts = ref<Models.IBlog[]>([]);
 
 // computed
 const pageCount = computed(() => Math.ceil(filteredStartups.value.length / pageSize.value));
@@ -148,41 +121,4 @@ function onPaginationChanged (currentPage: number): void {
 
 // watch
 watch(filteredStartups, () => (page.value = 1));
-
-// lifecycle hooks
-onMounted(async () => {
-  const q = query(
-    collection($firestore, Models.FirestoreCollection.Blog),
-    orderBy('createdAt', 'desc'),
-    limit(MIN_BLOG_POSTS)
-  );
-  const querySnapshot = await getDocs(q);
-  recentBlogPosts.value = [];
-
-  querySnapshot.forEach((doc) => {
-    if (doc.data()) {
-      const blog = doc.data() as Models.IBlog;
-      recentBlogPosts.value.push({
-        ...blog,
-        id: doc.id,
-        bodyContent: sanitizeHtml(blog.bodyContent, {
-          allowedTags: []
-        })
-      });
-    }
-  });
-});
 </script>
-
-<style lang="scss" scoped>
-.note {
-  max-width: 75%;
-  font-size: 1.15rem;
-}
-
-@media (max-width: 768px) {
-  .note {
-    max-width: 100%;
-  }
-}
-</style>
