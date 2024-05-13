@@ -1,28 +1,22 @@
 <template>
   <NuxtLayout>
-    <p class="note mb-4">
-      A catalogue of African startups and products that have shut down. This
-      website serves as a graveyard for these fallen ventures, documenting their
-      shortcomings so future entrepreneurs can avoid the same pitfalls and build
-      even greater successes.
+    <p class="lead mb-2">
+      Full catalog startups and products that have shut down in Africa.
     </p>
 
-    <section>
-      <startup-list :list="computedStartups" :total="sortedStartups.length" />
-      <div class="text-center mt-5">
-        <nuxt-link to="/startups" class="btn text-uppercase d-inline-block">
-          View all startups
-        </nuxt-link>
-      </div>
-    </section>
+    <startup-submission class="mb-3" />
+    <startups-container />
 
-    <section class="mt-5 pt-5">
-      <p class="h6 text-uppercase fw-bold mb-2">
-        Recent Posts
-      </p>
+    <section class="my-5 py-5">
       <div class="row">
-        <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
-          <blog-card :blog="blog" />
+        <div class="col-md-6 mb-4">
+          <countries-chart />
+        </div>
+        <div class="col-md-6 mb-4">
+          <categories-chart />
+        </div>
+        <div class="col-md-6 my-4 mx-auto">
+          <categories-funding-chart />
         </div>
       </div>
     </section>
@@ -30,62 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { format } from 'date-fns';
-import { collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
-import sanitizeHtml from 'sanitize-html';
-
-import { startups as allStartups } from '~/assets/data';
-
-// models
-import * as Models from '@/models';
-
-// common
-const { $firestore } = useNuxtApp();
-
-// constants
-const MIN_BLOG_POSTS = 3;
-const sortedStartups: Models.IStartup[] = allStartups
-  .sort((a, b) => +new Date(b.shutdownDate) - +new Date(a.shutdownDate))
-  .map(item => ({
-    ...item,
-    shutdownDate: format(new Date(item.shutdownDate), 'MMM. yyyy')
-  }));
-
-// refs
-const recentBlogPosts = ref<Models.IBlog[]>([]);
-
-// computed
-const computedStartups = computed(() =>
-  sortedStartups
-    .slice(0, 9)
-);
-
-// lifecycle hooks
-onMounted(async () => {
-  const q = query(
-    collection($firestore, Models.FirestoreCollection.Blog),
-    orderBy('createdAt', 'desc'),
-    limit(MIN_BLOG_POSTS)
-  );
-  const querySnapshot = await getDocs(q);
-  recentBlogPosts.value = [];
-
-  querySnapshot.forEach((doc) => {
-    if (doc.data()) {
-      const blog = doc.data() as Models.IBlog;
-      recentBlogPosts.value.push({
-        ...blog,
-        id: doc.id,
-        bodyContent: sanitizeHtml(blog.bodyContent, {
-          allowedTags: []
-        })
-      });
-    }
-  });
-});
-
 useHead({
-  title: 'Startup Graveyard: Cataloguing Failure for Future Success',
+  title: 'Full catalog of African Startups that have shut down',
   meta: [
     {
       name: 'viewport',
@@ -159,14 +99,7 @@ useHead({
 </script>
 
 <style lang="scss" scoped>
-.note {
-  max-width: 75%;
+p.lead {
   font-size: 1.15rem;
-}
-
-@media (max-width: 768px) {
-  .note {
-    max-width: 100%;
-  }
 }
 </style>

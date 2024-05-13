@@ -6,6 +6,6 @@ export interface IStartup {
   newsSource: string;
   location: string;
   founded: string;
-  raised: string;
+  raised?: number;
   publication: string;
 }

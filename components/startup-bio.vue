@@ -11,7 +11,7 @@
       </div>
       <div class="col mt-2">
         <p class="text-muted text-end">
-          Raised: <span class="text-success">{{ startup.raised }}</span>
+          Raised: <span class="text-success">{{ formatAmountToCurrency(startup?.raised) }}</span>
         </p>
       </div>
     </div>
@@ -51,6 +51,9 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 
 // models
 import { type IStartup } from '~/models';
+
+// utils
+import { formatAmountToCurrency } from '@/utils';
 
 // props
 const props = defineProps<{

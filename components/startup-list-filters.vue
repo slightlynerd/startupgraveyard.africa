@@ -1,39 +1,47 @@
 <template>
   <div>
-    <p class="h6 fw-bold text-uppercase mb-2">
+    <p class="h6 fw-bold text-uppercase mb-2 mt-3">
       Filter Startups
     </p>
-    <input
-      v-model="mSearchText"
-      aria-label="Search"
-      class="form-control me-3 mb-2"
-      type="text"
-      placeholder="Enter Startup Name"
-    >
-    <client-only>
-      <vue-select
-        v-model="mSelectedCategory"
-        label="name"
-        aria-label="Categories"
-        class="form-control me-3 mb-2"
-        placeholder="Select Category"
-        :clearable="true"
-        :reduce="item => item.name"
-        :options="categories"
-      />
-    </client-only>
-    <client-only>
-      <vue-select
-        v-model="mSelectedCountry"
-        label="name"
-        aria-label="Countries"
-        class="form-control me-3 mb-2"
-        placeholder="Select Country"
-        :clearable="true"
-        :reduce="item => item.name"
-        :options="countries"
-      />
-    </client-only>
+    <div class="row">
+      <div class="col-md-4">
+        <input
+          v-model="mSearchText"
+          aria-label="Search"
+          class="form-control w-100 me-3 mb-2"
+          type="text"
+          placeholder="Enter Startup Name"
+        >
+      </div>
+      <div class="col-md-4">
+        <client-only>
+          <vue-select
+            v-model="mSelectedCategory"
+            label="name"
+            aria-label="Categories"
+            class="form-control me-3 mb-2"
+            placeholder="Select Category"
+            :clearable="true"
+            :reduce="item => item.name"
+            :options="categories"
+          />
+        </client-only>
+      </div>
+      <div class="col-md-4">
+        <client-only>
+          <vue-select
+            v-model="mSelectedCountry"
+            label="name"
+            aria-label="Countries"
+            class="form-control me-3 mb-2"
+            placeholder="Select Country"
+            :clearable="true"
+            :reduce="item => item.name"
+            :options="countries"
+          />
+        </client-only>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,3 +91,9 @@ watch(
   }
 );
 </script>
+
+<style lang="scss" scoped>
+.form-control {
+  max-width: 100%;
+}
+</style>
