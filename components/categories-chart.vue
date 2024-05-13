@@ -32,12 +32,15 @@ const chartOptions = {
   chart: {
     id: 'categories-chart'
   },
+  dataLabels: {
+    enabled: true
+  },
   labels: categories.map(item => item.name),
   subtitle: {
     text: 'Chart showing the number of startups by category.'
   },
   title: {
-    text: 'Categories'
+    text: 'Startup categories'
   }
 };
 const series = categories.map(item => item.count);

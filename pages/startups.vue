@@ -15,6 +15,9 @@
         <div class="col-md-6 mb-4">
           <categories-chart />
         </div>
+        <div class="col-md-6 my-4 mx-auto">
+          <categories-funding-chart />
+        </div>
       </div>
     </section>
   </NuxtLayout>
