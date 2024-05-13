@@ -1,6 +1,22 @@
 <template>
   <NuxtLayout>
+    <p class="lead mb-2">
+      Full catalog startups and products that have shut down in Africa.
+    </p>
+
+    <startup-submission class="mb-3" />
     <startups-container />
+
+    <section class="my-5 py-5">
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <countries-chart />
+        </div>
+        <div class="col-md-6 mb-4">
+          <categories-chart />
+        </div>
+      </div>
+    </section>
   </NuxtLayout>
 </template>
 
@@ -78,3 +94,9 @@ useHead({
   ]
 });
 </script>
+
+<style lang="scss" scoped>
+p.lead {
+  font-size: 1.15rem;
+}
+</style>

@@ -1,34 +1,31 @@
 <template>
   <div class="mb-5">
     <div class="row">
-      <div class="col-lg-2 col-md-3 col-12 mt-3">
-        <startup-list-filters
-          :categories="categories"
-          :countries="countries"
-          :search-text="searchText"
-          :selected-category="selectedCategory"
-          :selected-country="selectedCountry"
-          @update:search-text="updateSearchText"
-          @update:selected-country="updateSelectedCountry"
-          @update:selected-category="updateSelectedCategory"
-        />
-      </div>
-      <div class="col-lg-10 col-md-9 col-12 mt-3">
-        <section>
-          <template v-if="computedStartups.length > 0">
-            <startup-list :list="computedStartups" :total="filteredStartups.length" />
-          </template>
-          <template v-else>
-            <no-search-results />
-          </template>
+      <startup-list-filters
+        :categories="categories"
+        :countries="countries"
+        :search-text="searchText"
+        :selected-category="selectedCategory"
+        :selected-country="selectedCountry"
+        @update:search-text="updateSearchText"
+        @update:selected-country="updateSelectedCountry"
+        @update:selected-category="updateSelectedCategory"
+      />
+      <section class="mt-3">
+        <template v-if="computedStartups.length > 0">
+          <startup-list :list="computedStartups" :total="filteredStartups.length" />
+        </template>
+        <template v-else>
+          <no-search-results />
+        </template>
 
-          <app-pagination
-            :page-count="pageCount"
-            :model-value="page"
-            @update:model-value="onPaginationChanged"
-          />
-        </section>
-      </div>
+        <app-pagination
+          :page-count="pageCount"
+          :model-value="page"
+          @update:model-value="onPaginationChanged"
+        />
+      </section>
+      <!-- </div> -->
     </div>
   </div>
 </template>

@@ -1,37 +1,47 @@
 <template>
-  <div class="row">
-    <div class="search-wrapper mx-auto">
-      <input
-        v-model="searchText"
-        aria-label="Search blog"
-        class="search-input form-control mb-4"
-        type="text"
-        placeholder="Enter search term"
-      >
-    </div>
+  <main>
+    <p class="lead mb-4 col-md-9">
+      Explore the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.
+    </p>
 
     <h1 class="h6 text-uppercase fw-bold mb-3">
       Recent Posts
     </h1>
 
+    <div class="search-wrapper">
+      <input
+        v-model="searchText"
+        aria-label="Search blog"
+        class="search-input form-control mb-4"
+        type="text"
+        placeholder="Search posts..."
+      >
+    </div>
+
     <section>
       <div class="row">
-        <div
-          v-for="blog in computedBlogs"
-          :key="blog.id"
-          class="col-lg-4 col-md-6 mb-4"
-        >
-          <blog-card :blog="blog" />
-        </div>
+        <template v-if="computedBlogs.length > 0">
+          <div
+            v-for="blog in computedBlogs"
+            :key="blog.id"
+            class="col-lg-4 col-md-6 mb-4"
+          >
+            <blog-card :blog="blog" />
+          </div>
+        </template>
+        <template v-else>
+          <no-search-results />
+        </template>
       </div>
     </section>
 
     <app-pagination
+      v-if="computedBlogs.length > 0"
       :page-count="pageCount"
       :model-value="page"
       @update:model-value="onPaginationChanged"
     />
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>

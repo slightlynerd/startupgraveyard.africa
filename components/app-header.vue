@@ -1,11 +1,11 @@
 <template>
   <nav class="container">
-    <div class="d-flex justify-content-between py-3">
+    <div class="d-flex align-items-center justify-content-between py-3">
       <nuxt-link class="text-center text-uppercase fw-bold h5 mb-0" to="/">
         💀 startupgraveyard.africa
       </nuxt-link>
       <div>
-        <nuxt-link to="/startups" class="me-4">
+        <nuxt-link to="/startups" class="me-4 me-md-5">
           Startups
         </nuxt-link>
         <nuxt-link to="/blog">
@@ -24,5 +24,11 @@
 hr {
   border: none;
   border-bottom: 1px solid $sg-placeholder-color;
+}
+
+@media screen and (max-width: 600px) {
+  a.h5 {
+    font-size: 1rem;
+  }
 }
 </style>
