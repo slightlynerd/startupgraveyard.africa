@@ -30,8 +30,12 @@
         class="btn d-inline-block text-uppercase"
         target="_blank"
         :href="`${startup.newsSource}?referrer=startupgraveyard.africa`"
-        @mousedown="handleReadMore"
-        @touchstart="handleReadMore"
+        @mousedown="logAnalyticsEvent('startup_link_clicked', {
+          startup_name: props.startup.name
+        });"
+        @touchstart="logAnalyticsEvent('startup_link_clicked', {
+          startup_name: props.startup.name
+        });"
       >
         Learn More
       </a>
@@ -47,13 +51,11 @@
 </template>
 
 <script lang="ts" setup>
-import { getAnalytics, logEvent } from 'firebase/analytics';
-
 // models
 import { type IStartup } from '~/models';
 
 // utils
-import { formatAmountToCurrency } from '@/utils';
+import { formatAmountToCurrency, logAnalyticsEvent } from '@/utils';
 
 // props
 const props = defineProps<{
@@ -62,16 +64,6 @@ const props = defineProps<{
 
 // computed
 const isExternalLink = computed(() => props.startup.newsSource.startsWith('http'));
-
-// methods
-function handleReadMore (): void {
-  if (process.env.NODE_ENV !== 'development') {
-    const analytics = getAnalytics();
-    logEvent(analytics, 'startup_link_clicked', {
-      startup_name: props.startup.name
-    });
-  }
-}
 </script>
 
 <style lang="scss" scoped>

@@ -110,7 +110,6 @@
 import { useVuelidate } from '@vuelidate/core';
 import { required, url } from '@vuelidate/validators';
 import { collection, addDoc } from 'firebase/firestore';
-import { getAnalytics, logEvent } from 'firebase/analytics';
 
 // data
 import {
@@ -118,7 +117,10 @@ import {
 } from 'assets/data';
 
 // models
-import { type ICategory, Category } from '@/models';
+import { type ICategory, Category, FirestoreCollection } from '@/models';
+
+// utils
+import { logAnalyticsEvent } from '@/utils';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -147,10 +149,7 @@ const v$ = useVuelidate(rules, form);
 
 // lifecycle hooks
 onMounted(() => {
-  if (process.env.NODE_ENV !== 'development') {
-    const analytics = getAnalytics();
-    logEvent(analytics, 'startup_form_viewed');
-  }
+  logAnalyticsEvent('startup_form_viewed');
 });
 
 // methods
@@ -164,7 +163,7 @@ async function onSubmit (): Promise<void> {
   errorMessage.value = '';
 
   try {
-    await addDoc(collection($firestore, 'pendingStartups'), {
+    await addDoc(collection($firestore, FirestoreCollection.PendingStartups), {
       ...form.value,
       shutdownDate: new Date(form.value.shutdownDate).toISOString()
     });
@@ -176,10 +175,7 @@ async function onSubmit (): Promise<void> {
       newsPublicationLink: ''
     };
     v$.value.$reset();
-    if (process.env.NODE_ENV !== 'development') {
-      const analytics = getAnalytics();
-      logEvent(analytics, 'startup_form_submitted');
-    }
+    logAnalyticsEvent('startup_form_submitted');
   } catch (e) {
     errorMessage.value = (e as Error).message;
   } finally {

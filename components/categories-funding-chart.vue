@@ -43,7 +43,7 @@ const fundingByCategory: number[] = categories.map((category) => {
 });
 const chartOptions = {
   chart: {
-    id: 'countries-chart'
+    id: 'countries-funding-chart'
   },
   dataLabels: {
     enabled: true

@@ -10,7 +10,12 @@
     <section>
       <startup-list :list="computedStartups" :total="sortedStartups.length" />
       <div class="text-center mt-5">
-        <nuxt-link to="/startups" class="btn text-uppercase d-inline-block">
+        <nuxt-link
+          to="/startups"
+          class="btn text-uppercase d-inline-block"
+          @mousedown="logAnalyticsEvent('view_all_startups');"
+          @touchstart="logAnalyticsEvent('view_all_startups');"
+        >
           View all startups
         </nuxt-link>
       </div>
@@ -38,6 +43,9 @@ import { startups as allStartups } from '~/assets/data';
 
 // models
 import * as Models from '@/models';
+
+// utils
+import { logAnalyticsEvent } from '@/utils';
 
 // common
 const { $firestore } = useNuxtApp();
