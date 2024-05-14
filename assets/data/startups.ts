@@ -439,32 +439,4 @@ export const startups: IStartup[] = [
     raised: undefined,
     publication: 'Techcabal'
   }
-  // company refuted shutdown news
-  // https://techcabal.com/2024/01/12/woven-finance-denies-shutting-down/
-  // {
-  //   name: 'Woven Finance',
-  //   shutdownDate: '2024-01',
-  //   category: Category.Fintech,
-  //   description:
-  //     'Woven Finance offered a virtual accounts to business owners with which they could collect payments, eliminating common problems like reconciliation and settlements.',
-  //   newsSource: 'https://techcabal.com/2024/01/10/woven-finance-shuts-down',
-  //   location: 'Nigeria 🇳🇬',
-  //   founded: '2020',
-  //   raised: undefined,
-  //   publication: 'Techcabal'
-  // },
-  // needs news source
-  // {
-  //   name: '*OMG Digital',
-  //   shutdownDate: '2018-10',
-  //   category: Category.Media,
-  //   description:
-  //     'OMG Digital was a media company that created digital editorial brands for African millennials.',
-  //   newsSource:
-  //     'https://techlabari.com/in-memorium-revisiting-five-ghanaian-startups-who-shut-down',
-  //   location: 'Ghana 🇬🇭',
-  //   founded: '2016',
-  //   raised: '$1.2 million',
-  //   publication: 'Techlabari'
-  // },
 ];
