@@ -61,5 +61,9 @@ function sanitizeHtmlContent (content?: string): string {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;
   }
+
+  :deep(a) {
+    text-decoration: underline;
+  }
 }
 </style>
