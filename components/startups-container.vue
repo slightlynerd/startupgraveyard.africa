@@ -20,12 +20,12 @@
         </template>
 
         <app-pagination
+          v-if="pageCount"
           :page-count="pageCount"
           :model-value="page"
           @update:model-value="onPaginationChanged"
         />
       </section>
-      <!-- </div> -->
     </div>
   </div>
 </template>

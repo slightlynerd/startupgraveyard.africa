@@ -8,4 +8,5 @@ export interface IStartup {
   founded: string;
   raised?: number;
   publication: string;
+  note?: string;
 }

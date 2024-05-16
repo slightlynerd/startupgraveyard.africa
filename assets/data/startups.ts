@@ -438,5 +438,54 @@ export const startups: IStartup[] = [
     founded: '2020',
     raised: undefined,
     publication: 'Techcabal'
+  },
+  {
+    name: 'Mocality',
+    shutdownDate: '2013-02',
+    category: Category.Other,
+    description:
+      'Mocality was a business directory and marketing platform that allowed users to easily and conveniently locate businesses in their area.',
+    newsSource:
+      'https://www.businessdailyafrica.com/bd/corporate/technology/mocality-set-to-shut-down-2025346',
+    location: 'Kenya 🇰🇪, Nigeria 🇳🇬',
+    founded: '2009',
+    raised: undefined,
+    publication: 'Business Daily Africa'
+  },
+  {
+    name: 'HerRyde',
+    shutdownDate: '2024-05',
+    category: Category.Transportation,
+    description: 'HerRyde was a ride-hailing service for women in Nigeria, launched in response to safety concerns experienced impacting women.',
+    newsSource: 'https://www.benjamindada.com/herryde-hibernates-women-nigeria-ride-hailing/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2022',
+    raised: undefined,
+    publication: 'Benjamindada',
+    note: 'The startup put out a statement that they “hibernated” to re-strategise and source for funding ahead of a near re-launch. No date was given yet for the re-launch.'
+  },
+  {
+    name: 'TiketMobile',
+    shutdownDate: '2016-01',
+    category: Category.Transportation,
+    description: 'TiketMobile was a mobile ticketing system that let people easily find and buy bus tickets from their mobile device.',
+    newsSource: 'https://techcabal.com/2015/03/13/tiketmobile-rises-dead-naturally-questions/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2013',
+    raised: 5000,
+    publication: 'Techcabal',
+    note: 'The website appears to be non-functional and the social media accounts have been inactive since 2016.'
+  },
+  {
+    name: 'Easy Taxi',
+    shutdownDate: '2016-04',
+    category: Category.Transportation,
+    description: 'Easy Taxi was a ride-hailing service that operated to connect taxi drivers and passengers in the best possible way.',
+    newsSource: 'https://techpoint.africa/2016/04/20/easy-taxi-is-exiting-african-market/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2011',
+    raised: undefined,
+    publication: 'Techpoint',
+    note: 'Startup only exited the African market but still operates in Latin America'
   }
 ];

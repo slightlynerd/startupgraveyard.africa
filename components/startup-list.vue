@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex mb-2">
+    <div v-if="showTotal" class="d-flex mb-2">
       <p id="totalStartups" class="text-muted h6">
         {{ totalStartups }}
       </p>
@@ -22,10 +22,13 @@
 import { type IStartup } from '@/models';
 
 // props
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   list: IStartup[];
   total: number;
-}>();
+  showTotal?: boolean;
+}>(), {
+  showTotal: true
+});
 
 // computed
 const totalStartups = computed(() => {

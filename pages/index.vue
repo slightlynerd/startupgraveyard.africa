@@ -8,7 +8,14 @@
     </p>
 
     <section>
-      <startup-list :list="computedStartups" :total="sortedStartups.length" />
+      <h2 class="h6 text-uppercase fw-bold mb-3">
+        Most Recent Shutdowns
+      </h2>
+      <startup-list
+        :list="computedStartups"
+        :total="sortedStartups.length"
+        :show-total="false"
+      />
       <div class="text-center mt-5">
         <nuxt-link
           to="/startups"
@@ -22,9 +29,9 @@
     </section>
 
     <section class="mt-5 pt-5">
-      <p class="h6 text-uppercase fw-bold mb-2">
+      <h2 class="h6 text-uppercase fw-bold mb-2">
         Recent Posts
-      </p>
+      </h2>
       <div class="row">
         <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
           <blog-card :blog="blog" />

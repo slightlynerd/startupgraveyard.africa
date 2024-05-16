@@ -2,6 +2,9 @@
   <div class="startup-card px-3 py-4">
     <h2 class="h6">
       {{ startup.name }}
+      <Popper v-if="startup.note" hover placement="right" :content="startup.note">
+        <span class="info ms-1" tabindex="0">i</span>
+      </Popper>
     </h2>
     <div class="d-flex align-items-center justify-content-between">
       <div class="col mt-2">
@@ -51,6 +54,8 @@
 </template>
 
 <script lang="ts" setup>
+import Popper from 'vue3-popper';
+
 // models
 import { type IStartup } from '~/models';
 
@@ -82,6 +87,16 @@ const isExternalLink = computed(() => props.startup.newsSource.startsWith('http'
 
   .description {
     min-height: 7.5rem;
+  }
+
+  span.info {
+    cursor: pointer;
+    font-size: 0.75rem;
+    background-color: $sg-primary-color;
+    color: white;
+    border-radius: 50%;
+    padding: 0 0.4rem;
+    font-weight: bold;
   }
 }
 </style>

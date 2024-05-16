@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     gzip: true,
     routes: [
       '/',
+      '/startups',
       '/blog',
       '/blog/**'
     ]

@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@nuxtjs/sitemap": "^5.1.0",
-    "@popperjs/core": "^2.11.8",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "apexcharts": "^3.49.1",
@@ -30,6 +29,7 @@
     "vue-router": "^4.3.0",
     "vue-select": "^4.0.0-beta.6",
     "vue3-apexcharts": "^1.5.2",
+    "vue3-popper": "^1.5.0",
     "vuejs-paginate-next": "^1.0.2"
   },
   "devDependencies": {
