@@ -22,9 +22,10 @@ export default defineNuxtConfig({
     '~/plugins/vue-select.client'
   ],
   modules: ['@nuxtjs/sitemap', '@pinia/nuxt'],
-  routeRules: {
-    '/': { prerender: true }
-  },
+  // TODO: fix issue with prerendering
+  // routeRules: {
+  //   '/': { prerender: true }
+  // },
   site: {
     url: 'https://startupgraveyard.africa'
   },
