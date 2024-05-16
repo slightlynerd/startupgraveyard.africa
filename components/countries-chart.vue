@@ -47,7 +47,7 @@ const chartOptions = {
 };
 const series = [
   {
-    name: 'Countries',
+    name: 'Startups',
     data: countries.map(item => item.count)
   }
 ];
