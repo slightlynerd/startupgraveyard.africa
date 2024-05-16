@@ -2,9 +2,11 @@
   <div class="startup-card px-3 py-4">
     <h2 class="h6">
       {{ startup.name }}
-      <Popper v-if="startup.note" hover placement="right" :content="startup.note">
-        <span class="info ms-1" tabindex="0">i</span>
-      </Popper>
+      <client-only>
+        <Popper v-if="startup.note" hover placement="right" :content="startup.note">
+          <span class="info ms-1" tabindex="0">i</span>
+        </Popper>
+      </client-only>
     </h2>
     <div class="d-flex align-items-center justify-content-between">
       <div class="col mt-2">

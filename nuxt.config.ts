@@ -23,9 +23,11 @@ export default defineNuxtConfig({
   ],
   modules: ['@nuxtjs/sitemap', '@pinia/nuxt'],
   // TODO: fix issue with prerendering
-  // routeRules: {
-  //   '/': { prerender: true }
-  // },
+  routeRules: {
+    '/': { prerender: true },
+    '/startups': { prerender: true },
+    '/blog': { prerender: true }
+  },
   site: {
     url: 'https://startupgraveyard.africa'
   },
