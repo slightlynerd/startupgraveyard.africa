@@ -97,7 +97,7 @@ const isExternalLink = computed(() => props.startup.newsSource.startsWith('http'
     background-color: $sg-primary-color;
     color: white;
     border-radius: 50%;
-    padding: 0 0.4rem;
+    padding: 0 0.45rem;
     font-weight: bold;
   }
 }

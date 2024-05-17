@@ -487,5 +487,27 @@ export const startups: IStartup[] = [
     raised: undefined,
     publication: 'Techpoint',
     note: 'Startup only exited the African market but still operates in Latin America'
+  },
+  {
+    name: 'Legwork',
+    shutdownDate: '2013-05',
+    category: Category.Other,
+    description: 'Legwork was a social network that allowed users to share their thoughts, photos, and videos with friends and family.',
+    newsSource: 'https://www.nairaland.com/6821797/why-did-legwork.com.ng-die-untimely',
+    location: 'Nigeria 🇳🇬',
+    founded: '2007',
+    raised: undefined,
+    publication: 'Nairaland'
+  },
+  {
+    name: 'Tress',
+    shutdownDate: '2019-09',
+    category: Category.Other,
+    description: 'Tress was a mobile app for black women to find hairstyle inspiration.',
+    newsSource: 'https://techpoint.africa/2019/09/05/did-mest-portfolio-startup-tress-literally-stop-caring-about-black-womens-hair/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2014',
+    raised: 120000,
+    publication: 'Techpoint'
   }
 ];
