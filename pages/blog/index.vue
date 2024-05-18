@@ -112,7 +112,6 @@ async function getBlogs (query: Query): Promise<void> {
         });
       }
     });
-    console.log({ ...recentBlogPosts.value });
   } catch (error) {
     // TODO: handle error
   } finally {

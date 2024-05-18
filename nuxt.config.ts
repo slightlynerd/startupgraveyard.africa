@@ -25,8 +25,7 @@ export default defineNuxtConfig({
   // TODO: fix issue with prerendering
   routeRules: {
     '/': { prerender: true },
-    '/startups': { prerender: true },
-    '/blog': { prerender: true }
+    '/startups': { prerender: true }
   },
   site: {
     url: 'https://startupgraveyard.africa'
