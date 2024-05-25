@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex align-items-center mt-5"
+    class="d-flex align-items-center"
     :class="`justify-content-${position ? position : 'center'}`"
   >
     <a v-if="facebook" :href="facebook" target="_blank"><svg

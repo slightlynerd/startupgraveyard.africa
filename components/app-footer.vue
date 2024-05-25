@@ -11,7 +11,7 @@
         long-term influences, making simple pronouncements risky.
       </span>
     </p>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mb-5">
       <iframe
         src="https://startupgraveyardafrica.substack.com/embed"
         width="480"

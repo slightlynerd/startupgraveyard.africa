@@ -3,15 +3,15 @@
     class="row align-items-center"
     :to="blog?.id ? `/blog/${blog.id}` : '/blog'"
   >
-    <div class="col">
+    <div class="col-lg">
       <img
         class="header-image"
         :src="blog?.headerImage.url"
         :alt="blog?.headerImage.alt"
       >
     </div>
-    <div class="col">
-      <h2 class="h5">
+    <div class="col-lg">
+      <h2 class="h5 mt-2 mt-lg-0">
         {{ blog?.title }}
       </h2>
       <p class="text-small">
@@ -33,18 +33,21 @@ defineProps<{
   blog?: IBlog;
 }>();
 
-const maxContentLength = 60;
+const maxContentLength = 65;
 </script>
 
 <style lang="scss" scoped>
 a.row {
-  max-height: 10rem;
+  min-height: 10rem;
   max-width: 95%;
+
+  @media screen and (max-width: 992px){
+    max-width: 100%;
+  }
 
   img.header-image {
     width: 100%;
-    height: 100%;
-    max-height: 10rem;
+    height: 10rem;
     object-fit: cover;
   }
 }

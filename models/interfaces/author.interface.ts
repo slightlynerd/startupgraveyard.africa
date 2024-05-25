@@ -5,7 +5,7 @@ export interface IAuthor {
   email: string;
   bio: string;
   photoURL: string;
-  linkedIn?: string;
+  linkedin?: string;
   x?: string;
   facebook?: string;
 }

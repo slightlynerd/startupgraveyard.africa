@@ -6,15 +6,15 @@
       :alt="`photo of ${author?.firstName} ${author?.lastName}`"
     >
     <h1>{{ author?.firstName }} {{ author?.lastName }}</h1>
-    <p class="lead mt-3">
+    <p class="lead my-3">
       {{ author?.bio }}
     </p>
-    <div class="text-muted mt-3">
+    <div class="text-muted">
       <social-icons
         position="start"
         :facebook="author?.facebook"
         :x="author?.x"
-        :linkedin="author?.linkedIn"
+        :linkedin="author?.linkedin"
       />
     </div>
   </div>
