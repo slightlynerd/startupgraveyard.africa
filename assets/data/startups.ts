@@ -408,7 +408,7 @@ export const startups: IStartup[] = [
     description:
       'LetsChat was designed for young African users to compete with bigger rivals WhatsApp and Telegram.',
     newsSource:
-      'https://www.benjamindada.com/tiktok-letschat-shutdown-africa',
+      '/blog/case-study-letschats-stumble-in-africas-messaging-market',
     location: 'Africa 🌍',
     founded: '2021',
     raised: undefined,
