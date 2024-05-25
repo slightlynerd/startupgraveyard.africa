@@ -59,7 +59,7 @@ const { data: authorDetails } = await useAsyncData(
         )
       );
       let authorData: IAuthor = {} as IAuthor;
-      let authorPosts: IBlog[] = [];
+      const authorPosts: IBlog[] = [];
       if (authorSnap.exists()) {
         authorData = authorSnap.data() as IAuthor;
         metaDescription.value = authorData.bio;
