@@ -39,12 +39,13 @@ const maxContentLength = 60;
 <style lang="scss" scoped>
 a.row {
   max-height: 10rem;
+  max-width: 95%;
 
   img.header-image {
     width: 100%;
     height: 100%;
+    max-height: 10rem;
     object-fit: cover;
-    margin-right: 1rem;
   }
 }
 </style>

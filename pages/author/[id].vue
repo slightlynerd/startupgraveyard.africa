@@ -55,7 +55,7 @@ const { data: authorDetails } = await useAsyncData(
       const authorPostsSnap = await getDocs(
         query(
           collection($firestore, FirestoreCollection.Blog),
-          where('author', '==', 'Karen Maina')
+          where('author', '==', route.params.id.toString())
         )
       );
       let authorData: IAuthor = {} as IAuthor;
