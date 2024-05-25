@@ -30,7 +30,15 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { doc, getDoc, collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
+import {
+  doc,
+  getDoc,
+  collection,
+  query,
+  limit,
+  getDocs,
+  orderBy
+} from 'firebase/firestore';
 import { format } from 'date-fns';
 import sanitizeHtml from 'sanitize-html';
 
@@ -38,6 +46,7 @@ import sanitizeHtml from 'sanitize-html';
 import {
   FirestoreCollection,
   type IBlog,
+  type IAuthor,
   META_DESCRIPTION_LENGTH
 } from '~/models';
 
@@ -55,37 +64,48 @@ const metaDescription = ref<string>('');
 const recentBlogPosts = ref<IBlog[]>([]);
 
 // fetch blog data
-const { data: blogData } = await useAsyncData(route.params.id.toString(), async () => {
-  const articleRef = doc(
-    $firestore,
-    FirestoreCollection.Blog,
-    route.params.id.toString()
-  );
-  let blog: IBlog | undefined;
-  try {
-    const articleSnap = await getDoc(articleRef);
-    if (articleSnap.exists()) {
-      blog = {
-        ...articleSnap.data(),
-        createdAt: format(
-          new Date(articleSnap.data()?.createdAt.toDate()),
-          'MMMM d, yyyy'
-        )
-      } as IBlog;
-      datetime.value = new Date(
-        articleSnap.data()?.createdAt.toDate()
-      ).toISOString();
-      metaDescription.value = `${sanitizeHtml(blog.bodyContent, {
-        allowedTags: []
-      }).substring(0, META_DESCRIPTION_LENGTH)}... ${blog.title}`;
-      return {
-        data: { ...blog }
-      };
+const { data: blogData } = await useAsyncData(
+  route.params.id.toString(),
+  async () => {
+    const articleRef = doc(
+      $firestore,
+      FirestoreCollection.Blog,
+      route.params.id.toString()
+    );
+    let blog: IBlog | undefined;
+    try {
+      const articleSnap = await getDoc(articleRef);
+      if (articleSnap.exists()) {
+        // fetch author data
+        const authorSnap = await getDoc(doc(
+          $firestore,
+          FirestoreCollection.Authors,
+          articleSnap.data()?.author
+        ));
+        const author = authorSnap.data() as IAuthor;
+        blog = {
+          ...articleSnap.data(),
+          author: `${author.firstName} ${author.lastName}` || '',
+          createdAt: format(
+            new Date(articleSnap.data()?.createdAt.toDate()),
+            'MMMM d, yyyy'
+          )
+        } as IBlog;
+        datetime.value = new Date(
+          articleSnap.data()?.createdAt.toDate()
+        ).toISOString();
+        metaDescription.value = `${sanitizeHtml(blog.bodyContent, {
+          allowedTags: []
+        }).substring(0, META_DESCRIPTION_LENGTH)}... ${blog.title}`;
+        return {
+          data: { ...blog }
+        };
+      }
+    } catch (error) {
+      // TODO: handle error
     }
-  } catch (error) {
-    // TODO: handle error
   }
-});
+);
 
 // lifecycle hooks
 onMounted(async () => {

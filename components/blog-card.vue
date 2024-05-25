@@ -13,7 +13,7 @@
       </h3>
       <p
         v-if="!hideDescription"
-        v-html="truncateText(blog?.bodyContent, recentPostTruncateLength)"
+        v-html="truncateText(blog?.bodyContent, RECENT_POST_TRUNCATE_LENGTH)"
       />
       <router-link
         class="btn d-inline-block mt-4 text-uppercase"
@@ -37,9 +37,6 @@ defineProps<{
   blog?: IBlog;
   hideDescription?: boolean;
 }>();
-
-// constants
-const recentPostTruncateLength = RECENT_POST_TRUNCATE_LENGTH;
 </script>
 
 <style lang="scss" scoped>

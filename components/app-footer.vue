@@ -1,5 +1,5 @@
 <template>
-  <footer class="container my-5">
+  <footer class="container col-md-8 my-5">
     <h2 class="h6 footer-text mx-auto pt-5">
       💀 startupgraveyard.africa
     </h2>
@@ -20,7 +20,7 @@
         scrolling="no"
       />
     </div>
-    <social-icons />
+    <social-icons :facebook="FACEBOOK_URL" :x="X_URL" :linkedin="LINKEDIN_URL" />
     <div class="pt-4">
       <p class="text-center small">
         &copy; 2023. Contributions are welcome on
@@ -36,14 +36,6 @@
   </footer>
 </template>
 
-<style lang="scss" scoped>
-footer {
-  max-width: 75%;
-}
-
-@media screen and (max-width: 768px) {
-  footer {
-    max-width: 100%;
-  }
-}
-</style>
+<script setup lang="ts">
+import { FACEBOOK_URL, X_URL, LINKEDIN_URL } from '@/models';
+</script>
