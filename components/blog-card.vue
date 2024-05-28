@@ -8,7 +8,7 @@
       >
     </router-link>
     <div class="p-4">
-      <h3 class="h5">
+      <h3 class="h5 fw-bold">
         {{ blog?.title }}
       </h3>
       <p

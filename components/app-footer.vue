@@ -1,6 +1,6 @@
 <template>
   <footer class="container col-md-8 my-5">
-    <h2 class="h6 footer-text text-uppercase mx-auto pt-5">
+    <h2 class="h5 fw-bold footer-text text-uppercase mx-auto pt-5">
       💀 Startup Graveyard
     </h2>
     <p class="footer-text small mx-auto my-3">

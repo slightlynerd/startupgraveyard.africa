@@ -1,24 +1,42 @@
 <template>
   <main>
-    <p class="lead mb-4 col-md-9">
+    <p class="lead col-md-9">
       Explore the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.
     </p>
 
-    <h1 class="h6 text-uppercase fw-bold mb-3">
-      Recent Posts
-    </h1>
+    <section class="mt-5">
+      <h1 class="h6 text-uppercase fw-bold mb-3">
+        Featured Posts
+      </h1>
 
-    <div class="search-wrapper">
-      <input
-        v-model="searchText"
-        aria-label="Search blog"
-        class="search-input form-control mb-4"
-        type="text"
-        placeholder="Search posts..."
-      >
-    </div>
+      <template v-if="featuredPosts.length > 0">
+        <div class="row">
+          <div
+            v-for="blog in featuredPosts"
+            :key="blog.id"
+            class="col-lg-6 mb-4"
+          >
+            <featured-blog-card :blog="blog" />
+          </div>
+        </div>
+      </template>
+    </section>
 
-    <section>
+    <section class="mt-5">
+      <h2 class="h6 text-uppercase fw-bold mb-3">
+        Recent Posts
+      </h2>
+
+      <div class="search-wrapper">
+        <input
+          v-model="searchText"
+          aria-label="Search blog"
+          class="search-input form-control mb-4"
+          type="text"
+          placeholder="Search posts..."
+        >
+      </div>
+
       <div class="row">
         <template v-if="computedBlogs.length > 0">
           <div
@@ -33,14 +51,14 @@
           <no-search-results />
         </template>
       </div>
-    </section>
 
-    <app-pagination
-      v-if="computedBlogs.length > 0"
-      :page-count="pageCount"
-      :model-value="page"
-      @update:model-value="onPaginationChanged"
-    />
+      <app-pagination
+        v-if="computedBlogs.length > 0"
+        :page-count="pageCount"
+        :model-value="page"
+        @update:model-value="onPaginationChanged"
+      />
+    </section>
   </main>
 </template>
 
@@ -88,6 +106,7 @@ const computedBlogs = computed(() =>
   filteredBlogs.value
     .slice((page.value - 1) * DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE * page.value)
 );
+const featuredPosts = computed(() => recentBlogPosts.value.filter(blog => blog.featured));
 
 // methods
 function onPaginationChanged (currentPage: number): void {

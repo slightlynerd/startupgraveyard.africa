@@ -9,4 +9,5 @@ export interface IBlog {
   createdAt: Date | string;
   tags: string[];
   updatedAt?: Date | string;
+  featured?: boolean;
 }
