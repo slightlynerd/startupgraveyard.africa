@@ -29,21 +29,7 @@
           class="form-control bg-transparent mt-3"
           type="text"
           placeholder="Enter News Publication Link"
-          :class="{
-            'is-invalid': v$.$dirty && v$.newsPublicationLink.$invalid
-          }"
         >
-        <div v-for="(error, i) of v$.newsPublicationLink.$errors" :key="i">
-          <p
-            v-if="error.$validator === 'required'"
-            class="text-danger mb-2"
-          >
-            This field is required
-          </p>
-          <p v-if="error.$validator === 'url'" class="text-danger mb-2">
-            Please enter a valid URL.
-          </p>
-        </div>
       </div>
     </div>
     <div class="d-lg-flex">
@@ -108,7 +94,7 @@
 
 <script lang="ts" setup>
 import { useVuelidate } from '@vuelidate/core';
-import { required, url } from '@vuelidate/validators';
+import { required } from '@vuelidate/validators';
 import { collection, addDoc } from 'firebase/firestore';
 
 // data
@@ -130,8 +116,7 @@ const categories: ICategory[] = allCategories.filter(
 const rules = {
   startupName: { required },
   shutdownDate: { required },
-  category: { required },
-  newsPublicationLink: { required, url }
+  category: { required }
 };
 
 // refs
