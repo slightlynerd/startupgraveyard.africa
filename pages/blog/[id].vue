@@ -136,13 +136,37 @@ const { data: blogData } = await useAsyncData(
       orderBy('createdAt', 'desc'),
       limit(NO_OF_POSTS_TO_FETCH)
     );
-    let blog: IBlog | undefined;
+    let blogData: IBlog | undefined;
     try {
       const articleSnap = await getDoc(articleRef);
-      const querySnapshot = await getDocs(recentPostsQuery);
+      const recentPostsQuerySnapshot = await getDocs(recentPostsQuery);
       let recentBlogPosts: IBlog[] = [];
 
-      querySnapshot.forEach((doc) => {
+      if (articleSnap.exists()) {
+        // fetch author data
+        const authorSnap = await getDoc(doc(
+          $firestore,
+          FirestoreCollection.Authors,
+          articleSnap.data()?.author
+        ));
+        const author = authorSnap.data() as IAuthor;
+        blogData = {
+          ...articleSnap.data(),
+          author,
+          createdAt: format(
+            new Date(articleSnap.data()?.createdAt.toDate()),
+            'MMMM d, yyyy'
+          )
+        } as IBlog;
+        datetime.value = new Date(
+          articleSnap.data()?.createdAt.toDate()
+        ).toISOString();
+        metaDescription.value = `${sanitizeHtml(blogData.bodyContent, {
+          allowedTags: []
+        }).substring(0, META_DESCRIPTION_LENGTH)}... ${blogData.title}`;
+      }
+
+      recentPostsQuerySnapshot.forEach((doc) => {
         if (doc.data() && doc.id !== route.params.id) {
           const blog = doc.data() as IBlog;
           recentBlogPosts.push({
@@ -158,33 +182,11 @@ const { data: blogData } = await useAsyncData(
       if (recentBlogPosts?.length > MAX_RECENT_POSTS) {
         recentBlogPosts = recentBlogPosts.slice(0, MAX_RECENT_POSTS);
       }
-      if (articleSnap.exists()) {
-        // fetch author data
-        const authorSnap = await getDoc(doc(
-          $firestore,
-          FirestoreCollection.Authors,
-          articleSnap.data()?.author
-        ));
-        const author = authorSnap.data() as IAuthor;
-        blog = {
-          ...articleSnap.data(),
-          author: `${author.firstName} ${author.lastName}` || '',
-          createdAt: format(
-            new Date(articleSnap.data()?.createdAt.toDate()),
-            'MMMM d, yyyy'
-          )
-        } as IBlog;
-        datetime.value = new Date(
-          articleSnap.data()?.createdAt.toDate()
-        ).toISOString();
-        metaDescription.value = `${sanitizeHtml(blog.bodyContent, {
-          allowedTags: []
-        }).substring(0, META_DESCRIPTION_LENGTH)}... ${blog.title}`;
-        return {
-          blogData: blog,
-          recentBlogPosts: JSON.stringify(recentBlogPosts)
-        };
-      }
+
+      return {
+        blogData,
+        recentBlogPosts: JSON.stringify(recentBlogPosts)
+      };
     } catch (error) {
       // TODO: handle error
     }
@@ -228,7 +230,7 @@ useHead({
     },
     {
       name: 'author',
-      content: computedBlogData.value?.author
+      content: `${computedBlogData.value?.author.firstName} ${computedBlogData.value?.author.lastName}`
     },
     {
       property: 'twitter:card',

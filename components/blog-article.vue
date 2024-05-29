@@ -4,7 +4,10 @@
       {{ blogData?.title }}
     </h1>
     <p class="mb-0">
-      Written By: <span class="text-muted">{{ blogData?.author }}</span>
+      Written By:
+      <router-link class="text-muted" :to="`/author/${blogData?.author.id}`">
+        {{ blogData?.author.firstName }} {{ blogData?.author.lastName }}
+      </router-link>
     </p>
     <p class="mb-3">
       <client-only>

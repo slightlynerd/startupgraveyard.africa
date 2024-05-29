@@ -6,7 +6,7 @@
 
     <featured-posts-section :posts="featuredPosts" />
 
-    <section class="mt-5">
+    <section id="recentPosts" class="mt-5">
       <h2 class="h6 text-uppercase fw-bold mb-3">
         Recent Posts
       </h2>
@@ -95,6 +95,7 @@ const featuredPosts = computed(() => recentBlogPosts.value.filter(blog => blog.f
 // methods
 function onPaginationChanged (currentPage: number): void {
   page.value = currentPage;
+  document.getElementById('recentPosts')?.scrollIntoView();
 }
 
 async function getBlogs (query: Query): Promise<void> {
