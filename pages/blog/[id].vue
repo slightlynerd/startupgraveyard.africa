@@ -1,20 +1,20 @@
 <template>
   <article>
     <img
-      v-if="blogData?.data.headerImage"
+      v-if="computedBlogData?.headerImage"
       class="blog-image"
-      :src="blogData.data.headerImage.url"
-      :alt="blogData?.data.headerImage?.alt || blogData?.data.title"
+      :src="computedBlogData.headerImage.url"
+      :alt="computedBlogData?.headerImage?.alt || computedBlogData?.title"
     >
     <div class="row gx-0">
       <div class="blog-content">
-        <blog-article :blog-data="blogData?.data" :datetime="datetime" />
+        <blog-article :blog-data="computedBlogData" :datetime="datetime" />
 
         <h6 class="mt-5">
           Share this article
         </h6>
 
-        <share-buttons :blog-data="blogData?.data" />
+        <share-buttons :blog-data="computedBlogData" />
 
         <div id="disqus_thread" ref="disqusContainer" />
       </div>
@@ -24,7 +24,11 @@
           Recent Posts
         </p>
         <div class="row gy-4 gx-0">
-          <blog-card v-for="blog in recentBlogPosts" :key="blog.id" :blog />
+          <blog-card
+            v-for="blog in computedRecentBlogPosts"
+            :key="blog.id"
+            :blog
+          />
         </div>
       </div>
     </div>
@@ -85,6 +89,9 @@ import {
   META_DESCRIPTION_LENGTH
 } from '@/models';
 
+// utils
+import { jsonToObject } from '@/utils';
+
 // common
 const { $firestore } = useNuxtApp();
 const route = useRoute();
@@ -96,10 +103,15 @@ const NO_OF_POSTS_TO_FETCH = 4;
 // refs
 const datetime = ref<string>();
 const metaDescription = ref<string>('');
-const recentBlogPosts = ref<IBlog[]>([]);
 const isNewsletterVisible = ref<boolean>(false);
 const disqusContainer = ref<HTMLElement | null>(null);
 
+// computed
+const computedBlogData = computed(() => blogData.value?.blogData);
+const computedRecentBlogPosts = computed(() =>
+  jsonToObject(blogData.value?.recentBlogPosts || '[]'));
+
+// stop intersection observer when newsletter is visible
 const { stop } = useIntersectionObserver(
   disqusContainer,
   ([{ isIntersecting }]) => {
@@ -119,9 +131,33 @@ const { data: blogData } = await useAsyncData(
       FirestoreCollection.Blog,
       route.params.id.toString()
     );
+    const recentPostsQuery = query(
+      collection($firestore, FirestoreCollection.Blog),
+      orderBy('createdAt', 'desc'),
+      limit(NO_OF_POSTS_TO_FETCH)
+    );
     let blog: IBlog | undefined;
     try {
       const articleSnap = await getDoc(articleRef);
+      const querySnapshot = await getDocs(recentPostsQuery);
+      let recentBlogPosts: IBlog[] = [];
+
+      querySnapshot.forEach((doc) => {
+        if (doc.data() && doc.id !== route.params.id) {
+          const blog = doc.data() as IBlog;
+          recentBlogPosts.push({
+            ...blog,
+            id: doc.id,
+            bodyContent: sanitizeHtml(blog.bodyContent, {
+              allowedTags: []
+            })
+          });
+        }
+      });
+
+      if (recentBlogPosts?.length > MAX_RECENT_POSTS) {
+        recentBlogPosts = recentBlogPosts.slice(0, MAX_RECENT_POSTS);
+      }
       if (articleSnap.exists()) {
         // fetch author data
         const authorSnap = await getDoc(doc(
@@ -145,7 +181,8 @@ const { data: blogData } = await useAsyncData(
           allowedTags: []
         }).substring(0, META_DESCRIPTION_LENGTH)}... ${blog.title}`;
         return {
-          data: { ...blog }
+          blogData: blog,
+          recentBlogPosts: JSON.stringify(recentBlogPosts)
         };
       }
     } catch (error) {
@@ -154,45 +191,15 @@ const { data: blogData } = await useAsyncData(
   }
 );
 
-// lifecycle hooks
-onMounted(async () => {
-  const q = query(
-    collection($firestore, FirestoreCollection.Blog),
-    orderBy('createdAt', 'desc'),
-    limit(NO_OF_POSTS_TO_FETCH)
-  );
-  const querySnapshot = await getDocs(q);
-  recentBlogPosts.value = [];
-
-  querySnapshot.forEach((doc) => {
-    if (doc.data() && doc.id !== route.params.id) {
-      const blog = doc.data() as IBlog;
-      recentBlogPosts.value.push({
-        ...blog,
-        id: doc.id,
-        bodyContent: sanitizeHtml(blog.bodyContent, {
-          allowedTags: []
-        })
-      });
-    }
-  });
-
-  if (recentBlogPosts.value?.length > MAX_RECENT_POSTS) {
-    recentBlogPosts.value = recentBlogPosts.value.slice(0, MAX_RECENT_POSTS);
-  }
-
-  // const disqusContainer = document.getElementById('disqus_thread');
-
-  // disqus configuration
-  // eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars, camelcase
-  const disqus_config = function (this: any) {
-    this.page.url = `https://startupgraveyard.africa/blog/${route.params.id}`;
-    this.page.identifier = route.params.id;
-  };
-});
+// disqus configuration
+// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars, camelcase
+const disqus_config = function (this: any) {
+  this.page.url = `https://startupgraveyard.africa/blog/${route.params.id}`;
+  this.page.identifier = route.params.id;
+};
 
 useHead({
-  title: blogData.value?.data.title,
+  title: computedBlogData.value?.title,
   meta: [
     {
       hid: 'description',
@@ -202,7 +209,7 @@ useHead({
     {
       hid: 'og:title',
       property: 'og:title',
-      content: blogData.value?.data.title
+      content: computedBlogData.value?.title
     },
     {
       hid: 'og:description',
@@ -212,7 +219,7 @@ useHead({
     {
       hid: 'og:image',
       property: 'og:image',
-      content: blogData.value?.data.headerImage?.url
+      content: computedBlogData.value?.headerImage?.url
     },
     {
       hid: 'og:url',
@@ -221,7 +228,7 @@ useHead({
     },
     {
       name: 'author',
-      content: blogData.value?.data.author
+      content: computedBlogData.value?.author
     },
     {
       property: 'twitter:card',
@@ -233,7 +240,7 @@ useHead({
     },
     {
       property: 'twitter:title',
-      content: blogData.value?.data.title
+      content: computedBlogData.value?.title
     },
     {
       property: 'twitter:description',
@@ -241,7 +248,7 @@ useHead({
     },
     {
       property: 'twitter:image',
-      content: blogData.value?.data.headerImage?.url
+      content: computedBlogData.value?.headerImage?.url
     }
   ],
   script: [

@@ -4,23 +4,7 @@
       Explore the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.
     </p>
 
-    <section class="mt-5">
-      <h1 class="h6 text-uppercase fw-bold mb-3">
-        Featured Posts
-      </h1>
-
-      <template v-if="featuredPosts.length > 0">
-        <div class="row">
-          <div
-            v-for="blog in featuredPosts"
-            :key="blog.id"
-            class="col-lg-6 mb-4"
-          >
-            <featured-blog-card :blog="blog" />
-          </div>
-        </div>
-      </template>
-    </section>
+    <featured-posts-section :posts="featuredPosts" />
 
     <section class="mt-5">
       <h2 class="h6 text-uppercase fw-bold mb-3">
