@@ -7,10 +7,11 @@
       Written By: <span class="text-muted">{{ blogData?.author }}</span>
     </p>
     <p class="mb-3">
-      <time :datetime="datetime">
-        Published on:
-        <span class="text-muted">{{ blogData?.createdAt }}</span>
-      </time>
+      <client-only>
+        <time :datetime="datetime" />
+      </client-only>
+      Published on:
+      <span class="text-muted">{{ blogData?.createdAt }}</span>
     </p>
     <div class="content" v-html="sanitizeHtmlContent(blogData?.bodyContent)" />
   </div>
