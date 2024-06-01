@@ -99,6 +99,7 @@ const route = useRoute();
 // constants
 const MAX_RECENT_POSTS = 3;
 const NO_OF_POSTS_TO_FETCH = 4;
+const PAGE_IDENTIFIER = `https://startupgraveyard.africa/blog/${route.params.id}`;
 
 // refs
 const datetime = ref<string>();
@@ -110,17 +111,6 @@ const disqusContainer = ref<HTMLElement | null>(null);
 const computedBlogData = computed(() => blogData.value?.blogData);
 const computedRecentBlogPosts = computed(() =>
   jsonToObject(blogData.value?.recentBlogPosts || '[]'));
-
-// stop intersection observer when newsletter is visible
-const { stop } = useIntersectionObserver(
-  disqusContainer,
-  ([{ isIntersecting }]) => {
-    isNewsletterVisible.value = isIntersecting;
-    if (isIntersecting) {
-      stop();
-    }
-  }
-);
 
 // fetch blog data
 const { data: blogData } = await useAsyncData(
@@ -193,12 +183,38 @@ const { data: blogData } = await useAsyncData(
   }
 );
 
-// disqus configuration
-// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars, camelcase
-const disqus_config = function (this: any) {
-  this.page.url = `https://startupgraveyard.africa/blog/${route.params.id}`;
-  this.page.identifier = route.params.id;
-};
+// lifecycle hooks
+onMounted(() => {
+  let newsletterStore = sessionStorage.getItem('newsletter') || 'false';
+  const { stop } = useIntersectionObserver(
+    disqusContainer,
+    ([{ isIntersecting }]) => {
+      if (newsletterStore === 'true') {
+        return stop();
+      }
+      if (isIntersecting) {
+        isNewsletterVisible.value = isIntersecting;
+        newsletterStore = 'true';
+        sessionStorage.setItem('newsletter', 'true');
+        stop();
+      }
+    }
+  );
+
+  // eslint-disable-next-line camelcase, @typescript-eslint/naming-convention, @typescript-eslint/no-unused-vars
+  const disqus_config = function (this: any) {
+    this.page.url = PAGE_IDENTIFIER;
+    this.page.identifier = route.params.id;
+  };
+
+  (function () {
+    const d = document;
+    const s = d.createElement('script');
+    s.src = 'https://startupgraveyard-africa.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', new Date().toString());
+    (d.head || d.body).appendChild(s);
+  })();
+});
 
 useHead({
   title: computedBlogData.value?.title,
@@ -226,7 +242,7 @@ useHead({
     {
       hid: 'og:url',
       property: 'og:url',
-      content: `https://startupgraveyard.africa/blog/${route.params.id}`
+      content: PAGE_IDENTIFIER
     },
     {
       name: 'author',
@@ -254,11 +270,7 @@ useHead({
     }
   ],
   script: [
-    { src: 'https://platform.twitter.com/widgets.js' },
-    {
-      src: 'https://startupgraveyard-africa.disqus.com/embed.js',
-      async: true
-    }
+    { src: 'https://platform.twitter.com/widgets.js' }
   ]
 });
 </script>
