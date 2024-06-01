@@ -10,3 +10,6 @@ export const THOUSAND = 1000;
 export const FACEBOOK_URL = 'https://www.facebook.com/startupgraveyard.africa';
 export const X_URL = 'https://twitter.com/stgr_africa';
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/stgrafrica/';
+
+// posts
+export const FEATURED_POSTS_COUNT = 2;

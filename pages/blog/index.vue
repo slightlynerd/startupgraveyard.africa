@@ -1,24 +1,26 @@
 <template>
   <main>
-    <p class="lead mb-4 col-md-9">
+    <p class="lead col-md-9">
       Explore the world of startups with our insightful blog posts. Learn about African startups, funding tips, growth hacks, and inspiring founder stories to launch and scale your dream business.
     </p>
 
-    <h1 class="h6 text-uppercase fw-bold mb-3">
-      Recent Posts
-    </h1>
+    <featured-posts-section :posts="featuredPosts" />
 
-    <div class="search-wrapper">
-      <input
-        v-model="searchText"
-        aria-label="Search blog"
-        class="search-input form-control mb-4"
-        type="text"
-        placeholder="Search posts..."
-      >
-    </div>
+    <section id="recentPosts" class="mt-5">
+      <h2 class="h6 text-uppercase fw-bold mb-3">
+        Recent Posts
+      </h2>
 
-    <section>
+      <div class="search-wrapper">
+        <input
+          v-model="searchText"
+          aria-label="Search blog"
+          class="search-input form-control mb-4"
+          type="text"
+          placeholder="Search posts..."
+        >
+      </div>
+
       <div class="row">
         <template v-if="computedBlogs.length > 0">
           <div
@@ -33,14 +35,14 @@
           <no-search-results />
         </template>
       </div>
-    </section>
 
-    <app-pagination
-      v-if="computedBlogs.length > 0"
-      :page-count="pageCount"
-      :model-value="page"
-      @update:model-value="onPaginationChanged"
-    />
+      <app-pagination
+        v-if="computedBlogs.length > 0"
+        :page-count="pageCount"
+        :model-value="page"
+        @update:model-value="onPaginationChanged"
+      />
+    </section>
   </main>
 </template>
 
@@ -88,10 +90,12 @@ const computedBlogs = computed(() =>
   filteredBlogs.value
     .slice((page.value - 1) * DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE * page.value)
 );
+const featuredPosts = computed(() => recentBlogPosts.value.filter(blog => blog.featured));
 
 // methods
 function onPaginationChanged (currentPage: number): void {
   page.value = currentPage;
+  document.getElementById('recentPosts')?.scrollIntoView();
 }
 
 async function getBlogs (query: Query): Promise<void> {

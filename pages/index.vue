@@ -28,12 +28,18 @@
       </div>
     </section>
 
+    <featured-posts-section :posts="computedFeaturedPosts" />
+
     <section class="mt-5 pt-5">
       <h2 class="h6 text-uppercase fw-bold mb-2">
         Recent Posts
       </h2>
       <div class="row">
-        <div v-for="blog in recentBlogPosts" :key="blog.id" class="col-md-4 mb-4">
+        <div
+          v-for="blog in computedRecentPosts"
+          :key="blog.id"
+          class="col-md-4 mb-4"
+        >
           <blog-card :blog="blog" />
         </div>
       </div>
@@ -43,7 +49,7 @@
 
 <script setup lang="ts">
 import { format } from 'date-fns';
-import { collection, query, limit, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, limit, getDocs, orderBy, where } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
 
 import { startups as allStartups } from '~/assets/data';
@@ -52,7 +58,7 @@ import { startups as allStartups } from '~/assets/data';
 import * as Models from '@/models';
 
 // utils
-import { logAnalyticsEvent } from '@/utils';
+import { logAnalyticsEvent, jsonToObject } from '@/utils';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -66,38 +72,69 @@ const sortedStartups: Models.IStartup[] = allStartups
     shutdownDate: format(new Date(item.shutdownDate), 'MMM. yyyy')
   }));
 
-// refs
-const recentBlogPosts = ref<Models.IBlog[]>([]);
-
 // computed
 const computedStartups = computed(() =>
   sortedStartups
-    .slice(0, 9)
+    .slice(0, Models.DEFAULT_PAGE_SIZE)
+);
+const computedRecentPosts = computed(() =>
+  jsonToObject(posts.value?.recentPosts || '') as Models.IBlog[]
+);
+const computedFeaturedPosts = computed(() =>
+  jsonToObject(posts.value?.featuredPosts || '') as Models.IBlog[]
 );
 
-// lifecycle hooks
-onMounted(async () => {
-  const q = query(
-    collection($firestore, Models.FirestoreCollection.Blog),
-    orderBy('createdAt', 'desc'),
-    limit(MIN_BLOG_POSTS)
-  );
-  const querySnapshot = await getDocs(q);
-  recentBlogPosts.value = [];
+// fetch posts data
+const { data: posts } = await useAsyncData(
+  'posts',
+  async () => {
+    const recentPostsQuery = query(
+      collection($firestore, Models.FirestoreCollection.Blog),
+      orderBy('createdAt', 'desc'),
+      limit(MIN_BLOG_POSTS)
+    );
+    const featuredPostsQuery = query(
+      collection($firestore, Models.FirestoreCollection.Blog),
+      where('featured', '==', true),
+      limit(Models.FEATURED_POSTS_COUNT)
+    );
+    const recentPostsQuerySnapshot = await getDocs(recentPostsQuery);
+    const featuredPostsQuerySnapshot = await getDocs(featuredPostsQuery);
+    const recentPosts: Models.IBlog[] = [];
+    const featuredPosts: Models.IBlog[] = [];
 
-  querySnapshot.forEach((doc) => {
-    if (doc.data()) {
-      const blog = doc.data() as Models.IBlog;
-      recentBlogPosts.value.push({
-        ...blog,
-        id: doc.id,
-        bodyContent: sanitizeHtml(blog.bodyContent, {
-          allowedTags: []
-        })
-      });
-    }
-  });
-});
+    recentPostsQuerySnapshot.forEach((doc) => {
+      if (doc.data()) {
+        const blog = doc.data() as Models.IBlog;
+        recentPosts.push({
+          ...blog,
+          id: doc.id,
+          bodyContent: sanitizeHtml(blog.bodyContent, {
+            allowedTags: []
+          })
+        });
+      }
+    });
+
+    featuredPostsQuerySnapshot.forEach((doc) => {
+      if (doc.data()) {
+        const blog = doc.data() as Models.IBlog;
+        featuredPosts.push({
+          ...blog,
+          id: doc.id,
+          bodyContent: sanitizeHtml(blog.bodyContent, {
+            allowedTags: []
+          })
+        });
+      }
+    });
+
+    return {
+      recentPosts: JSON.stringify(recentPosts),
+      featuredPosts: JSON.stringify(featuredPosts)
+    };
+  }
+);
 
 useHead({
   title: 'Startup Graveyard: Cataloguing Failure for Future Success',

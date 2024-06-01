@@ -1,14 +1,14 @@
 <template>
   <div>
-    <author-bio :author="authorDetails?.data.authorData" />
-    <hr class="my-5" />
+    <author-bio :author="computedAuthorData" />
+    <hr class="my-5">
     <section>
       <h2 class="h3 mb-4">
-        Posts by {{ authorDetails?.data.authorData.firstName }} {{ authorDetails?.data.authorData.lastName }}
+        Posts by {{ computedAuthorData?.firstName }} {{ computedAuthorData?.lastName }}
       </h2>
       <div class="row">
         <div
-          v-for="item in JSON.parse(authorDetails?.data.authorPosts || '[]')"
+          v-for="item in computedAuthorPosts"
           :key="item.id"
           class="col-md-6 mb-5"
         >
@@ -32,7 +32,10 @@ import {
 import sanitizeHtml from 'sanitize-html';
 
 // models
-import { FirestoreCollection, type IAuthor, type IBlog } from '~/models';
+import { FirestoreCollection, type IAuthor, type IBlog } from '@/models';
+
+// utils
+import { jsonToObject } from '@/utils';
 
 // common
 const { $firestore } = useNuxtApp();
@@ -40,6 +43,12 @@ const route = useRoute();
 
 // refs
 const metaDescription = ref<string>('');
+
+// computed
+const computedAuthorData = computed(() => authorDetails.value?.authorData);
+const computedAuthorPosts = computed(() =>
+  jsonToObject(authorDetails.value?.authorPosts || '[]')
+);
 
 // fetch author data
 const { data: authorDetails } = await useAsyncData(
@@ -79,7 +88,8 @@ const { data: authorDetails } = await useAsyncData(
         });
       }
       return {
-        data: { authorData, authorPosts: JSON.stringify(authorPosts) }
+        authorData,
+        authorPosts: JSON.stringify(authorPosts)
       };
     } catch (error) {
       // TODO: handle error
@@ -88,7 +98,7 @@ const { data: authorDetails } = await useAsyncData(
 );
 
 useHead({
-  title: `${authorDetails.value?.data.authorData.firstName} ${authorDetails.value?.data.authorData.lastName} | Startup Graveyard`,
+  title: `${computedAuthorData.value?.firstName} ${computedAuthorData.value?.lastName} | Startup Graveyard`,
   meta: [
     {
       hid: 'description',
@@ -98,7 +108,7 @@ useHead({
     {
       hid: 'og:title',
       property: 'og:title',
-      content: `${authorDetails.value?.data.authorData.firstName} | Startup Graveyard`
+      content: `${computedAuthorData.value?.firstName} | Startup Graveyard`
     },
     {
       hid: 'og:description',
@@ -108,16 +118,16 @@ useHead({
     {
       hid: 'og:image',
       property: 'og:image',
-      content: authorDetails.value?.data.authorData.photoURL
+      content: computedAuthorData.value?.photoURL
     },
     {
       hid: 'og:url',
       property: 'og:url',
-      content: `https://startupgraveyard.africa/author/${authorDetails.value?.data.authorData.photoURL}`
+      content: `https://startupgraveyard.africa/author/${computedAuthorData.value?.photoURL}`
     },
     {
       name: 'author',
-      content: `${authorDetails.value?.data.authorData.firstName} ${authorDetails.value?.data.authorData.lastName}`
+      content: `${computedAuthorData.value?.firstName} ${computedAuthorData.value?.lastName}`
     },
     {
       property: 'twitter:card',
@@ -129,7 +139,7 @@ useHead({
     },
     {
       property: 'twitter:title',
-      content: `${authorDetails.value?.data.authorData.firstName} ${authorDetails.value?.data.authorData.lastName} | Startup Graveyard`
+      content: `${computedAuthorData.value?.firstName} ${computedAuthorData.value?.lastName} | Startup Graveyard`
     },
     {
       property: 'twitter:description',
@@ -137,7 +147,7 @@ useHead({
     },
     {
       property: 'twitter:image',
-      content: authorDetails.value?.data.authorData.photoURL
+      content: computedAuthorData.value?.photoURL
     }
   ]
 });

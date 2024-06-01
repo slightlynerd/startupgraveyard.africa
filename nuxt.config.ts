@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     '~/plugins/firebase',
     '~/plugins/vue-select.client'
   ],
-  modules: ['@nuxtjs/sitemap', '@pinia/nuxt'],
+  modules: ['@nuxtjs/sitemap', '@pinia/nuxt', '@vueuse/nuxt'],
   // TODO: fix issue with prerendering
   routeRules: {
     '/': { prerender: true },

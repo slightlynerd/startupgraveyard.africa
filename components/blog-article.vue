@@ -4,13 +4,17 @@
       {{ blogData?.title }}
     </h1>
     <p class="mb-0">
-      Written By: <span class="text-muted">{{ blogData?.author }}</span>
+      Written By:
+      <router-link class="text-muted" :to="`/author/${blogData?.author.id}`">
+        {{ blogData?.author.firstName }} {{ blogData?.author.lastName }}
+      </router-link>
     </p>
     <p class="mb-3">
-      <time :datetime="datetime">
-        Published on:
-        <span class="text-muted">{{ blogData?.createdAt }}</span>
-      </time>
+      <client-only>
+        <time :datetime="datetime" />
+      </client-only>
+      Published on:
+      <span class="text-muted">{{ blogData?.createdAt }}</span>
     </p>
     <div class="content" v-html="sanitizeHtmlContent(blogData?.bodyContent)" />
   </div>
