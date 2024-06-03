@@ -3,7 +3,12 @@
     <h2 class="h6">
       {{ startup.name }}
       <client-only>
-        <Popper v-if="startup.note" hover placement="right" :content="startup.note">
+        <Popper
+          v-if="startup.note"
+          hover
+          placement="right"
+          :content="startup.note"
+        >
           <span class="info ms-1" tabindex="0">i</span>
         </Popper>
       </client-only>
@@ -15,7 +20,10 @@
         </p>
       </div>
       <div class="col mt-2">
-        <p class="text-muted text-end">
+        <p
+          class="text-muted text-end"
+          :title="startup?.raised ? `$${startup?.raised?.toString()}` : 'unknown'"
+        >
           Raised: <span class="text-success">{{ formatAmountToCurrency(startup?.raised) }}</span>
         </p>
       </div>
@@ -34,7 +42,7 @@
         v-if="isExternalLink"
         class="btn d-inline-block text-uppercase"
         target="_blank"
-        :href="`${startup.newsSource}?referrer=startupgraveyard.africa`"
+        :href="`${startup.newsSource}?ref=startupgraveyard.africa`"
         @mousedown="logAnalyticsEvent('startup_link_clicked', {
           startup_name: props.startup.name
         });"
@@ -77,6 +85,12 @@ const isExternalLink = computed(() => props.startup.newsSource.startsWith('http'
 .startup-card {
   background-color: $sg-secondary-color;
   transition: all 0.2s ease-in-out;
+
+  @media screen and (min-width: 390px) {
+    :deep(.popper) {
+      max-width: 19rem !important;
+    }
+  }
 
   &:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);

@@ -509,5 +509,63 @@ export const startups: IStartup[] = [
     founded: '2014',
     raised: 120000,
     publication: 'Techpoint'
+  },
+  {
+    name: 'Gro Intelligence',
+    shutdownDate: '2024-05',
+    category: Category.Agriculture,
+    description: 'Gro Intelligence was an agricultural insights platform that provided data and analytics to help farmers make informed decisions.',
+    newsSource: 'https://agfundernews.com/breaking-ag-insights-platform-gro-intelligence-is-closing-down',
+    location: 'Kenya 🇰🇪',
+    founded: '2012',
+    raised: 117600000,
+    publication: 'AGFunder News'
+  },
+  {
+    name: 'iProcure',
+    shutdownDate: '2024-04',
+    category: Category.Agriculture,
+    description: 'iProcure was a B2B agritech startup that provided farmers with access to quality inputs and services.',
+    newsSource: 'https://techpoint.africa/2024/05/09/kenyan-agritech-iprocure-files-bankruptcy/',
+    location: 'Kenya 🇰🇪',
+    founded: '2012',
+    raised: 17200000,
+    publication: 'Techpoint',
+    note: 'The company filed for bankruptcy in April 2024'
+  },
+  {
+    name: 'Copia Kenya',
+    shutdownDate: '2024-05',
+    category: Category.Ecommerce,
+    description: 'Copia was a mobile commerce platform that connected retailers and suppliers to consumers in rural Kenya.',
+    newsSource: 'https://techcabal.com/2024/05/24/copia-enters-into-administration-after-failing-to-secure-funding/',
+    location: 'Kenya 🇰🇪',
+    founded: '2013',
+    raised: 123000000,
+    publication: 'Techcabal',
+    note: 'The company entered into administration after failing to secure funding'
+  },
+  {
+    name: 'WeJapa',
+    shutdownDate: '2021-03',
+    category: Category.Other,
+    description: 'WeJapa was a talent marketplace that connected African software engineers with global companies.',
+    newsSource: 'https://technext24.com/2020/10/20/update-investigators-find-former-wejapa-ceo-favour-ori-guilty-of-high-handedness/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2019',
+    raised: 50000,
+    publication: 'Technext24',
+    note: 'It is unclear when the company shut down as there was no official announcement but the website is no longer functional.'
+  },
+  {
+    name: 'BuyCoins Pro',
+    shutdownDate: '2024-01',
+    category: Category.Blockchain,
+    description: 'BuyCoins Pro was a cryptocurrency trading platform that allowed users to buy and sell cryptocurrencies.',
+    newsSource: 'https://www.mariblock.com/helicarrier-shuts-crypto-trading-platform-buycoins-pro/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2017',
+    raised: 50000,
+    publication: 'Mariblock'
   }
 ];
