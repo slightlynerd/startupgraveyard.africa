@@ -339,7 +339,7 @@ export const startups: IStartup[] = [
     location: 'Africa 🌍',
     founded: '2014',
     raised: undefined,
-    publication: 'Techpoint'
+    publication: 'Startup Graveyard'
   },
   {
     name: 'Bkam',
@@ -395,11 +395,11 @@ export const startups: IStartup[] = [
     description:
       'Cova was a Nigerian wealthtech startup that enables users to track their assets in one place.',
     newsSource:
-      'https://www.benjamindada.com/cova-shuts-down-nigerian-wealthtech',
+      '/blog/case-study-covas-unfulfilled-promise-of-all-in-one-wealth-management',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
     raised: 800000,
-    publication: 'Benjamindada'
+    publication: 'Startup Graveyard'
   },
   {
     name: 'LetsChat',
@@ -412,7 +412,7 @@ export const startups: IStartup[] = [
     location: 'Africa 🌍',
     founded: '2021',
     raised: undefined,
-    publication: 'Benjamindada'
+    publication: 'Startup Graveyard'
   },
   {
     name: 'Thepeer',
@@ -424,7 +424,7 @@ export const startups: IStartup[] = [
     location: 'Nigeria 🇳🇬',
     founded: '2021',
     raised: 2300000,
-    publication: 'Techcabal'
+    publication: 'Startup Graveyard'
   },
   {
     name: 'RejaReja',
