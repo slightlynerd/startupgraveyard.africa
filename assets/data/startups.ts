@@ -432,8 +432,7 @@ export const startups: IStartup[] = [
     category: Category.Ecommerce,
     description:
       'RejaReja was a Kenyan e-commerce platform that allowed users to buy and sell goods and services.',
-    newsSource:
-      'https://techcabal.com/2024/04/17/marketforce-shuts-down-rejareja/',
+    newsSource: '/blog/case-study-why-marketforce-shut-down-rejareja',
     location: 'Kenya 🇰🇪',
     founded: '2020',
     raised: undefined,
