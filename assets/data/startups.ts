@@ -566,5 +566,51 @@ export const startups: IStartup[] = [
     founded: '2017',
     raised: 50000,
     publication: 'Mariblock'
+  },
+  {
+    name: 'Passerine Aircraft',
+    shutdownDate: '2020-03',
+    category: Category.Aviation,
+    description: 'Passerine Aircraft was a startup developing electric-powered delivery drones that utilised a novel jumping mechanism to achieve flight.',
+    newsSource: 'https://todayafrica.co/failed-startups/',
+    location: 'South Africa 🇿🇦',
+    founded: '2017',
+    raised: 120000,
+    publication: 'TodayAfrica',
+    note: 'It is not clear why the company shut down but the website is no longer functional and listed inactive on Y Combinator.'
+  },
+  {
+    name: 'Saida',
+    shutdownDate: '2022-01',
+    category: Category.Fintech,
+    description: 'Saida was a Kenyan fintech startup that provided users a bank account that lets them easily separate, spend and track money.',
+    newsSource: 'https://todayafrica.co/failed-startups/',
+    location: 'Kenya 🇰🇪',
+    founded: '2015',
+    raised: 120000,
+    publication: 'TodayAfrica',
+    note: 'It is not clear why the company shut down but the website is no longer functional and listed inactive on Y Combinator.'
+  },
+  {
+    name: 'Wala',
+    shutdownDate: '2019-07',
+    category: Category.Blockchain,
+    description: 'Wala was a crypto-powered payments app that allowed users to send money to friends and family.',
+    newsSource: 'https://www.coindesk.com/markets/2019/07/11/wala-was-africas-perfect-crypto-success-story-until-it-collapsed/',
+    location: 'South Africa 🇿🇦, Uganda 🇺🇬',
+    founded: '2017',
+    raised: 1200000,
+    publication: 'CoinDesk'
+  },
+  {
+    name: 'Nefsak',
+    shutdownDate: '2016-09',
+    category: Category.Ecommerce,
+    description: 'Nefsak was an Egyptian e-commerce platform that sold a wide range of products.',
+    newsSource: 'https://digestafrica.com/africa-most-high-profile-startup-failures#:~:text=Nefsak%20(2008%20%2D%202016)',
+    location: 'Egypt 🇪🇬',
+    founded: '2008',
+    raised: 600000,
+    publication: 'Digest Africa'
   }
 ];

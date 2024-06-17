@@ -18,5 +18,6 @@ export enum Category {
   Manufacturing = 'Manufacturing',
   Blockchain = 'Blockchain',
   FoodTech = 'FoodTech',
+  Aviation = 'Aviation',
   Other = 'Other'
 }
