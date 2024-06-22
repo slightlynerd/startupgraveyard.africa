@@ -564,7 +564,7 @@ export const startups: IStartup[] = [
     newsSource: 'https://www.mariblock.com/helicarrier-shuts-crypto-trading-platform-buycoins-pro/',
     location: 'Nigeria 🇳🇬',
     founded: '2017',
-    raised: 50000,
+    raised: 1200000,
     publication: 'Mariblock'
   },
   {
