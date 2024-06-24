@@ -612,5 +612,16 @@ export const startups: IStartup[] = [
     founded: '2008',
     raised: 600000,
     publication: 'Digest Africa'
+  },
+  {
+    name: 'Capiter',
+    shutdownDate: '2023-08',
+    category: Category.Ecommerce,
+    description: 'Capiter was a marketplace that connects retailers and wholesalers in the food and beverage, fast-moving consumer goods and electronics industries',
+    newsSource: 'https://afrikanheroes.com/2023/08/28/how-troubled-egyptian-startup-capiter-was-liquidated-after-failure-to-secure-merger/',
+    location: 'Egypt 🇪🇬',
+    founded: '2020',
+    raised: 33000000,
+    publication: 'Afrikanheroes'
   }
 ];
