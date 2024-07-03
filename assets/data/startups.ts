@@ -109,11 +109,11 @@ export const startups: IStartup[] = [
     category: Category.Blockchain,
     description:
       'Lazerpay was a blockchain-based payment gateway that allowed businesses to accept payments in cryptocurrencies like Bitcoin, Ethereum, and Litecoin.',
-    newsSource: 'https://techpoint.africa/2023/04/13/lazerpay-shuts-down',
+    newsSource: '/blog/lessons-learned-the-case-of-lazerpays-shutdown',
     location: 'Nigeria 🇳🇬',
     founded: '2021',
     raised: 1100000,
-    publication: 'Techpoint'
+    publication: 'Startup Graveyard'
   },
   {
     name: 'Zumi',
@@ -436,7 +436,7 @@ export const startups: IStartup[] = [
     location: 'Kenya 🇰🇪',
     founded: '2020',
     raised: undefined,
-    publication: 'Techcabal'
+    publication: 'Startup Graveyard'
   },
   {
     name: 'Mocality',
