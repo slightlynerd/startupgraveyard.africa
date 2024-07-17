@@ -33,36 +33,7 @@
       </div>
     </div>
 
-    <div
-      v-if="isNewsletterVisible"
-      id="newsletterModal"
-      class="modal fade show"
-      tabindex="-1"
-      aria-labelledby="newsletterModalLabel"
-      role="dialog"
-      data-bs-keyboard="false"
-      aria-modal="true"
-      style="display: block;"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title h5 fw-bold">
-              Get weekly updates on tech startups in Africa
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              aria-label="Close"
-              @click="isNewsletterVisible = false"
-            />
-          </div>
-          <div class="modal-body">
-            <substack-iframe />
-          </div>
-        </div>
-      </div>
-    </div>
+    <newsletter-modal v-if="isNewsletterVisible" @close="isNewsletterVisible = false" />
   </article>
 </template>
 
@@ -278,14 +249,6 @@ useHead({
 <style lang="scss" scoped>
 article {
   position: relative;
-
-  .modal {
-    background-color: rgba(0, 0, 0, 0.5);
-
-    .modal-content {
-      background-color: $sg-body-bg;
-    }
-  }
 
   .blog-image {
     width: 100%;

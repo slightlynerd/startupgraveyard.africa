@@ -514,7 +514,7 @@ export const startups: IStartup[] = [
     shutdownDate: '2024-05',
     category: Category.Agriculture,
     description: 'Gro Intelligence was an agricultural insights platform that provided data and analytics to help farmers make informed decisions.',
-    newsSource: 'https://agfundernews.com/breaking-ag-insights-platform-gro-intelligence-is-closing-down',
+    newsSource: '/blog/the-impact-of-gro-intelligences-shutdown-on-the-agritech-industry',
     location: 'Kenya 🇰🇪',
     founded: '2012',
     raised: 117600000,

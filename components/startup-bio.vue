@@ -42,20 +42,16 @@
         v-if="isExternalLink"
         class="btn d-inline-block text-uppercase"
         target="_blank"
-        :href="`${startup.newsSource}?ref=startupgraveyard.africa`"
-        @mousedown="logAnalyticsEvent('startup_link_clicked', {
-          startup_name: props.startup.name
-        });"
-        @touchstart="logAnalyticsEvent('startup_link_clicked', {
-          startup_name: props.startup.name
-        });"
+        :href="computedLink"
+        @mousedown="handleClick"
+        @touchstart="handleClick"
       >
         Learn More
       </a>
       <nuxt-link
         v-else
         class="btn d-inline-block text-uppercase"
-        :to="startup.newsSource"
+        :to="computedLink"
       >
         Learn more
       </nuxt-link>
@@ -77,8 +73,27 @@ const props = defineProps<{
   startup: IStartup;
 }>();
 
+// emits
+// eslint-disable-next-line func-call-spacing
+const emit = defineEmits<{
+  (e: 'handle-click', value: string): void;
+}>();
+
 // computed
 const isExternalLink = computed(() => props.startup.newsSource.startsWith('http'));
+const computedLink = computed(() => {
+  return isExternalLink.value
+    ? `${props.startup.newsSource}?ref=startupgraveyard.africa`
+    : props.startup.newsSource;
+});
+
+// methods
+function handleClick (): void {
+  logAnalyticsEvent('startup_link_clicked', {
+    startup_name: props.startup.name
+  });
+  emit('handle-click', computedLink.value);
+};
 </script>
 
 <style lang="scss" scoped>

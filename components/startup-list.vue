@@ -11,9 +11,10 @@
         :key="index"
         class="col-12 col-md-6 col-lg-4 mb-3"
       >
-        <startup-bio :startup="item" />
+        <startup-bio :startup="item" @handle-click="handleStartupClick" />
       </div>
     </div>
+    <newsletter-modal v-if="showNewsletter" @close="showNewsletter = false" />
   </div>
 </template>
 
@@ -30,8 +31,27 @@ const props = withDefaults(defineProps<{
   showTotal: true
 });
 
+// refs
+const showNewsletter = ref<boolean>(false);
+
 // computed
 const totalStartups = computed(() => {
   return `${props.total} startup${props.total > 1 ? 's' : ''}`;
 });
+
+// methods
+function handleStartupClick (link: string): void {
+  // check if internal link
+  if (!link.startsWith('http')) {
+    return;
+  }
+
+  // check if newsletter has been shown
+  const newsletterStore = sessionStorage.getItem('newsletter') || 'false';
+  if (!newsletterStore || newsletterStore === 'false') {
+    showNewsletter.value = true;
+    sessionStorage.setItem('newsletter', 'true');
+    window.open(link, '_blank');
+  }
+}
 </script>
