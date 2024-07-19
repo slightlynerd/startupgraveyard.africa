@@ -15,9 +15,12 @@
           <h3 class="h5 fw-bold">
             {{ blog?.title }}
           </h3>
+          <p class="text-muted text-xs mb-1">
+            {{ blog?.createdAt }}
+          </p>
           <p
             v-if="!hideDescription"
-            class="mt-3"
+            class="mt-2"
             v-html="truncateText(blog?.bodyContent, truncateTextLength)"
           />
           <router-link

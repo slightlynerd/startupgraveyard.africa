@@ -11,6 +11,9 @@
       <h3 class="h5 fw-bold">
         {{ blog?.title }}
       </h3>
+      <p class="text-muted text-xs mb-2">
+        {{ blog?.createdAt }}
+      </p>
       <p
         v-if="!hideDescription"
         v-html="truncateText(blog?.bodyContent, RECENT_POST_TRUNCATE_LENGTH)"

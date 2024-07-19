@@ -55,6 +55,7 @@ import {
   query
 } from 'firebase/firestore';
 import sanitizeHtml from 'sanitize-html';
+import { format } from 'date-fns';
 
 // stores
 import { useBlogStore } from '~/stores/blog';
@@ -110,6 +111,7 @@ async function getBlogs (query: Query): Promise<void> {
         recentBlogPosts.value.push({
           ...blog,
           id: doc.id,
+          createdAt: format(blog.createdAt.toDate(), 'MMMM dd, yyyy'),
           bodyContent: sanitizeHtml(blog.bodyContent, {
             allowedTags: []
           })
