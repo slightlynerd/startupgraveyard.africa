@@ -109,6 +109,7 @@ const { data: posts } = await useAsyncData(
         recentPosts.push({
           ...blog,
           id: doc.id,
+          createdAt: format(blog.createdAt.toDate(), 'MMMM dd, yyyy'),
           bodyContent: sanitizeHtml(blog.bodyContent, {
             allowedTags: []
           })
@@ -122,6 +123,7 @@ const { data: posts } = await useAsyncData(
         featuredPosts.push({
           ...blog,
           id: doc.id,
+          createdAt: format(blog.createdAt.toDate(), 'MMMM dd, yyyy'),
           bodyContent: sanitizeHtml(blog.bodyContent, {
             allowedTags: []
           })
