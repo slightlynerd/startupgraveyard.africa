@@ -133,6 +133,7 @@ const { data: blogData } = await useAsyncData(
           recentBlogPosts.push({
             ...blog,
             id: doc.id,
+            createdAt: format(blog.createdAt.toDate(), 'MMMM dd, yyyy'),
             bodyContent: sanitizeHtml(blog.bodyContent, {
               allowedTags: []
             })
