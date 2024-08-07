@@ -533,11 +533,11 @@ export const startups: IStartup[] = [
     note: 'The company filed for bankruptcy in April 2024'
   },
   {
-    name: 'Copia Kenya',
+    name: 'Copia',
     shutdownDate: '2024-05',
     category: Category.Ecommerce,
     description: 'Copia was a mobile commerce platform that connected retailers and suppliers to consumers in rural Kenya.',
-    newsSource: 'https://techcabal.com/2024/05/24/copia-enters-into-administration-after-failing-to-secure-funding/',
+    newsSource: '/blog/copias-collapse-a-case-study',
     location: 'Kenya 🇰🇪',
     founded: '2013',
     raised: 123000000,
