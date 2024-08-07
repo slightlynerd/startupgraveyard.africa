@@ -623,5 +623,15 @@ export const startups: IStartup[] = [
     founded: '2020',
     raised: 33000000,
     publication: 'Afrikanheroes'
+  },
+  {
+    name: 'Chopnownow',
+    shutdownDate: '2024-02',
+    category: Category.FoodTech,
+    description: 'Chopnownow was a food delivery service that delivered meals to customers in Lagos, Nigeria.',
+    newsSource: 'https://techcabal.com/2024/07/24/chopnownow-founder-muses-on-food-delivery/',
+    location: 'Nigeria 🇳🇬',
+    founded: '2020',
+    publication: 'TechCabal'
   }
 ];

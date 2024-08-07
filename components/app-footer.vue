@@ -15,14 +15,7 @@
     <social-icons :facebook="FACEBOOK_URL" :x="X_URL" :linkedin="LINKEDIN_URL" />
     <div class="pt-4">
       <p class="text-center small">
-        &copy; 2023. Contributions are welcome on
-        <a
-          href="https://github.com/slightlynerd/startupgraveyard.africa"
-          target="_blank"
-          class="text-decoration-underline"
-        >
-          GitHub.
-        </a>
+        &copy; {{ new Date().getFullYear() }} Startup Graveyard
       </p>
     </div>
   </footer>
